@@ -29,7 +29,7 @@ public class Window {
     static final String BLACK = "#000000";
     static final String WHITE = "#FFFFFF";
     static final String GRAY = "#808080";
-    static final int[][] map = {{1, 1, 1, 1, 1}, {1, 0, 0, 0, 1}, {1, 0, 0, 0, 1}, {1, 0, 0, 0, 1}, {1, 1, 1, 1, 1}};
+    static final Map gameMap = new Map();
 
     public Window() throws IOException, URISyntaxException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("square.ttf");
@@ -83,6 +83,8 @@ public class Window {
         // Adjust the size of each cell (square) and border
         int cellSize = 64;
         int borderSize = 1;
+
+        int[][] map = gameMap.getMap();
 
         for (int y = 0; y < map.length; y++) {
             for (int x = 0; x < map[y].length; x++) {
