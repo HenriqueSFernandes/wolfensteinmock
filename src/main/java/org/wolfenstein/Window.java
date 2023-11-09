@@ -26,9 +26,10 @@ public class Window {
     static final int HEIGHT = 480;
     static final int TPS = 60;
     private final TerminalScreen screen;
-    static final String BLACK = "#FFFFFF";
-    static final String WHITE = "#000000";
+    static final String BLACK = "#000000";
+    static final String WHITE = "#FFFFFF";
     static final String GRAY = "#808080";
+    static final int[][] map = {{1, 1, 1, 1, 1}, {1, 0, 0, 0, 1}, {1, 0, 0, 0, 1}, {1, 0, 0, 0, 1}, {1, 1, 1, 1, 1}};
 
     public Window() throws IOException, URISyntaxException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("square.ttf");
@@ -79,6 +80,37 @@ public class Window {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(GRAY));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(WIDTH, HEIGHT), ' ');
+        // Adjust the size of each cell (square) and border
+        int cellSize = 64;
+        int borderSize = 1;
+
+        for (int y = 0; y < map.length; y++) {
+            for (int x = 0; x < map[y].length; x++) {
+                int cellValue = map[y][x];
+                TextColor cellColor;
+
+                if (cellValue == 0) {
+                    cellColor = TextColor.Factory.fromString(WHITE);
+                } else {
+                    cellColor = TextColor.Factory.fromString(BLACK);
+                }
+
+                for (int i = 0; i < cellSize; i++) {
+                    for (int j = 0; j < cellSize; j++) {
+                        // Draw the border
+                        if (i < borderSize || i >= cellSize - borderSize || j < borderSize || j >= cellSize - borderSize) {
+                            graphics.setBackgroundColor(TextColor.Factory.fromString(GRAY));
+                        } else {
+                            graphics.setBackgroundColor(cellColor);
+                        }
+
+                        // Draw the square
+                        graphics.putString(x * cellSize + i, y * cellSize + j, " ");
+                    }
+                }
+            }
+        }
+
         screen.refresh();
     }
 
