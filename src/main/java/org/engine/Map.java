@@ -1,4 +1,4 @@
-package org.wolfenstein;
+package org.engine;
 
 public class Map {
     private int[][] map;
@@ -14,4 +14,5 @@ public class Map {
     public void setMap(int[][] map) {
         this.map = map;
     }
+
 }

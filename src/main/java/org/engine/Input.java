@@ -1,4 +1,4 @@
-package org.wolfenstein;
+package org.engine;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.TerminalScreen;
