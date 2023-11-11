@@ -22,8 +22,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Window {
-    static final int WIDTH = 160;
-    static final int HEIGHT = 120;
+    static final int WIDTH = 240; //320;
+    static final int HEIGHT = 180; //240;
     static final int TPS = 60;
     private final TerminalScreen screen;
     static final String BLACK = "#000000";
@@ -42,7 +42,7 @@ public class Window {
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory();
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 8);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 4);
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
         factory.setTerminalEmulatorFontConfiguration(fontConfig);
         factory.setForceAWTOverSwing(true);

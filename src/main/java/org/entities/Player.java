@@ -1,7 +1,9 @@
 package org.entities;
 
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import org.engine.Position;
+import org.engine.Window;
 
 public class Player {
     Position position;
@@ -13,26 +15,29 @@ public class Player {
     }
 
     public void draw(TextGraphics graphics) {
-        graphics.putString(position.getX(), position.getY(), "Player");
         int lineX = position.getX() + (int) (10 * Math.cos(Math.toRadians(angle)));
         int lineY = position.getY() - (int) (10 * Math.sin(Math.toRadians(angle)));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#00FF00"));
         graphics.drawLine(position.getX(), position.getY(), lineX, lineY, ' ');
+        //graphics.setBackgroundColor(TextColor.Factory.fromString("#808080"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#FFFF00"));
+        graphics.setCharacter(position.getX(), position.getY(), ' ');
     }
 
     public void moveForward() {
-        double deltaX = Math.cos(Math.toRadians(angle));
-        double deltaY = Math.sin(Math.toRadians(angle));
+        double deltaX = 2 * Math.cos(Math.toRadians(angle));
+        double deltaY = 2 * Math.sin(Math.toRadians(angle));
 
         position.setX((int) (position.getX() + deltaX));
-        position.setY((int) (position.getY() + deltaY));
+        position.setY((int) (position.getY() - deltaY));
     }
 
     public void moveBackwards() {
-        double deltaX = Math.cos(Math.toRadians(angle));
-        double deltaY = Math.sin(Math.toRadians(angle));
+        double deltaX = 2 * Math.cos(Math.toRadians(angle));
+        double deltaY = 2 * Math.sin(Math.toRadians(angle));
 
         position.setX((int) Math.floor(position.getX() - deltaX));
-        position.setY((int) Math.floor(position.getY() - deltaY));
+        position.setY((int) Math.floor(position.getY() + deltaY));
     }
 
     public void rotateClockwise() {
