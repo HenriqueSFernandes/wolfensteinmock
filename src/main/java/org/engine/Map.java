@@ -12,7 +12,7 @@ public class Map {
                 {1,0,0,0,0,0,0,1},
                 {1,0,0,0,0,0,0,1},
                 {1,0,0,0,1,1,1,1},
-                {1,0,0,0,1,0,0,1},
+                {1,0,0,0,0,0,0,1},
                 {1,1,1,1,1,1,1,1},
         };
     }
@@ -32,4 +32,7 @@ public class Map {
         this.map = map;
     }
 
+    public int getValue(int x, int y){
+        return map[y][x];
+    }
 }

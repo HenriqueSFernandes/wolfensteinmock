@@ -22,15 +22,15 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Window {
-    static final Map gameMap = new Map();
+    public static final Map gameMap = new Map();
     static final int WIDTH = gameMap.getWidth() * 16; //16 is the cellSize;
     static final int HEIGHT = gameMap.getHeight() * 16;
     static final int TPS = 60;
     private final TerminalScreen screen;
-    static final String BLACK = "#000000";
-    static final String WHITE = "#FFFFFF";
-    static final String GRAY = "#808080";
-    Player player = new Player(new Position(100, 100));
+    public static final String BLACK = "#000000";
+    public static final String WHITE = "#FFFFFF";
+    public static final String GRAY = "#808080";
+    Player player = new Player(new Position(50, 50));
 
     public Window() throws IOException, URISyntaxException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("square.ttf");
