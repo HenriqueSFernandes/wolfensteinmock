@@ -4,7 +4,24 @@ public class Map {
     private int[][] map;
 
     public Map() {
-        this.map = new int[][]{{1, 1, 1, 1, 1}, {1, 0, 0, 0, 1}, {1, 0, 0, 0, 1}, {1, 0, 0, 0, 1}, {1, 1, 1, 1, 1}};
+
+        this.map = new int[][]{
+                {1,1,1,1,1,1,1,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,1,1,1,1},
+                {1,0,0,0,1,0,0,1},
+                {1,1,1,1,1,1,1,1},
+        };
+    }
+
+    public int getWidth(){
+        return map[0].length;
+    }
+    public int getHeight(){
+        return map.length;
     }
 
     public int[][] getMap() {

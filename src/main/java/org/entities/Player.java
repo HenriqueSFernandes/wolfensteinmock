@@ -3,7 +3,6 @@ package org.entities;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import org.engine.Position;
-import org.engine.Window;
 
 public class Player {
     Position position;
@@ -36,8 +35,8 @@ public class Player {
         double deltaX = 2 * Math.cos(Math.toRadians(angle));
         double deltaY = 2 * Math.sin(Math.toRadians(angle));
 
-        position.setX((int) Math.floor(position.getX() - deltaX));
-        position.setY((int) Math.floor(position.getY() + deltaY));
+        position.setX((int) (position.getX() - deltaX));
+        position.setY((int) (position.getY() + deltaY));
     }
 
     public void rotateClockwise() {

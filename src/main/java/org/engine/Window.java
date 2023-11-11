@@ -22,14 +22,14 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Window {
-    static final int WIDTH = 240; //320;
-    static final int HEIGHT = 180; //240;
+    static final Map gameMap = new Map();
+    static final int WIDTH = gameMap.getWidth() * 16; //16 is the cellSize;
+    static final int HEIGHT = gameMap.getHeight() * 16;
     static final int TPS = 60;
     private final TerminalScreen screen;
     static final String BLACK = "#000000";
     static final String WHITE = "#FFFFFF";
     static final String GRAY = "#808080";
-    static final Map gameMap = new Map();
     Player player = new Player(new Position(100, 100));
 
     public Window() throws IOException, URISyntaxException, FontFormatException {
@@ -81,7 +81,7 @@ public class Window {
         graphics.setBackgroundColor(TextColor.Factory.fromString(GRAY));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(WIDTH, HEIGHT), ' ');
         // Adjust the size of each cell (square) and border
-        int cellSize = 32;
+        int cellSize = 16;
         int borderSize = 1;
 
         int[][] map = gameMap.getMap();
