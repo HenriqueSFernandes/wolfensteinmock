@@ -22,5 +22,5 @@ test {
 }
 
 application {
-    mainClass.set("org.wolfenstein.Main")
+    mainClass.set("org.game.Main")
 }

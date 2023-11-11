@@ -1,8 +1,7 @@
-package org.wolfenstein;
+package org.engine;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -12,6 +11,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
+import org.entities.Player;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -22,14 +22,15 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Window {
-    static final int WIDTH = 640;
-    static final int HEIGHT = 480;
+    public static final Map gameMap = new Map();
+    static final int WIDTH = gameMap.getWidth() * 16; //16 is the cellSize;
+    static final int HEIGHT = gameMap.getHeight() * 16;
     static final int TPS = 60;
     private final TerminalScreen screen;
-    static final String BLACK = "#000000";
-    static final String WHITE = "#FFFFFF";
-    static final String GRAY = "#808080";
-    static final Map gameMap = new Map();
+    public static final String BLACK = "#000000";
+    public static final String WHITE = "#FFFFFF";
+    public static final String GRAY = "#808080";
+    Player player = new Player(new Position(50, 50));
 
     public Window() throws IOException, URISyntaxException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("square.ttf");
@@ -41,7 +42,7 @@ public class Window {
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory();
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 2);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 4);
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
         factory.setTerminalEmulatorFontConfiguration(fontConfig);
         factory.setForceAWTOverSwing(true);
@@ -64,15 +65,14 @@ public class Window {
     private void processKey(KeyStroke key) throws IOException {
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
             screen.stopScreen();
-        } //else {
-//            switch (key.getKeyType()) {
-//
-//                case ArrowUp ->
-//                case ArrowDown ->
-//                //case ArrowLeft ->
-//                //case ArrowRight ->
-//            }
-//        }
+        } else {
+            switch (key.getKeyType()) {
+                case ArrowLeft -> player.rotateAntiClockwise();
+                case ArrowRight -> player.rotateClockwise();
+                case ArrowUp -> player.moveForward();
+                case ArrowDown -> player.moveBackwards();
+            }
+        }
     }
 
     private void draw() throws IOException {
@@ -81,7 +81,7 @@ public class Window {
         graphics.setBackgroundColor(TextColor.Factory.fromString(GRAY));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(WIDTH, HEIGHT), ' ');
         // Adjust the size of each cell (square) and border
-        int cellSize = 64;
+        int cellSize = 16;
         int borderSize = 1;
 
         int[][] map = gameMap.getMap();
@@ -112,6 +112,7 @@ public class Window {
                 }
             }
         }
+        player.draw(graphics);
 
         screen.refresh();
     }
