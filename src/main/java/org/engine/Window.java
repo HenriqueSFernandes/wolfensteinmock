@@ -23,14 +23,15 @@ import java.net.URL;
 
 public class Window {
     public static final Map gameMap = new Map();
-    static final int WIDTH = gameMap.getWidth() * 16; //16 is the cellSize;
-    static final int HEIGHT = gameMap.getHeight() * 16;
+    public static final int CELLSIZE = 8;
+    public static final int WIDTH = gameMap.getWidth() * CELLSIZE; //16 is the cellSize;
+    public static final int HEIGHT = gameMap.getHeight() * CELLSIZE;
     static final int TPS = 60;
     private final TerminalScreen screen;
     public static final String BLACK = "#000000";
     public static final String WHITE = "#FFFFFF";
     public static final String GRAY = "#808080";
-    Player player = new Player(new Position(50, 50));
+    Player player = new Player(new Position(20, 20));
 
     public Window() throws IOException, URISyntaxException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("square.ttf");
@@ -81,7 +82,6 @@ public class Window {
         graphics.setBackgroundColor(TextColor.Factory.fromString(GRAY));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(WIDTH, HEIGHT), ' ');
         // Adjust the size of each cell (square) and border
-        int cellSize = 16;
         int borderSize = 1;
 
         int[][] map = gameMap.getMap();
@@ -97,17 +97,17 @@ public class Window {
                     cellColor = TextColor.Factory.fromString(BLACK);
                 }
 
-                for (int i = 0; i < cellSize; i++) {
-                    for (int j = 0; j < cellSize; j++) {
+                for (int i = 0; i < CELLSIZE; i++) {
+                    for (int j = 0; j < CELLSIZE; j++) {
                         // Draw the border
-                        if (i < borderSize || i >= cellSize - borderSize || j < borderSize || j >= cellSize - borderSize) {
+                        if (i < borderSize || i >= CELLSIZE - borderSize || j < borderSize || j >= CELLSIZE - borderSize) {
                             graphics.setBackgroundColor(TextColor.Factory.fromString(GRAY));
                         } else {
                             graphics.setBackgroundColor(cellColor);
                         }
 
                         // Draw the square
-                        graphics.putString(x * cellSize + i, y * cellSize + j, " ");
+                        graphics.putString(x * CELLSIZE + i, y * CELLSIZE + j, " ");
                     }
                 }
             }

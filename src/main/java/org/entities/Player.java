@@ -5,6 +5,9 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import org.engine.Position;
 import org.engine.Window;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     Position position;
     double angle;
@@ -19,6 +22,7 @@ public class Player {
         int lineY = position.getY() - (int) (10 * Math.sin(Math.toRadians(angle)));
         graphics.setBackgroundColor(TextColor.Factory.fromString("#00FF00"));
         graphics.drawLine(position.getX(), position.getY(), lineX, lineY, ' ');
+        rayCaster(graphics);
         //graphics.setBackgroundColor(TextColor.Factory.fromString("#808080"));
         graphics.setBackgroundColor(TextColor.Factory.fromString("#FFFF00"));
         graphics.setCharacter(position.getX(), position.getY(), ' ');
@@ -35,11 +39,18 @@ public class Player {
     }
 
     public void moveBackwards() {
-        double deltaX = 2 * Math.cos(Math.toRadians(angle));
-        double deltaY = 2 * Math.sin(Math.toRadians(angle));
-        if (checkCollisions((int) (position.getX() - deltaX), (int) (position.getY() + deltaY))) {
-            position.setX((int) (position.getX() - deltaX));
-            position.setY((int) (position.getY() + deltaY));
+//        double deltaX = 2 * Math.cos(Math.toRadians(angle));
+//        double deltaY = 2 * Math.sin(Math.toRadians(angle));
+//        if (checkCollisions((int) (position.getX() - deltaX), (int) (position.getY() + deltaY))) {
+//            position.setX((int) (position.getX() - deltaX));
+//            position.setY((int) (position.getY() + deltaY));
+//        }
+        double deltaX = 2 * Math.cos(Math.toRadians(angle + 180));
+        double deltaY = 2 * Math.sin(Math.toRadians(angle + 180));
+
+        if (checkCollisions((int) (position.getX() + deltaX), (int) (position.getY() - deltaY))) {
+            position.setX((int) (position.getX() + deltaX));
+            position.setY((int) (position.getY() - deltaY));
         }
     }
 
@@ -51,8 +62,55 @@ public class Player {
         angle = (angle + 10) % 360;
     }
 
-    private boolean checkCollisions(int x, int y) {
-        return (Window.gameMap.getValue(x / 16, y / 16) != 1); // 16 is the cell size
+    private void rayCaster(TextGraphics graphics) {
+        // TODO change the algorithm to a DDA algorithm.
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#0000FF"));
+        for (double rayAngle = angle - 35; rayAngle <= angle + 35; rayAngle += 0.5) {
+            List<Position> line = createLine(rayAngle);
+            for (Position point : line) {
+                graphics.setCharacter(point.getX(), point.getY(), ' ');
+            }
+
+        }
     }
+
+    private boolean checkCollisions(int x, int y) {
+        return (Window.gameMap.getValue(x / Window.CELLSIZE, y / Window.CELLSIZE) != 1);
+    }
+
+    public List<Position> createLine(double angle) {
+        // Creates a line using the Bresenham's line algorithm.
+        List<Position> line = new ArrayList<Position>();
+        int x1 = position.getX();
+        int y1 = position.getY();
+        int distance = 1000; // You may need to adjust this based on your requirements
+        int x2 = (int) (x1 + distance * Math.cos(Math.toRadians(angle)));
+        int y2 = (int) -(y1 + distance * Math.sin(Math.toRadians(angle)));
+        int dx = Math.abs(x2 - x1);
+        int dy = Math.abs(y2 - y1);
+        int sx = (x1 < x2) ? 1 : -1;
+        int sy = (y1 < y2) ? 1 : -1;
+
+        int err = dx - dy;
+
+        while (x1 != x2 || y1 != y2) {
+            if (!checkCollisions(x1, y1)) {
+                return line;
+            }
+            line.add(new Position(x1, y1));
+
+            int e2 = 2 * err;
+            if (e2 > -dy) {
+                err -= dy;
+                x1 += sx;
+            }
+            if (e2 < dx) {
+                err += dx;
+                y1 += sy;
+            }
+        }
+        return line;
+    }
+
 
 }
