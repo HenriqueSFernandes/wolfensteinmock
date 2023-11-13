@@ -59,7 +59,8 @@ public class Player {
     private void rayCaster(TextGraphics graphics) {
         // TODO change the algorithm to a DDA algorithm.
         graphics.setBackgroundColor(TextColor.Factory.fromString("#0000FF"));
-        for (double rayAngle = angle - 35; rayAngle <= angle + 35; rayAngle += 0.5) {
+        for (int x = 0; x < Window.WIDTH; x++) {
+            double rayAngle = angle - 35 + (70.0 * x / Window.WIDTH);
             List<Position> line = createLine(rayAngle);
 //            Raycaster Render
             for (Position point : line) {
