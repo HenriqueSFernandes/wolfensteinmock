@@ -15,7 +15,7 @@ public class Game {
     public Game() throws IOException, URISyntaxException, FontFormatException {
         gui = new LanternaGUI();
         state = new MenuState(new Menu());
-        gui.createScreen(460, 240);
+        gui.createScreen(460, 160);
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException {
@@ -24,7 +24,7 @@ public class Game {
     }
 
     private void start() throws IOException {
-        int FPS = 60;
+        int FPS = 120;
         int frameTime = 1000 / FPS;
 
         while (this.state != null) {
