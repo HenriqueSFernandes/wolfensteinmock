@@ -67,7 +67,7 @@ public class Player {
             }
             Position collisionPoint = line.get(line.size() - 1);
             int distanceToWall = (int) (Math.sqrt(Math.pow(collisionPoint.getX() - position.getX(), 2) + Math.pow(collisionPoint.getY() - position.getY(), 2)));
-            int wallHeight = distanceToWall != 0 ? (int) ((Window.HEIGHT) / distanceToWall) : Window.HEIGHT;
+            int wallHeight = distanceToWall != 0 ? (int) ((Window.HEIGHT * Window.CELLSIZE) / distanceToWall) : Window.HEIGHT;
             int drawStart = -wallHeight / 2 + Window.HEIGHT / 2;
             if (drawStart < 0) drawStart = 0;
             int drawEnd = wallHeight / 2 + Window.HEIGHT / 2;
@@ -77,7 +77,7 @@ public class Player {
             // Map wallX to the screen width
             int wallScreenX = (int) (Window.WIDTH * (0.5 + wallX / 2.0));
 
-            graphics.drawLine(wallScreenX + Window.WIDTH, drawStart, wallScreenX + Window.WIDTH, drawEnd, ' ');
+            graphics.drawLine(2 * Window.WIDTH - wallScreenX, drawStart, 2 * Window.WIDTH - wallScreenX, drawEnd, ' ');
 
         }
     }
