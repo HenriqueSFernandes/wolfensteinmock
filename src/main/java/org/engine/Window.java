@@ -47,7 +47,7 @@ public class Window {
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
         factory.setTerminalEmulatorFontConfiguration(fontConfig);
         factory.setForceAWTOverSwing(true);
-        factory.setInitialTerminalSize(new TerminalSize(WIDTH, HEIGHT));
+        factory.setInitialTerminalSize(new TerminalSize(WIDTH * 2, HEIGHT));
 
         Terminal terminal = factory.createTerminal();
         ((AWTTerminalFrame) terminal).addWindowListener(new WindowAdapter() {
@@ -80,7 +80,7 @@ public class Window {
         screen.clear();
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(GRAY));
-        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(WIDTH, HEIGHT), ' ');
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(WIDTH * 2, HEIGHT), ' ');
         // Adjust the size of each cell (square) and border
         int borderSize = 1;
 
@@ -96,7 +96,7 @@ public class Window {
                 } else {
                     cellColor = TextColor.Factory.fromString(BLACK);
                 }
-
+//                  RENDER GRID
                 for (int i = 0; i < CELLSIZE; i++) {
                     for (int j = 0; j < CELLSIZE; j++) {
                         // Draw the border

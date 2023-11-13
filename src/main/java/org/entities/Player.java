@@ -18,14 +18,14 @@ public class Player {
     }
 
     public void draw(TextGraphics graphics) {
-        int lineX = position.getX() + (int) (10 * Math.cos(Math.toRadians(angle)));
-        int lineY = position.getY() - (int) (10 * Math.sin(Math.toRadians(angle)));
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#00FF00"));
-        graphics.drawLine(position.getX(), position.getY(), lineX, lineY, ' ');
+        //int lineX = position.getX() + (int) (10 * Math.cos(Math.toRadians(angle)));
+        //int lineY = position.getY() - (int) (10 * Math.sin(Math.toRadians(angle)));
+        //graphics.setBackgroundColor(TextColor.Factory.fromString("#00FF00"));
+        //graphics.drawLine(position.getX(), position.getY(), lineX, lineY, ' ');
         rayCaster(graphics);
         //graphics.setBackgroundColor(TextColor.Factory.fromString("#808080"));
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#FFFF00"));
-        graphics.setCharacter(position.getX(), position.getY(), ' ');
+        //graphics.setBackgroundColor(TextColor.Factory.fromString("#FFFF00"));
+        //graphics.setCharacter(position.getX(), position.getY(), ' ');
     }
 
     public void moveForward() {
@@ -39,12 +39,6 @@ public class Player {
     }
 
     public void moveBackwards() {
-//        double deltaX = 2 * Math.cos(Math.toRadians(angle));
-//        double deltaY = 2 * Math.sin(Math.toRadians(angle));
-//        if (checkCollisions((int) (position.getX() - deltaX), (int) (position.getY() + deltaY))) {
-//            position.setX((int) (position.getX() - deltaX));
-//            position.setY((int) (position.getY() + deltaY));
-//        }
         double deltaX = 2 * Math.cos(Math.toRadians(angle + 180));
         double deltaY = 2 * Math.sin(Math.toRadians(angle + 180));
 
@@ -67,9 +61,23 @@ public class Player {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#0000FF"));
         for (double rayAngle = angle - 35; rayAngle <= angle + 35; rayAngle += 0.5) {
             List<Position> line = createLine(rayAngle);
+//            Raycaster Render
             for (Position point : line) {
                 graphics.setCharacter(point.getX(), point.getY(), ' ');
             }
+            Position collisionPoint = line.get(line.size() - 1);
+            int distanceToWall = (int) (Math.sqrt(Math.pow(collisionPoint.getX() - position.getX(), 2) + Math.pow(collisionPoint.getY() - position.getY(), 2)));
+            int wallHeight = distanceToWall != 0 ? (int) ((Window.HEIGHT) / distanceToWall) : Window.HEIGHT;
+            int drawStart = -wallHeight / 2 + Window.HEIGHT / 2;
+            if (drawStart < 0) drawStart = 0;
+            int drawEnd = wallHeight / 2 + Window.HEIGHT / 2;
+            if (drawEnd >= Window.HEIGHT) drawEnd = Window.HEIGHT - 1;
+            double wallX = Math.tan(Math.toRadians(rayAngle - angle));
+
+            // Map wallX to the screen width
+            int wallScreenX = (int) (Window.WIDTH * (0.5 + wallX / 2.0));
+
+            graphics.drawLine(wallScreenX + Window.WIDTH, drawStart, wallScreenX + Window.WIDTH, drawEnd, ' ');
 
         }
     }
