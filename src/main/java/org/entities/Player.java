@@ -70,8 +70,7 @@ public class Player {
             Position collisionPoint = line.get(line.size() - 1);
             double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - position.getX(), 2) + Math.pow(collisionPoint.getY() - position.getY(), 2));
             distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - angle))); // TODO Fisheye correction not working when the angle is 90 or 270.
-            int color = mapColor(distanceToWall);
-            graphics.setBackgroundColor(TextColor.Factory.fromString("#0000" + String.format("%02X", color)));
+            graphics.setBackgroundColor(mapColor(distanceToWall));
             int maxWallHeight = Window.HEIGHT;
             int wallHeight = (int) ((Window.HEIGHT * Window.CELLSIZE) / distanceToWall);
             int drawStart = -wallHeight / 2 + Window.HEIGHT / 2;
@@ -130,9 +129,11 @@ public class Player {
         return line;
     }
 
-    int mapColor(double distance) {
+    TextColor.RGB mapColor(double distance) {
         // TODO make this function safer (add checks for making sure the value is between something and 255).
-        return (int) Math.ceil(-0.400 * distance + 255);
+        int brightness = (int)Math.ceil(-0.9 * distance + 255);
+        return new TextColor.RGB(brightness, brightness, brightness);
+
     }
 
 

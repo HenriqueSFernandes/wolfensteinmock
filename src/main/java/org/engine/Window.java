@@ -28,9 +28,9 @@ public class Window {
     public static final int HEIGHT = gameMap.getHeight() * CELLSIZE;
     static final int TPS = 60;
     private final TerminalScreen screen;
-    public static final String BLACK = "#000000";
-    public static final String WHITE = "#FFFFFF";
-    public static final String GRAY = "#808080";
+    public static final TextColor.RGB BLACK = new TextColor.RGB(0, 0, 0);
+    public static final TextColor.RGB WHITE = new TextColor.RGB(255, 255, 255);
+    public static final TextColor.RGB GRAY = new TextColor.RGB(128, 128, 128);
     Player player = new Player(new Position(20, 20));
 
     public Window() throws IOException, URISyntaxException, FontFormatException {
@@ -79,7 +79,7 @@ public class Window {
     private void draw() throws IOException {
         screen.clear();
         TextGraphics graphics = screen.newTextGraphics();
-        graphics.setBackgroundColor(TextColor.Factory.fromString(GRAY));
+        graphics.setBackgroundColor(GRAY);
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(WIDTH * 2, HEIGHT), ' ');
         // Adjust the size of each cell (square) and border
         int borderSize = 1;
@@ -92,16 +92,16 @@ public class Window {
                 TextColor cellColor;
 
                 if (cellValue == 0) {
-                    cellColor = TextColor.Factory.fromString(WHITE);
+                    cellColor = WHITE;
                 } else {
-                    cellColor = TextColor.Factory.fromString(BLACK);
+                    cellColor = BLACK;
                 }
 //                  RENDER GRID
                 for (int i = 0; i < CELLSIZE; i++) {
                     for (int j = 0; j < CELLSIZE; j++) {
                         // Draw the border
                         if (i < borderSize || i >= CELLSIZE - borderSize || j < borderSize || j >= CELLSIZE - borderSize) {
-                            graphics.setBackgroundColor(TextColor.Factory.fromString(GRAY));
+                            graphics.setBackgroundColor(GRAY);
                         } else {
                             graphics.setBackgroundColor(cellColor);
                         }
