@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 public class Main {
     public static void main(String[] args) {
          try {
-            Window window = new Window();
+            Window window = Window.getWindow();
             window.run();
         } catch (IOException | URISyntaxException | FontFormatException | InterruptedException e) {
             throw new RuntimeException(e);

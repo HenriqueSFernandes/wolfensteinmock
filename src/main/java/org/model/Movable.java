@@ -1,6 +1,5 @@
 package org.model;
 
-import org.model.Position;
 import org.view.Window;
 
 public abstract class Movable {
@@ -29,5 +28,7 @@ public abstract class Movable {
     public void rotateAntiClockwise() {
         angle = (angle + 10) % 360;
     }
-    private boolean checkCollisions(int x, int y) { return (Window.gameMap.getValue(x / 16, y / 16) != 1); }
+    public boolean checkCollisions(int x, int y) {
+        return (Window.gameMap.getValue(x / Window.CELLSIZE, y / Window.CELLSIZE) != 1);
+    }
 }
