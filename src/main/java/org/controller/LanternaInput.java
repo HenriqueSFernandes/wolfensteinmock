@@ -1,17 +1,17 @@
-package org.engine;
+package org.controller;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.TerminalScreen;
+import org.view.LanternaScreen;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Input extends Thread{
+public class LanternaInput extends Thread{
     public final Queue<KeyStroke> keyStrokeQueue = new LinkedList<KeyStroke>();
-    private final TerminalScreen screen;
+    private final LanternaScreen screen;
 
-    public Input(TerminalScreen screen) {
+    public LanternaInput(LanternaScreen screen) {
         this.screen = screen;
     }
 

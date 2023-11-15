@@ -1,4 +1,4 @@
-package org.engine;
+package org.model;
 
 import java.util.Objects;
 

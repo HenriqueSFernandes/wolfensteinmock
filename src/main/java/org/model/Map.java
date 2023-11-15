@@ -1,4 +1,4 @@
-package org.engine;
+package org.model;
 
 public class Map {
     private int[][] map;
