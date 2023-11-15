@@ -26,7 +26,7 @@ public class Window {
 
     public Window() throws IOException, URISyntaxException, FontFormatException {
         screen = new LanternaScreen();
-        screen.createScreen(WIDTH, HEIGHT);
+        screen.createScreen(WIDTH * 2, HEIGHT);
         screenDrawer = new ScreenDrawer(screen, gameMap);
         spawnEntities();
     }

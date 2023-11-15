@@ -33,7 +33,7 @@ public class ScreenDrawer {
     public void draw() throws IOException, URISyntaxException, FontFormatException {
         screen.clear();
         graphics.setBackgroundColor(GRAY);
-        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(WIDTH, HEIGHT), ' ');
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(WIDTH * 2, HEIGHT), ' ');
         // Adjust the size of each cell (square) and border
         int borderSize = 1;
 
