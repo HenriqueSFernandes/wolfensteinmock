@@ -1,8 +1,20 @@
-## LDTS_T1G06 - Wolfenstein Mock
+# LDTS_T1G06 - Wolfenstein Mock
 
-> (Pequeno resumo do jogo).
+> As the title states, this game is a mock version of Wolfenstein 3D, a game released in 1992 which is considered the *grandfather of 3D shooters*.
+> It was one of the first games that presented 3D graphics, using a raycasting engine to achieve that goal. 
+> 
 
 This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo Oliveira for LDTS 23/24.
+
+## Table of Contents
+
+1. [Gameplay](#gameplay)
+2. [Implemented features](#implemented-features)
+3. [Planned Features](#planned-features)
+4. [Design](#design)
+
+### Gameplay
+
 
 ### IMPLEMENTED FEATURES
 
@@ -14,6 +26,8 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 - **Enemies** - The game will present different enemies with different behaviours.
 - **Shooting** - The player will possess a gun and ammunition and my launch projectiles to defeat the enemy.
 - **Health and Ammo Packs** - The player will be able to pick up packs in order to replenish his health and ammo.
+- **Sound effects** - Soundtrack and/or sound effects (gunshot noises, footsteps, etc).
+- **HUD** - HUD to visualize health and ammunition.
 
 ### DESIGN
 
