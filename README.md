@@ -1,8 +1,9 @@
 # LDTS_T1G06 - Wolfenstein Mock
 
-> As the title states, this game is a mock version of Wolfenstein 3D, a game released in 1992 which is considered the *grandfather of 3D shooters*.
-> It was one of the first games that presented 3D graphics, using a raycasting engine to achieve that goal. 
-> 
+> As the title states, this game is a mock version of Wolfenstein 3D, a game released in 1992 which is considered the
+*grandfather of 3D shooters*.
+> It was one of the first games that presented 3D graphics, using a raycasting engine to achieve that goal.
+>
 
 This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo Oliveira for LDTS 23/24.
 
@@ -15,6 +16,9 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 ### Gameplay
 
+<p align="center">
+    <img src="docs/gifs/wolfensteinmock2.gif">
+</p>
 
 ### IMPLEMENTED FEATURES
 
@@ -35,21 +39,26 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 **Problem in Context**
 
-The game screen consists of two parts, the player view and the map of the room he is in. However drawing the player camera depends on the map and drawing the map depends on the player. This is a violation of the DIP(Dependency Inversion Principle)
+The game screen consists of two parts, the player view and the map of the room he is in. However drawing the player
+camera depends on the map and drawing the map depends on the player. This is a violation of the DIP(Dependency Inversion
+Principle)
 
 **The Pattern**
 
-The Factory Design Pattern can help us to avoid the circular dependencies. By creating a class to act as an interface between the player and map, both of these will depend on the inferface, making the dependency non-circular.
+The Factory Design Pattern can help us to avoid the circular dependencies. By creating a class to act as an interface
+between the player and map, both of these will depend on the inferface, making the dependency non-circular.
 
 **Implementation**
 
-A class Camera (it was not named Screen to avoid confusion with the Lanterna Library) was created in order to act as an interface between the Player and Map classes.
+A class Camera (it was not named Screen to avoid confusion with the Lanterna Library) was created in order to act as an
+interface between the Player and Map classes.
 
 **Consequences**
 
 - The Player and Map classes were sucessfully isolated and no longer depend on eachother.
 - The Camera class allows for further extension to the screen if desired (for example to switch to the menu screen).
-- Ensures simplicity for the client, who only needs to request screen drawing from the Camera class, instead of every sing individual component.
+- Ensures simplicity for the client, who only needs to request screen drawing from the Camera class, instead of every
+  sing individual component.
 
 #### KNOWN CODE SMELLS
 
