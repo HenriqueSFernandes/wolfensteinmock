@@ -1,7 +1,7 @@
 # LDTS_T1G06 - Wolfenstein Mock
 
 > As the title states, this game is a mock version of Wolfenstein 3D, a game released in 1992 which is considered the
-*grandfather of 3D shooters*.
+_grandfather of 3D shooters_.
 > It was one of the first games that presented 3D graphics, using a raycasting engine to achieve that goal.
 >
 
@@ -12,7 +12,10 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 1. [Gameplay](#gameplay)
 2. [Implemented features](#implemented-features)
 3. [Planned Features](#planned-features)
-4. [Design](#design)
+4. [Current Bugs](#current-bugs)
+5. [Design](#design)
+
+---
 
 ### Gameplay
 
@@ -20,9 +23,22 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
     <img src="docs/gifs/wolfensteinmock2.gif">
 </p>
 
+> Use the arrows to move.  
+> - Left arrow makes the player look to the left.  
+> - Right arrow makes the player look to the right.  
+> - Up arrow makes the player move forward.  
+> - Down arrow makes the player move backward.
+
+---
+
 ### IMPLEMENTED FEATURES
 
-- **3D View** - The game character has a 3D view based on raycasting.
+- **2D View** - The player has a top-down view of the map. This feature is going to be removed, since its only purpose
+  is to test if the 3D view is correct.
+- **3D View** - The game character has a 3D view based on _raycasting_.
+- **Basic Lighting System** - The walls that are far away from the player are darker, while the one that are near the
+  player are brighter.
+- **Collision System** - The player cannot go through walls.
 
 ### PLANNED FEATURES
 
@@ -33,7 +49,34 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 - **Sound effects** - Soundtrack and/or sound effects (gunshot noises, footsteps, etc).
 - **HUD** - HUD to visualize health and ammunition.
 
+### Known Bugs
+
+- _Fisheye_ effect when the player is looking to the north side of walls.
+- The menu is too small due to the font size. For now, when the game opens the selected option is "Start" and the next
+  option is "Exit".
+- Due to the coordinates being stored as integers, depending on the angle the player might not move forward in the direction it is looking.
+- In some instances, the player may continue moving even after releasing the key. This is caused by the way the input is handled.
+
+---
+
 ### DESIGN
+
+#### _Raycasting_ Engine
+
+The chosen algorithm for converting the 2D map to a 3D view is called _Raycasting_, which is the same algorithm as the one used in the original _Wolfenstein_.
+
+The process begins with the player's viewpoint in the 2D map. For each vertical column of pixels on the screen, a ray is cast into the map from the player's position. As the ray travels, it checks for intersections with walls. The distance to the first intersection is used to determine the apparent height of the wall on the screen. This information is then used to render the 3D view, giving the player the perception of depth and distance.
+
+Raycasting doesn't involve the complex 3D rendering techniques seen in modern games but rather simulates the effect using clever calculations. Despite its simplicity, raycasting was a revolutionary approach in early game development and played a crucial role in shaping the visual style of early first-person shooters.
+
+### _Fisheye_ Effect
+
+Since the distance to the walls is calculated in a straight line, the objects at the center are closer than objects on the left/right, thus appearing bigger.  
+This behaviour can be corrected using simple trigonometry.
+
+<p align="center">
+    <img src="docs/images/fisheye.png">
+</p>
 
 #### DRAWING THE MAP AND PLAYER VIEW ON THE SCREEN
 
@@ -46,7 +89,7 @@ Principle)
 **The Pattern**
 
 The Factory Design Pattern can help us to avoid the circular dependencies. By creating a class to act as an interface
-between the player and map, both of these will depend on the inferface, making the dependency non-circular.
+between the player and map, both of these will depend on the interface, making the dependency non-circular.
 
 **Implementation**
 
@@ -55,7 +98,7 @@ interface between the Player and Map classes.
 
 **Consequences**
 
-- The Player and Map classes were sucessfully isolated and no longer depend on eachother.
+- The Player and Map classes were successfully isolated and no longer depend on eachother.
 - The Camera class allows for further extension to the screen if desired (for example to switch to the menu screen).
 - Ensures simplicity for the client, who only needs to request screen drawing from the Camera class, instead of every
   sing individual component.
