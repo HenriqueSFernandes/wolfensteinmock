@@ -22,12 +22,14 @@ public class PositionTest {
         assertEquals(x - 2, position.moveForward().getX());
         assertEquals(x + 2, position.moveBackwards().getX());
     }
+
     @Property
     void moveDownTest(@ForAll @IntRange(max = Integer.MAX_VALUE - 2) int y) {
         position = new Position(0, y, 270);
         assertEquals(y + 2, position.moveForward().getY());
         assertEquals(y - 2, position.moveBackwards().getY());
     }
+
     @Property
     void moveUpTest(@ForAll @IntRange(max = Integer.MAX_VALUE - 2) int y) {
         position = new Position(0, y, 90);

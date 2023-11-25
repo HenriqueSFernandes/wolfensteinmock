@@ -4,10 +4,14 @@ package org.wolfenstein.model;
 
 public class Map {
     private int[][] map;
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
     private final int cellsize = 8;
-    public void setMap(int[][] map) { this.map = map; }
+    public void setMap(int[][] map) {
+        this.map = map;
+        this.height = map.length;
+        this.width = map[0].length;
+    }
     public int[][] getMap() { return map; }
     public int getXY(int x, int y) { return map[y][x]; }
     public int getHeight() {
