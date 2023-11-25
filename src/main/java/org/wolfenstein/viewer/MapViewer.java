@@ -3,8 +3,8 @@ package org.wolfenstein.viewer;
 import org.wolfenstein.GUI.GUI;
 import org.wolfenstein.model.Map;
 
-public class PlayerViewer extends Viewer<Map> {
-    public PlayerViewer(Map model) {
+public class MapViewer extends Viewer<Map> {
+    public MapViewer(Map model) {
         super(model);
     }
 

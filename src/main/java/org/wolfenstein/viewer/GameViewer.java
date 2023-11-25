@@ -8,10 +8,10 @@ public class GameViewer extends Viewer<Camera> {
     public GameViewer(Camera model) {
         super(model);
     }
-    private final PlayerViewer playerViewer = new PlayerViewer(getModel().getMap());
+    private final MapViewer mapViewer = new MapViewer(getModel().getMap());
     @Override
     protected void drawElements(GUI gui) {
-        playerViewer.drawElements(gui);
+        mapViewer.drawElements(gui);
         gui.drawPlayerCamera(getModel().getPlayer().getPosition(), getModel().getMap());
     }
 }
