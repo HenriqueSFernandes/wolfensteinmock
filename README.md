@@ -95,6 +95,10 @@ between the player and map, both of these will depend on the interface, making t
 
 A class Camera (it was not named Screen to avoid confusion with the Lanterna Library) was created in order to act as an
 interface between the Player and Map classes.
+Example of the comunication between classes when the Player moves:
+<p align="center">
+    <img src="docs/images/camera_implementation.drawio.png">
+</p>
 
 **Consequences**
 
