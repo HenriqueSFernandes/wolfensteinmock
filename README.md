@@ -103,6 +103,45 @@ interface between the Player and Map classes.
 - Ensures simplicity for the client, who only needs to request screen drawing from the Camera class, instead of every
   sing individual component.
 
+#### THERE CAN ONLY BE ONE PLAYER AND ONE CAMERA
+
+**Problem in Context**
+
+It may be necessary to access the Player or Camera classes from different locations of the program. It is important that when we do, we access the instance of Player and Camera that are already running instead of new ones, so that alterations may take effect.
+
+**The Pattern**
+
+The Singleton pattern will make it impossible to create more than one instance of a class, so it is perfect for this problem.
+
+**Implementation**
+
+The classes Player and Camera each have a private instance of itself and a private constructor to prevent the creation of new instances. Instead the singular instance is acquired by calling a separate function which returns the singular private instance, or calls the constructor if the instance does not exist yet.
+
+**Consequences**
+
+- The Player and Camera can now be accessed from any point of the program.
+- The consistency of information in both classes is assured.
+
+#### UPDATING THE SCREEN
+
+**Problem in Context**
+
+The game functions by having a state that takes a step every loop. It is necessary that every time this step occurs, all of the elements of the screen are updated.
+
+**The Pattern**
+
+The Observer pattern creates a mechanism to support these updates. By creating a many-to-one dependency a singular update to a class can notify all the others they should update as well.
+
+**Implementation**
+
+Any controllers implemented (except for the menu controller) are observers of the GameController class. When this class takes a step in state, it calls all the other classes' step methods as well. The same happens for the viewers.
+
+**Consequences**
+
+- If more elements are added to the game, their updates will be easy to implement.
+- Although they have been aggregated, it is still possible to only notify some observers if desired.
+- Ensures consistency controller and viewer-wise by forcing all step methods to be called "at the same time". 
+
 #### KNOWN CODE SMELLS
 
 We have not searched for code smells yet.
