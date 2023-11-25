@@ -139,12 +139,30 @@ The Observer pattern creates a mechanism to support these updates. By creating a
 **Implementation**
 
 Any controllers implemented (except for the menu controller) are observers of the GameController class. When this class takes a step in state, it calls all the other classes' step methods as well. The same happens for the viewers.
+Sequence diagram of a step in the game loop:
+<p align="center">
+    <img src="docs/images/observer_implementation.drawio.png">
+</p>
 
 **Consequences**
 
 - If more elements are added to the game, their updates will be easy to implement.
 - Although they have been aggregated, it is still possible to only notify some observers if desired.
-- Ensures consistency controller and viewer-wise by forcing all step methods to be called "at the same time". 
+- Ensures consistency controller and viewer-wise by forcing all step methods to be called "at the same time".
+
+#### CHANGING BETWEEN MENU SCREEN AND GAME SCREEN
+
+**Problem in context**
+
+It is required for the player to be able to change between the menu and the actual game screen. So, we need a way to distinguish which screen we are in as well as transition between screens.
+
+**The Pattern**
+
+The State pattern offers a solution to our problem by allowing an object to alter its behaviour when the state changes.
+
+**Implementation**
+
+A State class was created with two derived classes MenuState and GameState, certain key presses allow to transition between them and by having the current state saved in the game loop it is always possible to print the correct screen as well as change to a new one.
 
 #### KNOWN CODE SMELLS
 
