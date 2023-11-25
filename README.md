@@ -44,7 +44,7 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 - **Multiple Rooms** - The overall game will be a sequence of rooms/levels connected by doors to one another.
 - **Enemies** - The game will present different enemies with different behaviours.
-- **Shooting** - The player will possess a gun and ammunition and my launch projectiles to defeat the enemy.
+- **Shooting** - The player will possess a gun and ammunition and may launch projectiles to defeat the enemy.
 - **Health and Ammo Packs** - The player will be able to pick up packs in order to replenish his health and ammo.
 - **Sound effects** - Soundtrack and/or sound effects (gunshot noises, footsteps, etc).
 - **HUD** - HUD to visualize health and ammunition.
