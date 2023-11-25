@@ -36,4 +36,7 @@ public class PositionTest {
         assertEquals(y - 2, position.moveForward().getY());
         assertEquals(y + 2, position.moveBackwards().getY());
     }
+
+    //RotateTest
+    //Go&GoBackTest
 }
