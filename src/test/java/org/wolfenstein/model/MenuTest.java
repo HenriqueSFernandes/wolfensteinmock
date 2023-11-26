@@ -1,17 +1,9 @@
 package org.wolfenstein.model;
 
-import net.jqwik.api.Arbitrary;
-import net.jqwik.api.ForAll;
-import net.jqwik.api.Property;
-import net.jqwik.api.Provide;
-import net.jqwik.api.constraints.IntRange;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Equality;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MenuTest {
@@ -25,6 +17,7 @@ public class MenuTest {
     Boolean[] selected = {true, false, false, false, false};
     @Test
     void isSelectedTest() {
+        //isSelectedStart and isSelectedExit are just calls to the isSelected function set for a specific menu
         for (int i = 0; i < 5; i++) {
             assertEquals(selected[i], testMenu.isSelected(i));
         }
