@@ -13,9 +13,8 @@ public class Game {
     private final LanternaGUI gui;
     private State state;
     public Game() throws IOException, URISyntaxException, FontFormatException {
-        gui = new LanternaGUI();
+        gui = new LanternaGUI(460, 100);
         state = new MenuState(new Menu());
-        gui.createScreen(460, 160);
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException {
