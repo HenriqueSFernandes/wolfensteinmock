@@ -179,7 +179,7 @@ We have not searched for code smells yet.
 
 ### TESTING
 
-Testing?
+Basic testing has been done with JUnit for unit testing, Mockito for mocks and dependency injection and JQwik for property-based testing. Although the testing process it still far from concluded
 
 ### SELF-EVALUATION
 
