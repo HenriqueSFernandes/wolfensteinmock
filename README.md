@@ -165,7 +165,7 @@ The State pattern offers a solution to our problem by allowing an object to alte
 A State class was created with two derived classes MenuState and GameState, certain key presses allow to transition between them and by having the current state saved in the game loop it is always possible to print the correct screen as well as change to a new one.
 State Diagram of the current game:
 <p align="center">
-<img src"docs/images/state_implementation.drawio.png">
+<img src="docs/images/state_implementation.drawio.png">
 </p>
 
 **Conseqences**
