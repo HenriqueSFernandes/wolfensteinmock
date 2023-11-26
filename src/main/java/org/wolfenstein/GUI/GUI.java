@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public interface GUI {
-    public void createScreen(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException;
     public void stopScreen() throws IOException;
     public void refresh() throws IOException;
     public void clear();

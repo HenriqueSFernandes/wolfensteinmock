@@ -31,7 +31,7 @@ public class LanternaGUI implements GUI {
     public static final TextColor.RGB GRAY = new TextColor.RGB(128, 128, 128);
     public static TextGraphics graphics;
 
-    public void createScreen(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
+    public LanternaGUI(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("square.ttf");
         File fontFile = new File(resource.toURI());
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
@@ -60,6 +60,13 @@ public class LanternaGUI implements GUI {
         screen.startScreen();
         screen.doResizeIfNecessary();
         graphics = screen.newTextGraphics();
+    }
+
+    // For testing purposes only
+    public LanternaGUI(TerminalScreen screen, TextGraphics textGraphics) throws IOException {
+        this.screen = screen;
+        graphics = textGraphics;
+        screen.startScreen();
     }
 
     public void stopScreen() throws IOException {
@@ -166,7 +173,7 @@ public class LanternaGUI implements GUI {
         }
     }
 
-    public List<Position> createLine(double angle, Position playerPosition, Map map) {
+    private List<Position> createLine(double angle, Position playerPosition, Map map) {
         // Creates a line using the Bresenham's line algorithm.
         List<Position> line = new ArrayList<>();
         int x1 = playerPosition.getX();
@@ -206,7 +213,6 @@ public class LanternaGUI implements GUI {
     }
 
     TextColor.RGB mapColor(double distance) {
-        // TODO make this function safer (add checks for making sure the value is between something and 255).
         int brightness = (int)Math.ceil(-0.9 * distance + 255);
         if (brightness < 0) brightness = 0;
         return new TextColor.RGB(brightness, brightness, brightness);
