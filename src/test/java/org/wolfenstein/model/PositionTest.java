@@ -2,7 +2,6 @@ package org.wolfenstein.model;
 
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
-import net.jqwik.api.constraints.DoubleRange;
 import net.jqwik.api.constraints.IntRange;
 import net.jqwik.api.constraints.Positive;
 
@@ -62,7 +61,7 @@ public class PositionTest {
         for(int j = 0; j < 4; j++) {
             position = position.moveForward();
             for (int i = 0; i < 9; i++) {
-                position = position.rotateAntiClockwise();
+                position = position.rotateClockwise();
             }
         }
         assertEquals(x, position.getX());
