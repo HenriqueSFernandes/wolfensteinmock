@@ -206,7 +206,6 @@ public class LanternaGUI implements GUI {
     }
 
     TextColor.RGB mapColor(double distance) {
-        // TODO make this function safer (add checks for making sure the value is between something and 255).
         int brightness = (int)Math.ceil(-0.9 * distance + 255);
         if (brightness < 0) brightness = 0;
         return new TextColor.RGB(brightness, brightness, brightness);
