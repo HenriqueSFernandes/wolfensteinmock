@@ -17,27 +17,26 @@ public class LanternaGUITest {
     Terminal mockTerminal = Mockito.mock(Terminal.class);
     TerminalScreen mockScreen = new TerminalScreen(mockTerminal);
     public LanternaGUITest() throws IOException {mockScreen.close();}
+    @Test
+    void createScreenTest() {
 
+    }
     @Test
     void getNextActionTest() {
 
     }
-
     @Test
     void drawMapTest() {
 
     }
-
     @Test
     void drawText() {
 
     }
-
     @Test
     void drawPlayerCameraTest() {
 
     }
-
     @Test
     void createLineTest() {
 
