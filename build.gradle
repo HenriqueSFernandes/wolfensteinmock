@@ -14,6 +14,12 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.1'
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.7.0'
+    // https://mvnrepository.com/artifact/net.jqwik/jqwik
+    testImplementation group: 'net.jqwik', name: 'jqwik', version: '1.8.2'
+
+
 }
 
 test {

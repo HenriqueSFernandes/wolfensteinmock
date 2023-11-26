@@ -10,6 +10,7 @@ public class Menu {
     public Menu() {
         this.entries = Arrays.asList("Start", "Exit");
     }
+    public Menu(List<String> ent) { entries = ent;}
 
     public void nextEntry() {
         currentEntry++;
