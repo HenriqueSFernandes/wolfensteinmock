@@ -13,18 +13,18 @@ public class Position {
     public Position moveForward() {
         double deltaX = 2 * Math.cos(Math.toRadians(angle));
         double deltaY = 2 * Math.sin(Math.toRadians(angle));
-        return new Position((int) (x + deltaX), (int) (y - deltaY), this.angle);
+        return new Position(x + (int)deltaX, y - (int)deltaY, this.angle);
     }
     public Position moveBackwards() {
         double deltaX = 2 * Math.cos(Math.toRadians(angle));
         double deltaY = 2 * Math.sin(Math.toRadians(angle));
-        return new Position((int) (x - deltaX), (int) (y + deltaY), this.angle);
+        return new Position(x - (int)deltaX, y + (int)deltaY, this.angle);
     }
     public Position rotateClockwise() {
-        return new Position(this.x, this.y, (angle - 10 + 360) % 360);  // 10 is the rotation speed
+        return new Position(this.x, this.y, (angle - 10 + 360) % 360.0);  // 10 is the rotation speed
     }
     public Position rotateAntiClockwise() {
-        return new Position(this.x, this.y, (angle + 10) % 360);
+        return new Position(this.x, this.y, (angle + 10) % 360.0);
     }
     public int getX() { return x; }
     public int getY() { return y; }
