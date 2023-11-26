@@ -44,7 +44,7 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 - **Multiple Rooms** - The overall game will be a sequence of rooms/levels connected by doors to one another.
 - **Enemies** - The game will present different enemies with different behaviours.
-- **Shooting** - The player will possess a gun and ammunition and my launch projectiles to defeat the enemy.
+- **Shooting** - The player will possess a gun and ammunition and may launch projectiles to defeat the enemy.
 - **Health and Ammo Packs** - The player will be able to pick up packs in order to replenish his health and ammo.
 - **Sound effects** - Soundtrack and/or sound effects (gunshot noises, footsteps, etc).
 - **HUD** - HUD to visualize health and ammunition.
@@ -95,6 +95,10 @@ between the player and map, both of these will depend on the interface, making t
 
 A class Camera (it was not named Screen to avoid confusion with the Lanterna Library) was created in order to act as an
 interface between the Player and Map classes.
+Example of the comunication between classes when the Player moves:
+<p align="center">
+    <img src="docs/images/camera_implementation.drawio.png">
+</p>
 
 **Consequences**
 
@@ -103,13 +107,79 @@ interface between the Player and Map classes.
 - Ensures simplicity for the client, who only needs to request screen drawing from the Camera class, instead of every
   sing individual component.
 
+#### THERE CAN ONLY BE ONE PLAYER AND ONE CAMERA
+
+**Problem in Context**
+
+It may be necessary to access the Player or Camera classes from different locations of the program. It is important that when we do, we access the instance of Player and Camera that are already running instead of new ones, so that alterations may take effect.
+
+**The Pattern**
+
+The Singleton pattern will make it impossible to create more than one instance of a class, so it is perfect for this problem.
+
+**Implementation**
+
+The classes Player and Camera each have a private instance of itself and a private constructor to prevent the creation of new instances. Instead the singular instance is acquired by calling a separate function which returns the singular private instance, or calls the constructor if the instance does not exist yet.
+
+**Consequences**
+
+- The Player and Camera can now be accessed from any point of the program.
+- The consistency of information in both classes is assured.
+
+#### UPDATING THE SCREEN
+
+**Problem in Context**
+
+The game functions by having a state that takes a step every loop. It is necessary that every time this step occurs, all of the elements of the screen are updated.
+
+**The Pattern**
+
+The Observer pattern creates a mechanism to support these updates. By creating a many-to-one dependency a singular update to a class can notify all the others they should update as well.
+
+**Implementation**
+
+Any controllers implemented (except for the menu controller) are observers of the GameController class. When this class takes a step in state, it calls all the other classes' step methods as well. The same happens for the viewers.
+Sequence diagram of a step in the game loop:
+<p align="center">
+    <img src="docs/images/observer_implementation.drawio.png">
+</p>
+
+**Consequences**
+
+- If more elements are added to the game, their updates will be easy to implement.
+- Although they have been aggregated, it is still possible to only notify some observers if desired.
+- Ensures consistency controller and viewer-wise by forcing all step methods to be called "at the same time".
+
+#### CHANGING BETWEEN MENU SCREEN AND GAME SCREEN
+
+**Problem in context**
+
+It is required for the player to be able to change between the menu and the actual game screen. So, we need a way to distinguish which screen we are in as well as transition between screens.
+
+**The Pattern**
+
+The State pattern offers a solution to our problem by allowing an object to alter its behaviour when the state changes.
+
+**Implementation**
+
+A State class was created with two derived classes MenuState and GameState, certain key presses allow to transition between them and by having the current state saved in the game loop it is always possible to print the correct screen as well as change to a new one.
+State Diagram of the current game:
+<p align="center">
+<img src="docs/images/state_implementation.drawio.png">
+</p>
+
+**Conseqences**
+
+- Menu and Game are now isolated.
+- The addition of a different screen (e.g. Game Over) is extremely simple.
+
 #### KNOWN CODE SMELLS
 
 We have not searched for code smells yet.
 
 ### TESTING
 
-Testing?
+Basic testing has been done with JUnit for unit testing, Mockito for mocks and dependency injection and JQwik for property-based testing. Although the testing process it still far from concluded
 
 ### SELF-EVALUATION
 
