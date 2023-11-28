@@ -13,7 +13,7 @@ public class Game {
     private final LanternaGUI gui;
     private State state;
     public Game() throws IOException, URISyntaxException, FontFormatException {
-        gui = new LanternaGUI(460, 100);
+        gui = new LanternaGUI(460, 160);
         state = new MenuState(new Menu());
     }
 
