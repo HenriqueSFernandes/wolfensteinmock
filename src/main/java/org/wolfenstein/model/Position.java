@@ -11,8 +11,8 @@ public class Position {
     }
 
     public Position moveForward() {
-        double deltaX = 32 * Math.cos(Math.toRadians(angle));
-        double deltaY = 32 * Math.sin(Math.toRadians(angle));
+        double deltaX = 2 * Math.cos(Math.toRadians(angle));
+        double deltaY = 2 * Math.sin(Math.toRadians(angle));
         return new Position(x + deltaX, y - deltaY, this.angle);
     }
     public Position moveBackwards() {
