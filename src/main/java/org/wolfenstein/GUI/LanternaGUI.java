@@ -32,17 +32,22 @@ public class LanternaGUI implements GUI {
     private TerminalScreen screen;
 
     public LanternaGUI(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
+        AWTTerminalFontConfiguration fontConfig = createGameFont();
+        createScreen(HEIGHT, WIDTH, fontConfig);
+    }
+
+    private AWTTerminalFontConfiguration createGameFont() throws URISyntaxException, IOException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("square.ttf");
         File fontFile = new File(resource.toURI());
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
-
-        DefaultTerminalFactory factory = new DefaultTerminalFactory();
-
         Font loadedFont = font.deriveFont(Font.PLAIN, 4);
-        AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
+        return AWTTerminalFontConfiguration.newInstance(loadedFont);
+    }
+    public void createScreen(int HEIGHT, int WIDTH, AWTTerminalFontConfiguration fontConfig) throws IOException {
+        DefaultTerminalFactory factory = new DefaultTerminalFactory();
         factory.setTerminalEmulatorFontConfiguration(fontConfig);
         factory.setForceAWTOverSwing(true);
         factory.setInitialTerminalSize(new TerminalSize(WIDTH, HEIGHT));
@@ -139,6 +144,7 @@ public class LanternaGUI implements GUI {
     }
 
     public void drawText(int x, int y, String text) {
+        graphics.setBackgroundColor(BLACK);
         graphics.putString(x, y, text);
     }
 

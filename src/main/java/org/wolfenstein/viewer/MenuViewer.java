@@ -10,7 +10,7 @@ public class MenuViewer extends Viewer<Menu> {
 
     @Override
     protected void drawElements(GUI gui) {
-        gui.drawText(20 ,20, "Menu");
+        gui.drawText(20, 20, "Menu");
         gui.drawText(20, 23, "Begin");
         gui.drawText(20, 24, "Exit");
     }
