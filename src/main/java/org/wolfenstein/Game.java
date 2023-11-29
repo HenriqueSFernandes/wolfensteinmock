@@ -14,7 +14,7 @@ public class Game {
     private final LanternaGUI gui;
     private State state;
     public Game() throws IOException, URISyntaxException, FontFormatException {
-        gui = new LanternaGUI(460, 160);
+        gui = new LanternaGUI(460*4, 160*4);
         state = new MenuState(new Menu());
     }
 

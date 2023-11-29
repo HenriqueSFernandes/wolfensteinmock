@@ -23,7 +23,7 @@ public class Camera {
     }
 
     public static Camera createCamera(Map map, Player player) {
-        // This function is only using for testing purposes
+        // This function is only used for testing purposes
         if (camera == null) camera = new Camera(map, player);
         return camera;
     }
@@ -37,6 +37,6 @@ public class Camera {
     }
 
     public boolean isEmpty(Position position) {
-        return getMap().getXY(position.x / map.getCellsize(), position.y / map.getCellsize()) != 1;
+        return getMap().getXY((int) position.x / map.getCellsize(), (int) position.y / map.getCellsize()) != 1;
     }
 }
