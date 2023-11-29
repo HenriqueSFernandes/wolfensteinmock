@@ -152,7 +152,7 @@ public class LanternaGUI implements GUI {
 
             // Raycaster Render
             for (Position point : line) {
-                graphics.setCharacter(point.getX(), point.getY(), ' ');
+                graphics.setCharacter((int)point.getX(), (int)point.getY(), ' ');
             }
             if (!line.isEmpty()) {
                 Position collisionPoint = line.get(line.size() - 1);
@@ -178,8 +178,8 @@ public class LanternaGUI implements GUI {
     private List<Position> createLine(double angle, Position playerPosition, Map map) {
         // Creates a line using the Bresenham's line algorithm.
         List<Position> line = new ArrayList<>();
-        int x1 = playerPosition.getX();
-        int y1 = playerPosition.getY();
+        int x1 = (int)playerPosition.getX();
+        int y1 = (int)playerPosition.getY();
         int distance = 1000;
         int x2 = (int) (x1 + distance * Math.cos(Math.toRadians(angle)));
         int y2 = (int) -(y1 + distance * Math.sin(Math.toRadians(angle)));
