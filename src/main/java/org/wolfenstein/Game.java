@@ -2,6 +2,7 @@ package org.wolfenstein;
 
 import org.wolfenstein.GUI.LanternaGUI;
 import org.wolfenstein.model.Menu;
+import org.wolfenstein.state.GameState;
 import org.wolfenstein.state.MenuState;
 import org.wolfenstein.state.State;
 
@@ -24,9 +25,9 @@ public class Game {
 
     private void start() throws IOException {
         int FPS = 120;
-        int frameTime = 1000 / FPS;
-
         while (this.state != null) {
+            if (state.getClass() == MenuState.class) FPS = 10;
+            int frameTime = 1000 / FPS;
             long startTime = System.currentTimeMillis();
 
             state.step(gui, this, startTime);
