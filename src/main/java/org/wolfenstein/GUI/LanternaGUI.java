@@ -25,11 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LanternaGUI implements GUI {
-    private TerminalScreen screen;
     public static final TextColor.RGB BLACK = new TextColor.RGB(0, 0, 0);
     public static final TextColor.RGB WHITE = new TextColor.RGB(255, 255, 255);
     public static final TextColor.RGB GRAY = new TextColor.RGB(128, 128, 128);
     public static TextGraphics graphics;
+    private TerminalScreen screen;
 
     public LanternaGUI(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("square.ttf");
@@ -80,17 +80,19 @@ public class LanternaGUI implements GUI {
     @Override
     public GUIAction getNextAction() throws IOException {
         KeyStroke keyStroke = screen.pollInput();
+
+        while (screen.pollInput() != null);
         if (keyStroke == null) return GUIAction.NONE;
 
         if (keyStroke.getKeyType() == KeyType.EOF) return GUIAction.QUIT;
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return GUIAction.QUIT;
-
         if (keyStroke.getKeyType() == KeyType.ArrowUp) return GUIAction.FRONT;
         if (keyStroke.getKeyType() == KeyType.ArrowRight) return GUIAction.RIGHT;
         if (keyStroke.getKeyType() == KeyType.ArrowDown) return GUIAction.BACK;
         if (keyStroke.getKeyType() == KeyType.ArrowLeft) return GUIAction.LEFT;
 
         if (keyStroke.getKeyType() == KeyType.Enter) return GUIAction.SELECT;
+
 
         return GUIAction.NONE;
     }
@@ -213,7 +215,7 @@ public class LanternaGUI implements GUI {
     }
 
     TextColor.RGB mapColor(double distance) {
-        int brightness = (int)Math.ceil(-0.9 * distance + 255);
+        int brightness = (int) Math.ceil(-0.9 * distance + 255);
         if (brightness < 0) brightness = 0;
         return new TextColor.RGB(brightness, brightness, brightness);
 
