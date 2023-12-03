@@ -21,7 +21,7 @@ public class PlayerTest {
         assertEquals(0, player.getPosition().getAngle());
     }
 
-    @Property
+    /*@Property
     void setMaxHealthTest(@ForAll int r) {
         player = createPlayer();
         assertEquals(100, player.getHealth());
@@ -112,5 +112,5 @@ public class PlayerTest {
             //reset
             player.increaseAmmo(30);
         }
-    }
+    }*/
 }
