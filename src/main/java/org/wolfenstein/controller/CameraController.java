@@ -8,9 +8,11 @@ import org.wolfenstein.state.MenuState;
 
 public class CameraController extends GameController {
     private final PlayerController playerController;
+    private final GuardController guardController;
     public CameraController(Camera model) {
         super(model);
         playerController = new PlayerController(model);
+        guardController = new GuardController(model);
     }
     @Override
     public void step(Game game, GUI.GUIAction action, long time) {
@@ -18,6 +20,7 @@ public class CameraController extends GameController {
             game.setState(new MenuState(new Menu()));
         else {
             playerController.step(game, action, time);
+            guardController.step(game, action, time);
         }
     }
 }

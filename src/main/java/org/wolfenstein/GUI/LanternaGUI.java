@@ -227,5 +227,5 @@ public class LanternaGUI implements GUI {
 
     }
 
-
+    public void drawGuard() { return; }
 }
