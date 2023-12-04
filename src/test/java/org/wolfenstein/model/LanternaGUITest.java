@@ -33,7 +33,7 @@ public class LanternaGUITest {
         mockScreen = mock(TerminalScreen.class);
         mockGraphics = mock(TextGraphics.class);
         mockGUI = new LanternaGUI(mockScreen, mockGraphics);
-        when(mockScreen.pollInput()).thenReturn(new KeyStroke(KeyType.ArrowUp));
+        when(mockScreen.pollInput()).thenReturn(new KeyStroke(KeyType.ArrowUp)).thenReturn(null);
         when(mockGraphics.putString(anyInt(), anyInt(), anyString())).thenReturn(mockGraphics);
         when(mockGraphics.setBackgroundColor(GRAY)).thenReturn(mockGraphics);
         verify(mockScreen, times(1)).startScreen();
