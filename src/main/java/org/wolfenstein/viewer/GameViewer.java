@@ -2,6 +2,7 @@ package org.wolfenstein.viewer;
 
 import org.wolfenstein.GUI.GUI;
 import org.wolfenstein.model.Camera;
+import org.wolfenstein.model.elements.Guard;
 
 public class GameViewer extends Viewer<Camera> {
 
@@ -13,5 +14,8 @@ public class GameViewer extends Viewer<Camera> {
     protected void drawElements(GUI gui) {
         mapViewer.drawElements(gui);
         gui.drawPlayerCamera(getModel().getPlayer().getPosition(), getModel().getMap());
+        for (Guard guard : getModel().getGuardList()) {
+            gui.drawGuard(); // This does nothing for now
+        }
     }
 }

@@ -1,15 +1,22 @@
 package org.wolfenstein.model;
 
+import org.wolfenstein.model.elements.Guard;
 import org.wolfenstein.model.elements.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Camera {
     private static Camera camera;
     private final Player player;
+    private List<Guard> guardList;
     private final Map map;
 
     private Camera() {
         this.player = Player.createPlayer();
         this.map = new Map();
+        this.guardList = new ArrayList<>();
+        guardList.add(new Guard(100, 100, 0)); // for testing (initialize here or implement add/removeGuard?)
     }
 
     private Camera(Map map, Player player) {
@@ -39,4 +46,6 @@ public class Camera {
     public boolean isEmpty(Position position) {
         return getMap().getXY((int) position.x / map.getCellsize(), (int) position.y / map.getCellsize()) != 1;
     }
+
+    public List<Guard> getGuardList() { return guardList; }
 }
