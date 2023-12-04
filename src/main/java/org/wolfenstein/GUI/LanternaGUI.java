@@ -36,6 +36,13 @@ public class LanternaGUI implements GUI {
         createScreen(HEIGHT, WIDTH, fontConfig);
     }
 
+    // For testing purposes only
+    public LanternaGUI(TerminalScreen screen, TextGraphics textGraphics) throws IOException {
+        this.screen = screen;
+        graphics = textGraphics;
+        screen.startScreen();
+    }
+
     private AWTTerminalFontConfiguration createGameFont() throws URISyntaxException, IOException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("square.ttf");
         File fontFile = new File(resource.toURI());
@@ -46,6 +53,7 @@ public class LanternaGUI implements GUI {
         Font loadedFont = font.deriveFont(Font.PLAIN, 4);
         return AWTTerminalFontConfiguration.newInstance(loadedFont);
     }
+
     public void createScreen(int HEIGHT, int WIDTH, AWTTerminalFontConfiguration fontConfig) throws IOException {
         DefaultTerminalFactory factory = new DefaultTerminalFactory();
         factory.setTerminalEmulatorFontConfiguration(fontConfig);
@@ -67,13 +75,6 @@ public class LanternaGUI implements GUI {
         graphics = screen.newTextGraphics();
     }
 
-    // For testing purposes only
-    public LanternaGUI(TerminalScreen screen, TextGraphics textGraphics) throws IOException {
-        this.screen = screen;
-        graphics = textGraphics;
-        screen.startScreen();
-    }
-
     public void stopScreen() throws IOException {
         screen.close();
     }
@@ -86,7 +87,7 @@ public class LanternaGUI implements GUI {
     public GUIAction getNextAction() throws IOException {
         KeyStroke keyStroke = screen.pollInput();
 
-        while (screen.pollInput() != null);
+        while (screen.pollInput() != null) ;
         if (keyStroke == null) return GUIAction.NONE;
 
         if (keyStroke.getKeyType() == KeyType.EOF) return GUIAction.QUIT;
@@ -152,20 +153,20 @@ public class LanternaGUI implements GUI {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
         int HEIGHT = map.getHeight() * CELLSIZE;
+        int FOV = 70;
         for (int x = 0; x < WIDTH; x++) {
-            double rayAngle = playerPosition.getAngle() - 35 + (70.0 * x / WIDTH);
+            double rayAngle = playerPosition.getAngle() - (double) FOV / 2 + ((double) (FOV * x) / WIDTH);
             List<Position> line = createLine(rayAngle, playerPosition, map);
 
             // Raycaster Render
             for (Position point : line) {
-                graphics.setCharacter((int)point.getX(), (int)point.getY(), ' ');
+                graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
             }
             if (!line.isEmpty()) {
                 Position collisionPoint = line.get(line.size() - 1);
                 double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
                 distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle()))); // TODO Fisheye correction not working when the angle is 90 or 270.
                 graphics.setBackgroundColor(mapColor(distanceToWall));
-                int maxWallHeight = HEIGHT;
                 int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
                 int drawStart = -wallHeight / 2 + HEIGHT / 2;
                 if (drawStart < 0) drawStart = 0;
@@ -173,10 +174,7 @@ public class LanternaGUI implements GUI {
                 if (drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
                 double wallX = Math.tan(Math.toRadians(rayAngle - playerPosition.getAngle()));
 
-                // Map wallX to the screen width
-                int wallScreenX = (int) (WIDTH * (0.5 + wallX / 2.0));
-
-                graphics.drawLine(2 * WIDTH - wallScreenX, drawStart, 2 * WIDTH - wallScreenX, drawEnd, ' ');
+                graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
             }
         }
     }
@@ -184,8 +182,8 @@ public class LanternaGUI implements GUI {
     private List<Position> createLine(double angle, Position playerPosition, Map map) {
         // Creates a line using the Bresenham's line algorithm.
         List<Position> line = new ArrayList<>();
-        int x1 = (int)playerPosition.getX();
-        int y1 = (int)playerPosition.getY();
+        int x1 = (int) playerPosition.getX();
+        int y1 = (int) playerPosition.getY();
         int distance = 1000;
         int x2 = (int) (x1 + distance * Math.cos(Math.toRadians(angle)));
         int y2 = (int) -(y1 + distance * Math.sin(Math.toRadians(angle)));
