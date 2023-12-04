@@ -18,9 +18,9 @@ public class CameraTest {
 
         Camera camera = Camera.createCamera(mapMock, playerMock);
 
-        assertTrue(camera.isEmpty(new Position(0, 0, 0)));
-        assertTrue(camera.isEmpty(new Position(8, 8, 0)));
-        assertFalse(camera.isEmpty(new Position(8, 0, 0)));
-        assertFalse(camera.isEmpty(new Position(0, 8, 0)));
+        assertTrue(camera.isEmpty(new Position(0, 0)));
+        assertTrue(camera.isEmpty(new Position(8, 8)));
+        assertFalse(camera.isEmpty(new Position(8, 0)));
+        assertFalse(camera.isEmpty(new Position(0, 8)));
     }
 }

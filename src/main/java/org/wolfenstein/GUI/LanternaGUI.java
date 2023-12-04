@@ -200,7 +200,7 @@ public class LanternaGUI implements GUI {
             if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1) {
                 return line;
             }
-            line.add(new Position(x1, y1, 0));
+            line.add(new Position(x1, y1));
 
             int e2 = 2 * err;
             if (e2 > -dy) {
@@ -225,5 +225,7 @@ public class LanternaGUI implements GUI {
 
     }
 
-    public void drawGuard() { return; }
+    public void drawGuard() {
+        return;
+    }
 }
