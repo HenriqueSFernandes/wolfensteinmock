@@ -1,6 +1,7 @@
 package org.wolfenstein.model.image;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
+import org.wolfenstein.model.Position;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,14 +24,14 @@ public class ImageLoader {
         return instance;
     }
 
-    public boolean importImage(String imageName) throws IOException {
+    public boolean importImage(String imageName, Position position) throws IOException {
         // This assumes the image is inside /resources/images
         URL resource = getClass().getResource("/images/" + imageName);
         if (resource == null) {
             return false;
         }
         BufferedImage loadedImage = ImageIO.read(resource);
-        Image image = new Image(loadedImage);
+        Image image = new Image(loadedImage, position);
         images.add(image);
         return true;
     }

@@ -49,7 +49,7 @@ public class Image {
             for (int x = 0; x < image.getWidth(); x++) {
                 int color = image.getRGB(x, y);
                 graphics.setBackgroundColor(toRGB(color));
-                graphics.setCharacter(y, x, ' ');
+                graphics.setCharacter(x + (int) position.getX(), y + (int) position.getY(), ' ');
             }
 
         }
