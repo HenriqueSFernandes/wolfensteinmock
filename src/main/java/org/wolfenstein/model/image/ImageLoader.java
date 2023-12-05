@@ -35,7 +35,7 @@ public class ImageLoader {
         return true;
     }
 
-    public void drawActiveImages(TextGraphics graphics) {
+    public void drawAllImages(TextGraphics graphics) {
         for (Image image : images) {
             image.draw(graphics);
         }
