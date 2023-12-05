@@ -13,7 +13,6 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
-import org.wolfenstein.model.image.ImageLoader;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -29,6 +28,8 @@ public class LanternaGUI implements GUI {
     public static final TextColor.RGB BLACK = new TextColor.RGB(0, 0, 0);
     public static final TextColor.RGB WHITE = new TextColor.RGB(255, 255, 255);
     public static final TextColor.RGB GRAY = new TextColor.RGB(128, 128, 128);
+    public static final TextColor.RGB BROWN = new TextColor.RGB(73, 42, 21);
+    public static final TextColor.RGB BLUE = new TextColor.RGB(14, 28, 46);
     public static TextGraphics graphics;
     private TerminalScreen screen;
 
@@ -178,6 +179,21 @@ public class LanternaGUI implements GUI {
                 graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
             }
         }
+    }
+
+    @Override
+    public void drawFloor() {
+        TerminalSize size = graphics.getSize();
+        graphics.setBackgroundColor(BROWN);
+        graphics.fillRectangle(new TerminalPosition(size.getColumns() / 2, size.getRows() / 2), new TerminalSize(size.getColumns() / 2, size.getRows() / 2), ' ');
+    }
+
+    @Override
+    public void drawCeiling() {
+        TerminalSize size = graphics.getSize();
+        graphics.setBackgroundColor(BLUE);
+        graphics.fillRectangle(new TerminalPosition(size.getColumns() / 2, 0), new TerminalSize(size.getColumns() / 2, size.getRows() / 2), ' ');
+
     }
 
     private List<Position> createLine(double angle, Position playerPosition, Map map) {
