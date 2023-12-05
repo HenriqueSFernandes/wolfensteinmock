@@ -10,8 +10,9 @@ public class Camera {
     private final Map map;
 
     private Camera() throws IOException {
-        this.player = Player.createPlayer();
         this.map = new Map();
+        this.player = Player.createPlayer();
+        player.setPosition(map.playerStartPosition());
     }
 
     private Camera(Map map, Player player) {

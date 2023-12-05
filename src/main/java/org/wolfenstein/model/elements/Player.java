@@ -19,7 +19,7 @@ public class Player extends Element {
     }
     public static Player createPlayer() {
         if (player == null)
-            player = new Player(10, 10, 0);
+            player = new Player(16, 80, 0);
         return player;
     }
     public int getHealth() {

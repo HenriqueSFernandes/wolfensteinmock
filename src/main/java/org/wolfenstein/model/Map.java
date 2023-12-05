@@ -9,6 +9,7 @@ public class Map {
     private int width;
     private int height;
     private final int cellsize = 8;
+    private MapLoader mapLoader;
     public void setMap(Vector<Vector<Integer>> newMap) {
         this.map = newMap;
         this.height = newMap.size();
@@ -26,7 +27,7 @@ public class Map {
         return cellsize;
     }
     public Map() throws IOException {
-        MapLoader mapLoader = MapLoader.createMapLoader();
+        mapLoader = MapLoader.createMapLoader();
         mapLoader.importMapFile();
         setMap(mapLoader.getNextMap());
         //setMap(mapLoader.getNextMap());
@@ -34,5 +35,19 @@ public class Map {
     public Map(Vector<Vector<Integer>> newMap) {
         //Construtor só para testes
         setMap(newMap);
+    }
+    public Position playerStartPosition() {
+        Position startPos = new Position(-1, -1, 0);
+        for (int y = 0; y < map.size(); y++) {
+            for (int x = 0; x < map.get(y).size(); x++) {
+                if (map.get(y).get(x) != 3) continue;
+                startPos = new Position(8.0 * x + 4, 8.0 * y + 4, 0.0);
+                break;
+            }
+        }
+        return startPos;
+    }
+    public MapLoader getMapLoader() {
+        return mapLoader;
     }
 }

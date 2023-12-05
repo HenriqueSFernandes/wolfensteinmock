@@ -123,6 +123,12 @@ public class LanternaGUI implements GUI {
 
                 if (cellValue == 0) {
                     cellColor = WHITE;
+                } else if (cellValue == 1) {
+                    cellColor = BLACK;
+                } else if (cellValue == 2) {
+                    cellColor = new TextColor.RGB(0, 255, 0);
+                } else if (cellValue == 3) {
+                    cellColor = new TextColor.RGB(0, 255, 255);
                 } else {
                     cellColor = BLACK;
                 }
