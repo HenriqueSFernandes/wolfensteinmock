@@ -2,12 +2,14 @@ package org.wolfenstein.model;
 
 import org.wolfenstein.model.elements.Player;
 
+import java.io.IOException;
+
 public class Camera {
     private static Camera camera;
     private final Player player;
     private final Map map;
 
-    private Camera() {
+    private Camera() throws IOException {
         this.player = Player.createPlayer();
         this.map = new Map();
     }
@@ -17,7 +19,7 @@ public class Camera {
         this.player = player;
     }
 
-    public static Camera createCamera() {
+    public static Camera createCamera() throws IOException {
         if (camera == null) camera = new Camera();
         return camera;
     }

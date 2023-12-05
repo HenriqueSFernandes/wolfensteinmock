@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class LanternaGUI implements GUI {
     public static final TextColor.RGB BLACK = new TextColor.RGB(0, 0, 0);
@@ -107,7 +108,7 @@ public class LanternaGUI implements GUI {
     }
 
     public void drawMap(Map map) {
-        int[][] grid = map.getMap();
+        Vector<Vector<Integer>> grid = map.getMap();
         int height = map.getHeight();
         int width = map.getWidth();
         int cellsize = map.getCellsize();
@@ -115,9 +116,9 @@ public class LanternaGUI implements GUI {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width * 2, height), ' ');
         // Adjust the size of each cell (square) and border
         int borderSize = 1;
-        for (int y = 0; y < grid.length; y++) {
-            for (int x = 0; x < grid[y].length; x++) {
-                int cellValue = grid[y][x];
+        for (int y = 0; y < grid.size(); y++) {
+            for (int x = 0; x < grid.get(y).size(); x++) {
+                int cellValue = grid.get(y).get(x);
                 TextColor cellColor;
 
                 if (cellValue == 0) {
