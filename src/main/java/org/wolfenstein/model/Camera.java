@@ -16,7 +16,7 @@ public class Camera {
         this.player = Player.createPlayer();
         this.map = new Map();
         this.guardList = new ArrayList<>();
-        guardList.add(new Guard(100, 100, 0)); // for testing (initialize here or implement add/removeGuard?)
+        guardList.add(new Guard(180, 100, 0)); // for testing (initialize here or implement add/removeGuard?)
     }
 
     private Camera(Map map, Player player) {
