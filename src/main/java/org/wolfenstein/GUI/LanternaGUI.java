@@ -13,6 +13,7 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
+import org.wolfenstein.model.image.ImageLoader;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -44,7 +45,7 @@ public class LanternaGUI implements GUI {
     }
 
     private AWTTerminalFontConfiguration createGameFont() throws URISyntaxException, IOException, FontFormatException {
-        URL resource = getClass().getClassLoader().getResource("square.ttf");
+        URL resource = getClass().getClassLoader().getResource("fonts/square.ttf");
         File fontFile = new File(resource.toURI());
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
