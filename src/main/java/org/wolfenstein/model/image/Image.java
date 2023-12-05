@@ -36,6 +36,10 @@ public class Image {
         this.position = position;
     }
 
+    private int getAlpha(int color) {
+        return (color >> 24) & 0xFF;
+    }
+
     private TextColor.RGB toRGB(int color) {
         int red = (color >> 16) & 0xFF;
         int green = (color >> 8) & 0xFF;
@@ -47,8 +51,17 @@ public class Image {
     public void draw(TextGraphics graphics) {
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
-                int color = image.getRGB(x, y);
-                graphics.setBackgroundColor(toRGB(color));
+                int pixelPositionX = x + (int) position.getX();
+                int pixelPositionY = y + (int) position.getY();
+                int imageColor = image.getRGB(x, y);
+                TextColor.RGB currentColor = (TextColor.RGB) graphics.getCharacter(pixelPositionX, pixelPositionY).getBackgroundColor();
+                int alpha = getAlpha(imageColor);
+                if (alpha == 255) {
+                    graphics.setBackgroundColor(toRGB(imageColor));
+                } else {
+                    graphics.setBackgroundColor(currentColor);
+                }
+
                 graphics.setCharacter(x + (int) position.getX(), y + (int) position.getY(), ' ');
             }
 
