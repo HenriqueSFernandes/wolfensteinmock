@@ -1,5 +1,8 @@
 package org.wolfenstein.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Position {
     double x, y;
     double angle;
@@ -26,6 +29,16 @@ public class Position {
         double deltaX = 2 * Math.cos(Math.toRadians(angle));
         double deltaY = 2 * Math.sin(Math.toRadians(angle));
         return new Position(x - deltaX, y + deltaY, this.angle);
+    }
+
+    public List<Position> lookForward() {
+        double deltaX = 2 * Math.cos(Math.toRadians(angle));
+        double deltaY = 2 * Math.sin(Math.toRadians(angle));
+        List<Position> positionList = new ArrayList<>();
+        for (int i = 1; i < 20; i++) {
+            positionList.add(new Position (x + deltaX * i, y - deltaY * i, this.angle));
+        }
+        return positionList;
     }
 
     public Position rotateClockwise() {

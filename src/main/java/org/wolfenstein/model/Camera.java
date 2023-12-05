@@ -17,35 +17,30 @@ public class Camera {
         this.map = new Map();
         this.guardList = new ArrayList<>();
         guardList.add(new Guard(180, 100, 0)); // for testing (initialize here or implement add/removeGuard?)
+        guardList.add(new Guard(180, 50, 0));
+        guardList.add(new Guard(60, 90, 0));
     }
-
     private Camera(Map map, Player player) {
         this.map = map;
         this.player = player;
     }
-
     public static Camera createCamera() {
         if (camera == null) camera = new Camera();
         return camera;
     }
-
     public static Camera createCamera(Map map, Player player) {
         // This function is only used for testing purposes
         if (camera == null) camera = new Camera(map, player);
         return camera;
     }
-
     public Player getPlayer() {
         return player;
     }
-
     public Map getMap() {
         return map;
     }
-
     public boolean isEmpty(Position position) {
-        return getMap().getXY((int) position.x / map.getCellsize(), (int) position.y / map.getCellsize()) != 1;
+        return getMap().getXY((int) position.getX() / map.getCellsize(), (int) position.getY() / map.getCellsize()) != 1;
     }
-
     public List<Guard> getGuardList() { return guardList; }
 }

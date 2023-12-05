@@ -226,7 +226,18 @@ public class LanternaGUI implements GUI {
 
     }
 
-    public void drawGuard() {
-        return;
+    public void drawGuard(Position position, Map map) {
+        int CELLSIZE = map.getCellsize();
+        int WIDTH = map.getWidth() * CELLSIZE;
+        int FOV = 70;
+        for (int x = 0; x < WIDTH; x++) {
+            double rayAngle = position.getAngle() - (double) FOV / 2 + ((double) (FOV * x) / WIDTH);
+            List<Position> line = createLine(rayAngle, position, map);
+
+            // Raycaster Render
+            for (Position point : line) {
+                graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
+            }
+        }
     }
 }
