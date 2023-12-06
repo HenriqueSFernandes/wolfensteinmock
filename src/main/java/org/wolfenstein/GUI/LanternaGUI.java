@@ -13,6 +13,7 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
+import org.wolfenstein.model.image.AnimationLoader;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -32,6 +33,7 @@ public class LanternaGUI implements GUI {
     public static final TextColor.RGB BLUE = new TextColor.RGB(14, 28, 46);
     public static TextGraphics graphics;
     private TerminalScreen screen;
+    private final AnimationLoader animationLoader = AnimationLoader.getInstance();
 
     public LanternaGUI(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
         AWTTerminalFontConfiguration fontConfig = createGameFont();
@@ -75,6 +77,8 @@ public class LanternaGUI implements GUI {
         screen.startScreen();
         screen.doResizeIfNecessary();
         graphics = screen.newTextGraphics();
+        animationLoader.importContinuousAnimation("pistol_firing.png", new Position(328, 96));
+        animationLoader.getAnimation(0).setPlaying(true);
     }
 
     public void stopScreen() throws IOException {
@@ -179,6 +183,7 @@ public class LanternaGUI implements GUI {
                 graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
             }
         }
+        animationLoader.drawAllAnimations(graphics);
     }
 
     @Override

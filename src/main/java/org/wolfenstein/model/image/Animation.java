@@ -7,13 +7,14 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animation {
-    private final int frameAmount;
-    private List<Image> frames = new ArrayList<>();
-    private Image sprite; // Image with all frames
-    private int frameCounter = 0;
-    private Image currentFrame;
-    private Position position;
+public abstract class Animation {
+    protected final int frameAmount;
+    protected List<Image> frames = new ArrayList<>();
+    protected Image sprite; // Image with all frames
+    protected int frameCounter = 0;
+    protected Image currentFrame;
+    protected Position position;
+    protected boolean playing = false;
 
     public Animation(Image sprite, Position position, int frameAmount) {
         this.frameAmount = frameAmount;
@@ -34,18 +35,11 @@ public class Animation {
         currentFrame = frames.get(0);
     }
 
-    private void nextFrame() {
-        frameCounter++;
-        if (frameCounter >= frameAmount) {
-            frameCounter = 0;
-        }
-        currentFrame = frames.get(frameCounter);
+    protected abstract void nextFrame();
 
+    public abstract void draw(TextGraphics graphics);
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
-
-    public void draw(TextGraphics graphics) {
-        currentFrame.draw(graphics);
-        nextFrame();
-    }
-
 }

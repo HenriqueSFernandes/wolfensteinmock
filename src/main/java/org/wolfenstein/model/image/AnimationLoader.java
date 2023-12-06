@@ -24,14 +24,26 @@ public class AnimationLoader {
         return instance;
     }
 
-    public boolean importSprite(String spriteName, Position position) throws IOException {
+    public boolean importContinuousAnimation(String spriteName, Position position) throws IOException {
         URL resource = getClass().getResource("/animations/" + spriteName);
         if (resource == null) {
             return false;
         }
         BufferedImage loadedImage = ImageIO.read(resource);
         Image image = new Image(loadedImage);
-        Animation animation = new Animation(image, position, 10);
+        Animation animation = new ContinuousAnimation(image, position, 6);
+        animations.add(animation);
+        return true;
+    }
+
+    public boolean importMomentaryAnimation(String spriteName, Position position) throws IOException {
+        URL resource = getClass().getResource("/animations/" + spriteName);
+        if (resource == null) {
+            return false;
+        }
+        BufferedImage loadedImage = ImageIO.read(resource);
+        Image image = new Image(loadedImage);
+        Animation animation = new MomentaryAnimation(image, position, 6);
         animations.add(animation);
         return true;
     }
@@ -41,5 +53,9 @@ public class AnimationLoader {
             animation.draw(graphics);
         }
 
+    }
+
+    public Animation getAnimation(int index) {
+        return animations.get(index);
     }
 }
