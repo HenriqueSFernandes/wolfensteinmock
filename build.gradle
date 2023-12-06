@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'net.ltgt.errorprone' version '3.1.0'
 }
 
 group = 'org.wolfenstein'
@@ -14,12 +15,9 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.1'
-    // https://mvnrepository.com/artifact/org.mockito/mockito-core
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.7.0'
-    // https://mvnrepository.com/artifact/net.jqwik/jqwik
     testImplementation group: 'net.jqwik', name: 'jqwik', version: '1.8.2'
-
-
+    errorprone "com.google.errorprone:error_prone_core:2.20.0"
 }
 
 test {
