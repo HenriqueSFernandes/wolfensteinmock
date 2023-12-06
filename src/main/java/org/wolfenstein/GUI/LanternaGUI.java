@@ -14,6 +14,7 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
 import org.wolfenstein.model.image.AnimationLoader;
+import org.wolfenstein.model.sound.SoundLoader;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -22,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LanternaGUI implements GUI {
@@ -33,6 +33,7 @@ public class LanternaGUI implements GUI {
     public static final TextColor.RGB BLUE = new TextColor.RGB(14, 28, 46);
     public static TextGraphics graphics;
     private final AnimationLoader animationLoader = AnimationLoader.getInstance();
+    private final SoundLoader soundLoader = SoundLoader.getInstance();
     private TerminalScreen screen;
 
     public LanternaGUI(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
@@ -78,6 +79,7 @@ public class LanternaGUI implements GUI {
         screen.doResizeIfNecessary();
         graphics = screen.newTextGraphics();
         animationLoader.importMomentaryAnimation("pistol_firing.png", new Position(328, 96));
+        soundLoader.importSound("gun_shot.wav");
     }
 
     public void stopScreen() throws IOException {
@@ -104,6 +106,7 @@ public class LanternaGUI implements GUI {
 
         if (keyStroke.getKeyType() == KeyType.Backspace) {
             animationLoader.getAnimation(0).play();
+            soundLoader.getSound(0).play();
         }
         ;
         if (keyStroke.getKeyType() == KeyType.Enter) return GUIAction.SELECT;
