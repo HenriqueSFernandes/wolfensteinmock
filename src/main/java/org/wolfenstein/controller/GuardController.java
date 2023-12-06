@@ -26,12 +26,16 @@ public class GuardController extends GameController {
     public void step(Game game, GUI.GUIAction action, long time) {
         for (Guard guard : getModel().getGuardList()) {
             for (Position position : guard.getPosition().lookForward()) {
+                if (position.getX() < 0 || position.getY() < 0 ||
+                        position.getX() > (getModel().getMap().getWidth() * getModel().getMap().getCellsize())
+                        || position.getY() > (getModel().getMap().getWidth() * getModel().getMap().getCellsize()))
+                    continue;
                 if (!getModel().isEmpty(position) && !guard.isAggro()) {
                     rotateAntiClockwise(guard);
                     break;
                 }
             }
-            if (guard.getPosition().inFOV(getModel().getPlayer().getPosition())) guard.setAggro(true);
+            guard.setAggro(guard.getPosition().inFOV(getModel().getPlayer().getPosition()));
             if (!guard.isAggro()) moveForward(guard);
         }
     }

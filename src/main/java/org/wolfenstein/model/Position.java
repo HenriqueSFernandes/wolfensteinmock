@@ -108,10 +108,12 @@ public class Position {
     }
 
     public boolean inFOV(Position position) {
-        double observer_angle = Math.toDegrees((Math.atan2(position.getY() - this.y, position.getX()) - this.x) %  (2 * Math.PI));
-        double angle_between = (observer_angle - this.angle);
-        System.out.println(angle_between);
-        System.out.println("\n");
+        double observer_direction = Math.toDegrees(Math.atan2(position.getY() - this.y, position.getX() - this.x));
+        if (observer_direction < 0) observer_direction *= -1;
+        else observer_direction = 360 - observer_direction;
+        double angle_between = observer_direction - this.angle;
+        angle_between = (angle_between + 180) % 360 - 180;
+
         return (-FOV / 2.0 <= angle_between && angle_between <= FOV / 2.0);
     }
 }
