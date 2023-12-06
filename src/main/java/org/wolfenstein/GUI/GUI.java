@@ -16,5 +16,5 @@ public interface GUI {
     public void drawText(int x, int y, String text);
     public void drawPlayerCamera(Position position, Map map);
 
-    enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT}
+    enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT, SKIP}
 }

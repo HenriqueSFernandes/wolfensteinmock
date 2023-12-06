@@ -30,7 +30,6 @@ public class Map {
         mapLoader = MapLoader.createMapLoader();
         mapLoader.importMapFile();
         setMap(mapLoader.getNextMap());
-        //setMap(mapLoader.getNextMap());
     }
     public Map(Vector<Vector<Integer>> newMap) {
         //Construtor só para testes
