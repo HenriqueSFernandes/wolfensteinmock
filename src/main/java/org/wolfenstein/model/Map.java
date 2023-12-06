@@ -47,6 +47,17 @@ public class Map {
         }
         return startPos;
     }
+    public Position nextRoomPosition() {
+        Position transPos = new Position(-1, -1, 0);
+        for (int y = 0; y < map.size(); y++) {
+            for (int x = 0; x < map.get(y).size(); x++) {
+                if (map.get(y).get(x) != 2) continue;
+                transPos = new Position(8.0 * x + 4, 8.0 * y + 4, 0.0);
+                break;
+            }
+        }
+        return transPos;
+    }
     public MapLoader getMapLoader() {
         return mapLoader;
     }

@@ -104,6 +104,7 @@ public class LanternaGUI implements GUI {
     }
 
     public void refresh() throws IOException {
+
         screen.refresh();
     }
 
