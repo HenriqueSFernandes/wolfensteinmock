@@ -6,6 +6,7 @@ import java.util.List;
 public class Position {
     double x, y;
     double angle;
+    private static final int FOV = 70;
 
     public Position(double x, double y, double angle) {
         this.x = x;
@@ -59,5 +60,61 @@ public class Position {
 
     public double getAngle() {
         return angle;
+    }
+
+    public List<List<Position>> getFOV(Map map) {
+        int CELLSIZE = map.getCellsize();
+        int WIDTH = map.getWidth() * CELLSIZE;
+        List<List<Position>> positions = new ArrayList<>();
+        for (int diff = 0; diff < WIDTH; diff++) {
+            double rayAngle = this.getRayAngle(map, diff);
+            positions.add(createLine(rayAngle, map));
+        }
+        return positions;
+    }
+
+    public double getRayAngle(Map map, int diff) {
+        int CELLSIZE = map.getCellsize();
+        int WIDTH = map.getWidth() * CELLSIZE;
+        return (this.angle - (double) FOV / 2 + ((double) (FOV * diff) / WIDTH));
+    }
+
+    public List<Position> createLine(double angle, Map map) {
+        // Creates a line using the Bresenham's line algorithm.
+        List<Position> line = new ArrayList<>();
+        int x1 = (int) this.x;
+        int y1 = (int) this.y;
+        int distance = 1000;
+        int x2 = (int) (x1 + distance * Math.cos(Math.toRadians(angle)));
+        int y2 = (int) -(y1 + distance * Math.sin(Math.toRadians(angle)));
+        int dx = Math.abs(x2 - x1);
+        int dy = Math.abs(y2 - y1);
+        int sx = (x1 < x2) ? 1 : -1;
+        int sy = (y1 < y2) ? 1 : -1;
+
+        int side = 1; // 1 for top/bottom, 2 for left/right
+
+        int err = dx - dy;
+
+        while (x1 != x2 || y1 != y2) {
+            if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1) {
+                return line;
+            }
+            line.add(new Position(x1, y1));
+
+            int e2 = 2 * err;
+            if (e2 > -dy) {
+                err -= dy;
+                x1 += sx;
+                side = 2;
+
+            }
+            if (e2 < dx) {
+                err += dx;
+                y1 += sy;
+                side = 1;
+            }
+        }
+        return line;
     }
 }
