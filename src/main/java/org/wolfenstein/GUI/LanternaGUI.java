@@ -155,28 +155,27 @@ public class LanternaGUI implements GUI {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
         int HEIGHT = map.getHeight() * CELLSIZE;
-        int FOV = 70;
         for (int x = 0; x < WIDTH; x++) {
-            double rayAngle = playerPosition.getAngle() - (double) FOV / 2 + ((double) (FOV * x) / WIDTH);
-            List<Position> line = createLine(rayAngle, playerPosition, map);
+            double rayAngle = playerPosition.getRayAngle(map, x);
+            List<Position> line = playerPosition.createLine(rayAngle, map);
 
-            // Raycaster Render
             for (Position point : line) {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
-            }
-            if (!line.isEmpty()) {
-                Position collisionPoint = line.get(line.size() - 1);
-                double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
-                distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle()))); // TODO Fisheye correction not working when the angle is 90 or 270.
-                graphics.setBackgroundColor(mapColor(distanceToWall));
-                int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
-                int drawStart = -wallHeight / 2 + HEIGHT / 2;
-                if (drawStart < 0) drawStart = 0;
-                int drawEnd = wallHeight / 2 + HEIGHT / 2;
-                if (drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
-                double wallX = Math.tan(Math.toRadians(rayAngle - playerPosition.getAngle()));
+                if (!line.isEmpty()) {
+                    Position collisionPoint = line.get(line.size() - 1);
+                    double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
+                    distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle()))); // TODO Fisheye correction not working when the angle is 90 or 270.
+                    graphics.setBackgroundColor(mapColor(distanceToWall));
+                    int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
+                    int drawStart = -wallHeight / 2 + HEIGHT / 2;
+                    if (drawStart < 0) drawStart = 0;
+                    int drawEnd = wallHeight / 2 + HEIGHT / 2;
+                    if (drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
+                    double wallX = Math.tan(Math.toRadians(rayAngle - playerPosition.getAngle()));
 
-                graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
+                    graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
+
+                }
             }
         }
     }
@@ -196,45 +195,6 @@ public class LanternaGUI implements GUI {
 
     }
 
-    private List<Position> createLine(double angle, Position playerPosition, Map map) {
-        // Creates a line using the Bresenham's line algorithm.
-        List<Position> line = new ArrayList<>();
-        int x1 = (int) playerPosition.getX();
-        int y1 = (int) playerPosition.getY();
-        int distance = 1000;
-        int x2 = (int) (x1 + distance * Math.cos(Math.toRadians(angle)));
-        int y2 = (int) -(y1 + distance * Math.sin(Math.toRadians(angle)));
-        int dx = Math.abs(x2 - x1);
-        int dy = Math.abs(y2 - y1);
-        int sx = (x1 < x2) ? 1 : -1;
-        int sy = (y1 < y2) ? 1 : -1;
-
-        int side = 1; // 1 for top/bottom, 2 for left/right
-
-        int err = dx - dy;
-
-        while (x1 != x2 || y1 != y2) {
-            if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1) {
-                return line;
-            }
-            line.add(new Position(x1, y1));
-
-            int e2 = 2 * err;
-            if (e2 > -dy) {
-                err -= dy;
-                x1 += sx;
-                side = 2;
-
-            }
-            if (e2 < dx) {
-                err += dx;
-                y1 += sy;
-                side = 1;
-            }
-        }
-        return line;
-    }
-
     TextColor.RGB mapColor(double distance) {
         int brightness = (int) Math.ceil(-0.9 * distance + 255);
         if (brightness < 0) brightness = 0;
@@ -242,7 +202,17 @@ public class LanternaGUI implements GUI {
 
     }
 
-    public void drawGuard() {
-        return;
+    public void drawGuard(Position position, Map map) {
+        int CELLSIZE = map.getCellsize();
+        int WIDTH = map.getWidth() * CELLSIZE;
+        for (int x = 0; x < WIDTH; x++) {
+            double rayAngle = position.getRayAngle(map, x);
+            List<Position> line = position.createLine(rayAngle, map);
+
+            // Raycaster Render
+            for (Position point : line) {
+                graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
+            }
+        }
     }
 }

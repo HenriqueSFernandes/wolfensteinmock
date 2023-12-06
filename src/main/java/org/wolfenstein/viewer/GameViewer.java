@@ -17,7 +17,7 @@ public class GameViewer extends Viewer<Camera> {
         gui.drawCeiling();
         gui.drawPlayerCamera(getModel().getPlayer().getPosition(), getModel().getMap());
         for (Guard guard : getModel().getGuardList()) {
-            gui.drawGuard(); // This does nothing for now
+            gui.drawGuard(guard.getPosition(), getModel().getMap());
         }
     }
 }
