@@ -13,6 +13,8 @@ public class GameViewer extends Viewer<Camera> {
     @Override
     protected void drawElements(GUI gui) {
         mapViewer.drawElements(gui);
+        gui.drawFloor();
+        gui.drawCeiling();
         gui.drawPlayerCamera(getModel().getPlayer().getPosition(), getModel().getMap());
         for (Guard guard : getModel().getGuardList()) {
             gui.drawGuard(guard.getPosition(), getModel().getMap());

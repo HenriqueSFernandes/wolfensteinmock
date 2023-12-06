@@ -14,6 +14,9 @@ public interface GUI {
     public void drawText(int x, int y, String text);
     public void drawPlayerCamera(Position position, Map map);
     public void drawGuard(Position position, Map map);
+    public void drawFloor();
+    public void drawCeiling();
+    public void drawGuard();
 
     enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT}
 }
