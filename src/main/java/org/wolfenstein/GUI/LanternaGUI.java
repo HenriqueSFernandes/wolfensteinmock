@@ -171,22 +171,23 @@ public class LanternaGUI implements GUI {
 
             for (Position point : line) {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
-                if (!line.isEmpty()) {
-                    Position collisionPoint = line.get(line.size() - 1);
-                    double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
-                    distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle()))); // TODO Fisheye correction not working when the angle is 90 or 270.
-                    graphics.setBackgroundColor(mapColor(distanceToWall));
-                    int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
-                    int drawStart = -wallHeight / 2 + HEIGHT / 2;
-                    if (drawStart < 0) drawStart = 0;
-                    int drawEnd = wallHeight / 2 + HEIGHT / 2;
-                    if (drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
-                    double wallX = Math.tan(Math.toRadians(rayAngle - playerPosition.getAngle()));
-
-                    graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
-
-                }
             }
+            if (!line.isEmpty()) {
+                Position collisionPoint = line.get(line.size() - 1);
+                double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
+                distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle()))); // TODO Fisheye correction not working when the angle is 90 or 270.
+                graphics.setBackgroundColor(mapColor(distanceToWall));
+                int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
+                int drawStart = -wallHeight / 2 + HEIGHT / 2;
+                if (drawStart < 0) drawStart = 0;
+                int drawEnd = wallHeight / 2 + HEIGHT / 2;
+                if (drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
+                double wallX = Math.tan(Math.toRadians(rayAngle - playerPosition.getAngle()));
+
+                graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
+
+            }
+
         }
         animationLoader.drawAllAnimations(graphics);
     }
