@@ -15,10 +15,7 @@ public class Camera {
     private Camera() {
         this.player = Player.createPlayer();
         this.map = new Map();
-        this.guardList = new ArrayList<>();
-        guardList.add(new Guard(180, 100, 0)); // for testing (initialize here or implement add/removeGuard?)
-        guardList.add(new Guard(50, 150, 270));
-        guardList.add(new Guard(60, 90, 0));
+        this.guardList = createGuardList();
     }
     private Camera(Map map, Player player) {
         this.map = map;
@@ -43,4 +40,12 @@ public class Camera {
         return getMap().getXY((int) position.getX() / map.getCellsize(), (int) position.getY() / map.getCellsize()) != 1;
     }
     public List<Guard> getGuardList() { return guardList; }
+
+    private List<Guard> createGuardList() {
+        guardList = new ArrayList<>();
+        guardList.add(new Guard(180, 100, 0));
+        guardList.add(new Guard(50, 150, 270));
+        guardList.add(new Guard(60, 90, 0));
+        return guardList;
+    }
 }
