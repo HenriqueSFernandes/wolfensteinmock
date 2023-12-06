@@ -62,17 +62,6 @@ public class Position {
         return angle;
     }
 
-    public List<List<Position>> getFOV(Map map) {
-        int CELLSIZE = map.getCellsize();
-        int WIDTH = map.getWidth() * CELLSIZE;
-        List<List<Position>> positions = new ArrayList<>();
-        for (int diff = 0; diff < WIDTH; diff++) {
-            double rayAngle = this.getRayAngle(map, diff);
-            positions.add(createLine(rayAngle, map));
-        }
-        return positions;
-    }
-
     public double getRayAngle(Map map, int diff) {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
@@ -116,5 +105,13 @@ public class Position {
             }
         }
         return line;
+    }
+
+    public boolean inFOV(Position position) {
+        double observer_angle = Math.toDegrees((Math.atan2(position.getY() - this.y, position.getX()) - this.x) %  (2 * Math.PI));
+        double angle_between = (observer_angle - this.angle);
+        System.out.println(angle_between);
+        System.out.println("\n");
+        return (-FOV / 2.0 <= angle_between && angle_between <= FOV / 2.0);
     }
 }

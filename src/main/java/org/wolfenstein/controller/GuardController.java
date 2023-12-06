@@ -6,6 +6,7 @@ import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Guard;
 
+import java.util.List;
 import java.util.Random;
 
 public class GuardController extends GameController {
@@ -25,12 +26,13 @@ public class GuardController extends GameController {
     public void step(Game game, GUI.GUIAction action, long time) {
         for (Guard guard : getModel().getGuardList()) {
             for (Position position : guard.getPosition().lookForward()) {
-                if (!getModel().isEmpty(position)) {
+                if (!getModel().isEmpty(position) && !guard.isAggro()) {
                     rotateAntiClockwise(guard);
                     break;
                 }
             }
-            moveForward(guard);
+            if (guard.getPosition().inFOV(getModel().getPlayer().getPosition())) guard.setAggro(true);
+            if (!guard.isAggro()) moveForward(guard);
         }
     }
 }

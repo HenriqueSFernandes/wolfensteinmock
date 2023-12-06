@@ -5,10 +5,12 @@ import static java.lang.Math.min;
 public class Guard extends Element {
     private int health;
     private int maxHealth;
+    private boolean isAggro;
     public Guard(int x, int y, double angle) {
         super(x, y, angle);
         maxHealth = 20; // temp value
         health = maxHealth;
+        this.isAggro = false;
     }
     public int getHealth() {
         return health;
@@ -24,4 +26,12 @@ public class Guard extends Element {
         }
     }
     public int getMaxHealth() { return maxHealth; }
+
+    public boolean isAggro() {
+        return isAggro;
+    }
+
+    public void setAggro(boolean aggro) {
+        isAggro = aggro;
+    }
 }
