@@ -32,8 +32,8 @@ public class LanternaGUI implements GUI {
     public static final TextColor.RGB BROWN = new TextColor.RGB(73, 42, 21);
     public static final TextColor.RGB BLUE = new TextColor.RGB(14, 28, 46);
     public static TextGraphics graphics;
-    private TerminalScreen screen;
     private final AnimationLoader animationLoader = AnimationLoader.getInstance();
+    private TerminalScreen screen;
 
     public LanternaGUI(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
         AWTTerminalFontConfiguration fontConfig = createGameFont();
@@ -77,8 +77,7 @@ public class LanternaGUI implements GUI {
         screen.startScreen();
         screen.doResizeIfNecessary();
         graphics = screen.newTextGraphics();
-        animationLoader.importContinuousAnimation("pistol_firing.png", new Position(328, 96));
-        animationLoader.getAnimation(0).setPlaying(true);
+        animationLoader.importMomentaryAnimation("pistol_firing.png", new Position(328, 96));
     }
 
     public void stopScreen() throws IOException {
@@ -103,6 +102,10 @@ public class LanternaGUI implements GUI {
         if (keyStroke.getKeyType() == KeyType.ArrowDown) return GUIAction.BACK;
         if (keyStroke.getKeyType() == KeyType.ArrowLeft) return GUIAction.LEFT;
 
+        if (keyStroke.getKeyType() == KeyType.Backspace) {
+            animationLoader.getAnimation(0).play();
+        }
+        ;
         if (keyStroke.getKeyType() == KeyType.Enter) return GUIAction.SELECT;
 
 

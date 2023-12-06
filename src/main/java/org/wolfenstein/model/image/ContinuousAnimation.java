@@ -13,10 +13,9 @@ public class ContinuousAnimation extends Animation {
     protected void nextFrame() {
         frameCounter++;
         if (frameCounter >= frameAmount) {
-            playing = false;
-        } else {
-            currentFrame = frames.get(frameCounter);
+            frameCounter = 0;
         }
+        currentFrame = frames.get(frameCounter);
     }
 
 
@@ -26,5 +25,10 @@ public class ContinuousAnimation extends Animation {
             currentFrame.draw(graphics);
             nextFrame();
         }
+    }
+
+    @Override
+    public void play() {
+        this.playing = true;
     }
 }

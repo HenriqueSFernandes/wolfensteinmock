@@ -42,4 +42,6 @@ public abstract class Animation {
     public void setPlaying(boolean playing) {
         this.playing = playing;
     }
+
+    public abstract void play();
 }
