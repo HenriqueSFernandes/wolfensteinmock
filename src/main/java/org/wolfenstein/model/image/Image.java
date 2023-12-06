@@ -54,8 +54,8 @@ public class Image {
                 int pixelPositionX = x + (int) position.getX();
                 int pixelPositionY = y + (int) position.getY();
                 int imageColor = image.getRGB(x, y);
-                TextColor.RGB currentColor = (TextColor.RGB) graphics.getCharacter(pixelPositionX, pixelPositionY).getBackgroundColor();
                 int alpha = getAlpha(imageColor);
+                TextColor.RGB currentColor = (TextColor.RGB) graphics.getCharacter(pixelPositionX, pixelPositionY).getBackgroundColor();
                 if (alpha == 255) {
                     graphics.setBackgroundColor(toRGB(imageColor));
                 } else {

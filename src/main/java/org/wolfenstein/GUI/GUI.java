@@ -17,5 +17,5 @@ public interface GUI {
     public void drawFloor();
     public void drawCeiling();
 
-    enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT}
+    enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT, FIRE}
 }

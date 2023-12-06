@@ -13,6 +13,7 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
+import org.wolfenstein.model.image.AnimationLoader;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -31,6 +32,7 @@ public class LanternaGUI implements GUI {
     public static final TextColor.RGB BROWN = new TextColor.RGB(73, 42, 21);
     public static final TextColor.RGB BLUE = new TextColor.RGB(14, 28, 46);
     public static TextGraphics graphics;
+    private final AnimationLoader animationLoader = AnimationLoader.getInstance();
     private TerminalScreen screen;
 
     public LanternaGUI(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
@@ -75,6 +77,7 @@ public class LanternaGUI implements GUI {
         screen.startScreen();
         screen.doResizeIfNecessary();
         graphics = screen.newTextGraphics();
+        animationLoader.importMomentaryAnimation("pistol_firing.png", new Position(328, 96));
     }
 
     public void stopScreen() throws IOException {
@@ -99,6 +102,10 @@ public class LanternaGUI implements GUI {
         if (keyStroke.getKeyType() == KeyType.ArrowDown) return GUIAction.BACK;
         if (keyStroke.getKeyType() == KeyType.ArrowLeft) return GUIAction.LEFT;
 
+        if (keyStroke.getKeyType() == KeyType.Backspace) {
+            animationLoader.getAnimation(0).play();
+        }
+        ;
         if (keyStroke.getKeyType() == KeyType.Enter) return GUIAction.SELECT;
 
 
@@ -178,6 +185,7 @@ public class LanternaGUI implements GUI {
                 }
             }
         }
+        animationLoader.drawAllAnimations(graphics);
     }
 
     @Override
