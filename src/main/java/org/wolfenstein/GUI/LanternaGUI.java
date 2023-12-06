@@ -92,12 +92,12 @@ public class LanternaGUI implements GUI {
 
         if (keyStroke.getKeyType() == KeyType.EOF) return GUIAction.QUIT;
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return GUIAction.QUIT;
-        if (keyStroke.getKeyType() == KeyType.ArrowUp) return GUIAction.FRONT;
-        if (keyStroke.getKeyType() == KeyType.ArrowRight) return GUIAction.RIGHT;
-        if (keyStroke.getKeyType() == KeyType.ArrowDown) return GUIAction.BACK;
-        if (keyStroke.getKeyType() == KeyType.ArrowLeft) return GUIAction.LEFT;
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'w') return GUIAction.FRONT;
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'd') return GUIAction.RIGHT;
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 's') return GUIAction.BACK;
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a') return GUIAction.LEFT;
 
-        if (keyStroke.getKeyType() == KeyType.Enter) return GUIAction.SELECT;
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'e') return GUIAction.SELECT;
 
 
         return GUIAction.NONE;
@@ -130,6 +130,8 @@ public class LanternaGUI implements GUI {
                     cellColor = new TextColor.RGB(0, 255, 0);
                 } else if (cellValue == 3) {
                     cellColor = new TextColor.RGB(0, 255, 255);
+                } else if (cellValue == 4) {
+                    cellColor = new TextColor.RGB(255, 255, 0);
                 } else {
                     cellColor = BLACK;
                 }
