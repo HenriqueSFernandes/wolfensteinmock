@@ -19,49 +19,35 @@ public class Player extends Element {
     }
     public static Player createPlayer() {
         if (player == null)
-            player = new Player(10, 10, 0);
+            player = new Player(16, 80, 0);
         return player;
     }
     public int getHealth() {
         return health;
     }
-    public void setMaxHealth(int i) {
-        if (i >= 1) {
-            maxHealth = i;
-            if (health > maxHealth) health = maxHealth;
-        }
+    //public void setHealth(int h) { health = h; }
+    public static int getMaxHealth() {
+        return maxHealth;
     }
-    public void decreaseHealth(int decrease) {
-        if (decrease > 0) {
-            health -= decrease;
-            if (health < 0) health = 0;
-        }
+    public void setMaxHealth(int m) {
+        maxHealth = Math.max(1, m);
+        health = Math.min(health, maxHealth);
     }
-    public void increaseHealth(int increase) {
-        if (increase > 0) {
-            health += increase;
-            if (health > maxHealth) health = maxHealth;
-        }
+    public void changeHealth(int d) {
+        health = Math.max(0, Math.min(health + d, maxHealth));
     }
     public int getAmmo() {
         return ammo;
     }
-    public void setMaxAmmo(int i) {
-        if (i >= 1) {
-            maxAmmo = i;
-            if (ammo > maxAmmo) ammo = maxAmmo;
-        }
+    //public void setAmmo(int a) { ammo = a; }
+    public static int getMaxAmmo() {
+        return maxAmmo;
     }
-    public void decreaseAmmo(int decrease) {
-        if (decrease > 0) {
-            ammo -= decrease;
-            if (ammo < 0) ammo = 0;
-        }
+    public void setMaxAmmo(int m) {
+        maxAmmo = Math.max(1, m);
+        ammo = Math.min(ammo, maxAmmo);
     }
-    public void increaseAmmo(int increase) {
-        if (increase > 0) {
-            ammo += increase;
-            if (ammo > maxAmmo) ammo = maxAmmo;
-        }
+    public void changeAmmo(int d) {
+        ammo = Math.max(0, Math.min(ammo + d, maxAmmo));
     }
 }

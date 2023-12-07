@@ -6,6 +6,9 @@ import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
 
+import java.io.IOException;
+import java.util.Vector;
+
 public class PlayerController extends GameController {
     public PlayerController(Camera model) {
         super(model);
@@ -18,10 +21,26 @@ public class PlayerController extends GameController {
         if (getModel().isEmpty(position)) getModel().getPlayer().setPosition(position);
     }
     @Override
-    public void step(Game game, GUI.GUIAction action, long time) {
+    public void step(Game game, GUI.GUIAction action, long time) throws IOException {
         if (action == GUI.GUIAction.FRONT) moveForward();
         if (action == GUI.GUIAction.RIGHT) rotateClockwise();
         if (action == GUI.GUIAction.BACK) moveBackward();
         if (action == GUI.GUIAction.LEFT) rotateAntiClockwise();
+        if (getModel().getPlayer().getPosition().getX() > getModel().getMap().nextRoomPosition().getX() - getModel().getMap().getCellsize()/2 &&
+                getModel().getPlayer().getPosition().getY() > getModel().getMap().nextRoomPosition().getY() - getModel().getMap().getCellsize()/2 &&
+                getModel().getPlayer().getPosition().getX() < getModel().getMap().nextRoomPosition().getX() + getModel().getMap().getCellsize()/2 &&
+                getModel().getPlayer().getPosition().getY() < getModel().getMap().nextRoomPosition().getY() + getModel().getMap().getCellsize()/2) {
+            getModel().getMap().setMap(getModel().getMap().getMapLoader().getNextMap());
+            getModel().getPlayer().setPosition(getModel().getMap().playerStartPosition());
+        }
+        if (action == GUI.GUIAction.SELECT) {
+            //interact action
+            Vector<Position> p = getModel().getMap().getPositionsForDoors();
+            for (Position pos : p) {
+                System.out.println(pos.getX());
+                System.out.println(pos.getY());
+                System.out.println("------------");
+            }
+        }
     }
 }
