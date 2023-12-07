@@ -13,7 +13,7 @@ public class Camera {
     private final Map map;
 
     private Camera() {
-        this.player = Player.createPlayer();
+        this.player = Player.getInstance();
         this.map = new Map();
         this.guardList = createGuardList();
     }

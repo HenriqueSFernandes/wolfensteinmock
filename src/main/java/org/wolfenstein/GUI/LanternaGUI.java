@@ -13,7 +13,9 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
+import org.wolfenstein.model.elements.Player;
 import org.wolfenstein.model.image.AnimationLoader;
+import org.wolfenstein.model.image.ImageLoader;
 import org.wolfenstein.model.sound.SoundLoader;
 
 import java.awt.*;
@@ -34,6 +36,7 @@ public class LanternaGUI implements GUI {
     public static TextGraphics graphics;
     private final AnimationLoader animationLoader = AnimationLoader.getInstance();
     private final SoundLoader soundLoader = SoundLoader.getInstance();
+    private final ImageLoader imageLoader = ImageLoader.getInstance();
     private TerminalScreen screen;
 
     public LanternaGUI(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
@@ -80,6 +83,9 @@ public class LanternaGUI implements GUI {
         graphics = screen.newTextGraphics();
         animationLoader.importMomentaryAnimation("pistol_firing.png", new Position(328, 96));
         soundLoader.importSound("gun_shot.wav");
+        for (int i = 0; i < Player.getInstance().getMaxHealth(); i++) {
+            imageLoader.importImage("heart.png", new Position(242 + 12 * i, 0));
+        }
     }
 
     public void stopScreen() throws IOException {
@@ -99,9 +105,15 @@ public class LanternaGUI implements GUI {
 
         if (keyStroke.getKeyType() == KeyType.EOF) return GUIAction.QUIT;
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return GUIAction.QUIT;
-        if (keyStroke.getKeyType() == KeyType.ArrowUp) return GUIAction.FRONT;
+        if (keyStroke.getKeyType() == KeyType.ArrowUp) {
+            Player.getInstance().increaseHealth(1);
+            return GUIAction.FRONT;
+        }
         if (keyStroke.getKeyType() == KeyType.ArrowRight) return GUIAction.RIGHT;
-        if (keyStroke.getKeyType() == KeyType.ArrowDown) return GUIAction.BACK;
+        if (keyStroke.getKeyType() == KeyType.ArrowDown) {
+            Player.getInstance().decreaseHealth(1);
+            return GUIAction.BACK;
+        }
         if (keyStroke.getKeyType() == KeyType.ArrowLeft) return GUIAction.LEFT;
 
         if (keyStroke.getKeyType() == KeyType.Backspace) {
@@ -190,6 +202,7 @@ public class LanternaGUI implements GUI {
 
         }
         animationLoader.drawAllAnimations(graphics);
+        imageLoader.drawAllImages(graphics);
     }
 
     @Override
