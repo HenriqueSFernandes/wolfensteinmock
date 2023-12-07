@@ -22,10 +22,6 @@ public class Player extends Element {
         if (player == null) player = new Player(10, 10, 0);
         return player;
     }
-
-    public static int getMaxHealth() {
-        return maxHealth;
-    }
     //public void setHealth(int h) { health = h; }
     public static int getMaxHealth() {
         return maxHealth;
@@ -36,35 +32,9 @@ public class Player extends Element {
     }
     public void changeHealth(int d) {
         health = Math.max(0, Math.min(health + d, maxHealth));
-
-    public void setMaxHealth(int i) {
-        if (i >= 1) {
-            maxHealth = i;
-            if (health > maxHealth) health = maxHealth;
-        }
     }
     public int getHealth() {
         return health;
-    }
-    public void decreaseHealth(int decrease) {
-        if (decrease > 0) {
-            health -= decrease;
-            if (health < 0) health = 0;
-        }
-        ImageLoader imageLoader = ImageLoader.getInstance();
-        for (int i = maxHealth - 1; i >= health; i--){
-            imageLoader.getImage(i).setActive(false);
-        }
-    }
-    public void increaseHealth(int increase) {
-        if (increase > 0) {
-            health += increase;
-            if (health > maxHealth) health = maxHealth;
-        }
-        ImageLoader imageLoader = ImageLoader.getInstance();
-        for (int i = 0; i < health; i++){
-            imageLoader.getImage(i).setActive(true);
-        }
     }
     public int getAmmo() {
         return ammo;
@@ -79,24 +49,5 @@ public class Player extends Element {
     }
     public void changeAmmo(int d) {
         ammo = Math.max(0, Math.min(ammo + d, maxAmmo));
-    }
-    public void setMaxAmmo(int i) {
-        if (i >= 1) {
-            maxAmmo = i;
-            if (ammo > maxAmmo) ammo = maxAmmo;
-        }
-    }
-    public void decreaseAmmo(int decrease) {
-        if (decrease > 0) {
-            ammo -= decrease;
-            if (ammo < 0) ammo = 0;
-        }
-    }
-    public void increaseAmmo(int increase) {
-        if (increase > 0) {
-            ammo += increase;
-            if (ammo > maxAmmo) ammo = maxAmmo;
-        }
-
     }
 }

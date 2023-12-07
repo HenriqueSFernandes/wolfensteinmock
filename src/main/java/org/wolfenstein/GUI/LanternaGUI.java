@@ -114,12 +114,12 @@ public class LanternaGUI implements GUI {
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a') return GUIAction.LEFT;
 
         if (keyStroke.getKeyType() == KeyType.ArrowUp) {
-            Player.getInstance().increaseHealth(1);
+            Player.getInstance().changeHealth(1);
             return GUIAction.FRONT;
         }
         if (keyStroke.getKeyType() == KeyType.ArrowRight) return GUIAction.RIGHT;
         if (keyStroke.getKeyType() == KeyType.ArrowDown) {
-            Player.getInstance().decreaseHealth(1);
+            Player.getInstance().changeHealth(-1);
             return GUIAction.BACK;
         }
         if (keyStroke.getKeyType() == KeyType.ArrowLeft) return GUIAction.LEFT;
