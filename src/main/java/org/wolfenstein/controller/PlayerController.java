@@ -32,5 +32,9 @@ public class PlayerController extends GameController {
             getModel().getMap().setMap(getModel().getMap().getMapLoader().getNextMap());
             getModel().getPlayer().setPosition(getModel().getMap().playerStartPosition());
         }
+        if (action == GUI.GUIAction.SELECT) {
+            //interact action
+            moveForward();
+        }
     }
 }

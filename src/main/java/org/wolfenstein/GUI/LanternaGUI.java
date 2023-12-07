@@ -99,7 +99,6 @@ public class LanternaGUI implements GUI {
 
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'e') return GUIAction.SELECT;
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'p') return GUIAction.SKIP;
-        if 
 
 
         return GUIAction.NONE;
@@ -177,6 +176,12 @@ public class LanternaGUI implements GUI {
                 double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
                 distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle()))); // TODO Fisheye correction not working when the angle is 90 or 270.
                 graphics.setBackgroundColor(mapColor(distanceToWall));
+
+                // red line = players direction
+                if (rayAngle == playerPosition.getAngle()) {
+                    graphics.setBackgroundColor(new TextColor.RGB(255, 0, 0));
+                }
+
                 int maxWallHeight = HEIGHT;
                 int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
                 int drawStart = -wallHeight / 2 + HEIGHT / 2;
@@ -200,11 +205,11 @@ public class LanternaGUI implements GUI {
         int y1 = (int)playerPosition.getY();
         int distance = 1000;
         int x2 = (int) (x1 + distance * Math.cos(Math.toRadians(angle)));
-        int y2 = (int) -(y1 + distance * Math.sin(Math.toRadians(angle)));
+        int y2 = (int) (y1 + distance * Math.sin(Math.toRadians(angle)));
         int dx = Math.abs(x2 - x1);
         int dy = Math.abs(y2 - y1);
         int sx = (x1 < x2) ? 1 : -1;
-        int sy = (y1 < y2) ? 1 : -1;
+        int sy = (y1 < y2) ? -1 : 1;
 
         int side = 1; // 1 for top/bottom, 2 for left/right
 
@@ -217,11 +222,11 @@ public class LanternaGUI implements GUI {
             line.add(new Position(x1, y1, 0));
 
             int e2 = 2 * err;
+
             if (e2 > -dy) {
                 err -= dy;
                 x1 += sx;
                 side = 2;
-
             }
             if (e2 < dx) {
                 err += dx;
@@ -238,6 +243,4 @@ public class LanternaGUI implements GUI {
         return new TextColor.RGB(brightness, brightness, brightness);
 
     }
-
-
 }
