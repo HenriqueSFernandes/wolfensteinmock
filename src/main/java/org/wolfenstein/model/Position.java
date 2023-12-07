@@ -108,6 +108,8 @@ public class Position {
     }
 
     public boolean inFOV(Position position) {
+        double distance = Math.sqrt(Math.pow(position.getY() - this.y, 2) + Math.pow(position.getX() - this.x, 2));
+        if (distance > 60) return false;
         double observer_direction = Math.toDegrees(Math.atan2(position.getY() - this.y, position.getX() - this.x));
         if (observer_direction < 0) observer_direction *= -1;
         else observer_direction = 360 - observer_direction;
