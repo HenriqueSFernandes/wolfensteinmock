@@ -81,11 +81,11 @@ public class LanternaGUI implements GUI {
         animationLoader.importMomentaryAnimation("pistol_firing.png", new Position(328, 96));
         soundLoader.importSound("gun_shot.wav");
     }
-
+    @Override
     public void stopScreen() throws IOException {
         screen.close();
     }
-
+    @Override
     public void clear() {
         screen.clear();
     }
@@ -114,11 +114,11 @@ public class LanternaGUI implements GUI {
 
         return GUIAction.NONE;
     }
-
+    @Override
     public void refresh() throws IOException {
         screen.refresh();
     }
-
+    @Override
     public void drawMap(Map map) {
         int[][] grid = map.getMap();
         int height = map.getHeight();
@@ -155,12 +155,12 @@ public class LanternaGUI implements GUI {
             }
         }
     }
-
+    @Override
     public void drawText(int x, int y, String text) {
         graphics.setBackgroundColor(BLACK);
         graphics.putString(x, y, text);
     }
-
+    @Override
     public void drawPlayerCamera(Position playerPosition, Map map) {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
@@ -212,7 +212,7 @@ public class LanternaGUI implements GUI {
         return new TextColor.RGB(brightness, brightness, brightness);
 
     }
-
+    @Override
     public void drawGuard(Position position, Map map) {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
