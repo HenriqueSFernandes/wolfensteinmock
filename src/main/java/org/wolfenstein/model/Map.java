@@ -57,6 +57,18 @@ public class Map {
         }
         return transPos;
     }
+    public Vector<Position> getPositionsForDoors() {
+        Vector<Position> res = new Vector<>();
+        Position doorPos = new Position(-1, -1, 0);
+        for (int y = 0; y < map.size(); y++) {
+            for (int x = 0; x < map.get(y).size(); x++) {
+                if (map.get(y).get(x) != 4) continue;
+                doorPos = new Position(8.0 * x + 4, 8.0 * y + 4, 0.0);
+                res.add(doorPos);
+            }
+        }
+        return res;
+    }
     public MapLoader getMapLoader() {
         return mapLoader;
     }

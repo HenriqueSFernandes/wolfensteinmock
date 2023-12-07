@@ -7,6 +7,7 @@ import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
 
 import java.io.IOException;
+import java.util.Vector;
 
 public class PlayerController extends GameController {
     public PlayerController(Camera model) {
@@ -34,7 +35,12 @@ public class PlayerController extends GameController {
         }
         if (action == GUI.GUIAction.SELECT) {
             //interact action
-            moveForward();
+            Vector<Position> p = getModel().getMap().getPositionsForDoors();
+            for (Position pos : p) {
+                System.out.println(pos.getX());
+                System.out.println(pos.getY());
+                System.out.println("------------");
+            }
         }
     }
 }

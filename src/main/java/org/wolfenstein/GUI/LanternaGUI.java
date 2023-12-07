@@ -174,7 +174,7 @@ public class LanternaGUI implements GUI {
             if (!line.isEmpty()) {
                 Position collisionPoint = line.get(line.size() - 1);
                 double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
-                distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle()))); // TODO Fisheye correction not working when the angle is 90 or 270.
+                distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle())));
                 graphics.setBackgroundColor(mapColor(distanceToWall));
 
                 // red line = players direction
@@ -216,7 +216,7 @@ public class LanternaGUI implements GUI {
         int err = dx - dy;
 
         while (x1 != x2 || y1 != y2) {
-            if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1) {
+            if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1 || map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) {
                 return line;
             }
             line.add(new Position(x1, y1, 0));
@@ -241,6 +241,5 @@ public class LanternaGUI implements GUI {
         int brightness = (int) Math.ceil(-0.9 * distance + 255);
         if (brightness < 0) brightness = 0;
         return new TextColor.RGB(brightness, brightness, brightness);
-
     }
 }
