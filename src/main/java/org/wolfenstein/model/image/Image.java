@@ -10,14 +10,18 @@ public class Image {
     private BufferedImage image;
     private Position position;
 
+    private boolean active;
+
     public Image(BufferedImage image) {
         this.image = image;
         this.position = new Position(0, 0);
+        this.active = true;
     }
 
     public Image(BufferedImage image, Position position) {
         this.image = image;
         this.position = position;
+        this.active = true;
     }
 
     public BufferedImage getImage() {
@@ -49,22 +53,31 @@ public class Image {
     }
 
     public void draw(TextGraphics graphics) {
-        for (int y = 0; y < image.getHeight(); y++) {
-            for (int x = 0; x < image.getWidth(); x++) {
-                int pixelPositionX = x + (int) position.getX();
-                int pixelPositionY = y + (int) position.getY();
-                int imageColor = image.getRGB(x, y);
-                int alpha = getAlpha(imageColor);
-                TextColor.RGB currentColor = (TextColor.RGB) graphics.getCharacter(pixelPositionX, pixelPositionY).getBackgroundColor();
-                if (alpha == 255) {
-                    graphics.setBackgroundColor(toRGB(imageColor));
-                } else {
-                    graphics.setBackgroundColor(currentColor);
+        if (active) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                for (int x = 0; x < image.getWidth(); x++) {
+                    int pixelPositionX = x + (int) position.getX();
+                    int pixelPositionY = y + (int) position.getY();
+                    int imageColor = image.getRGB(x, y);
+                    int alpha = getAlpha(imageColor);
+                    TextColor.RGB currentColor = (TextColor.RGB) graphics.getCharacter(pixelPositionX, pixelPositionY).getBackgroundColor();
+                    if (alpha == 255) {
+                        graphics.setBackgroundColor(toRGB(imageColor));
+                    } else {
+                        graphics.setBackgroundColor(currentColor);
+                    }
+
+                    graphics.setCharacter(x + (int) position.getX(), y + (int) position.getY(), ' ');
                 }
-
-                graphics.setCharacter(x + (int) position.getX(), y + (int) position.getY(), ' ');
             }
-
         }
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

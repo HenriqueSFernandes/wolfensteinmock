@@ -41,4 +41,7 @@ public class ImageLoader {
             image.draw(graphics);
         }
     }
+    public Image getImage(int index){
+        return images.get(index);
+    }
 }
