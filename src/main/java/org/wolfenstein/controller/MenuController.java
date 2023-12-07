@@ -6,12 +6,14 @@ import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Menu;
 import org.wolfenstein.state.GameState;
 
+import java.io.IOException;
+
 public class MenuController extends Controller<Menu> {
     public MenuController(Menu model) {
         super(model);
     }
     @Override
-    public void step(Game game, GUI.GUIAction action, long time) {
+    public void step(Game game, GUI.GUIAction action, long time) throws IOException {
         switch(action) {
             case FRONT:
                 getModel().previousEntry();

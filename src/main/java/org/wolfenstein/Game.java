@@ -14,7 +14,7 @@ public class Game {
     private final LanternaGUI gui;
     private State state;
     public Game() throws IOException, URISyntaxException, FontFormatException {
-        gui = new LanternaGUI(240*2, 160);
+        gui = new LanternaGUI(240*2, 240);
         state = new MenuState(new Menu());
     }
 
@@ -37,8 +37,7 @@ public class Game {
 
             try {
                 if (sleepTime > 0) Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
 
         gui.stopScreen();

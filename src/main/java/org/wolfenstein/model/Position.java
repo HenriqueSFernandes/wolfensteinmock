@@ -75,11 +75,11 @@ public class Position {
         int y1 = (int) this.y;
         int distance = 1000;
         int x2 = (int) (x1 + distance * Math.cos(Math.toRadians(angle)));
-        int y2 = (int) -(y1 + distance * Math.sin(Math.toRadians(angle)));
+        int y2 = (int) (y1 + distance * Math.sin(Math.toRadians(angle)));
         int dx = Math.abs(x2 - x1);
         int dy = Math.abs(y2 - y1);
         int sx = (x1 < x2) ? 1 : -1;
-        int sy = (y1 < y2) ? 1 : -1;
+        int sy = (y1 < y2) ? -1 : 1;
 
         int side = 1; // 1 for top/bottom, 2 for left/right
 
