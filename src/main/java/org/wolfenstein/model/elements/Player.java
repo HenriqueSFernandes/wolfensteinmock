@@ -17,9 +17,9 @@ public class Player extends Element {
         maxHealth = health;
         maxAmmo = ammo;
     }
-    public static Player createPlayer() {
-        if (player == null)
-            player = new Player(10, 10, 0);
+
+    public static Player getInstance() {
+        if (player == null) player = new Player(10, 10, 0);
         return player;
     }
     public int getHealth() {
