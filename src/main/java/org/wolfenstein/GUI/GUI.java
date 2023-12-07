@@ -16,6 +16,5 @@ public interface GUI {
     public void drawGuard(Position position, Map map);
     public void drawFloor();
     public void drawCeiling();
-
-    enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT, FIRE}
+    enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT, SKIP, FIRE}
 }

@@ -13,7 +13,9 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
+import org.wolfenstein.model.elements.Player;
 import org.wolfenstein.model.image.AnimationLoader;
+import org.wolfenstein.model.image.ImageLoader;
 import org.wolfenstein.model.sound.SoundLoader;
 
 import java.awt.*;
@@ -23,7 +25,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class LanternaGUI implements GUI {
     public static final TextColor.RGB BLACK = new TextColor.RGB(0, 0, 0);
@@ -34,6 +38,7 @@ public class LanternaGUI implements GUI {
     public static TextGraphics graphics;
     private final AnimationLoader animationLoader = AnimationLoader.getInstance();
     private final SoundLoader soundLoader = SoundLoader.getInstance();
+    private final ImageLoader imageLoader = ImageLoader.getInstance();
     private TerminalScreen screen;
 
     public LanternaGUI(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
@@ -78,8 +83,11 @@ public class LanternaGUI implements GUI {
         screen.startScreen();
         screen.doResizeIfNecessary();
         graphics = screen.newTextGraphics();
-        animationLoader.importMomentaryAnimation("pistol_firing.png", new Position(328, 96));
+        animationLoader.importMomentaryAnimation("pistol_firing.png", new Position(332, 176));
         soundLoader.importSound("gun_shot.wav");
+        for (int i = 0; i < Player.getInstance().getMaxHealth(); i++) {
+            imageLoader.importImage("heart.png", new Position(242 + 12 * i, 0));
+        }
     }
     @Override
     public void stopScreen() throws IOException {
@@ -99,28 +107,41 @@ public class LanternaGUI implements GUI {
 
         if (keyStroke.getKeyType() == KeyType.EOF) return GUIAction.QUIT;
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return GUIAction.QUIT;
-        if (keyStroke.getKeyType() == KeyType.ArrowUp) return GUIAction.FRONT;
+
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'w') return GUIAction.FRONT;
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'd') return GUIAction.RIGHT;
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 's') return GUIAction.BACK;
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a') return GUIAction.LEFT;
+
+        if (keyStroke.getKeyType() == KeyType.ArrowUp) {
+            Player.getInstance().changeHealth(1);
+            return GUIAction.FRONT;
+        }
         if (keyStroke.getKeyType() == KeyType.ArrowRight) return GUIAction.RIGHT;
-        if (keyStroke.getKeyType() == KeyType.ArrowDown) return GUIAction.BACK;
+        if (keyStroke.getKeyType() == KeyType.ArrowDown) {
+            Player.getInstance().changeHealth(-1);
+            return GUIAction.BACK;
+        }
         if (keyStroke.getKeyType() == KeyType.ArrowLeft) return GUIAction.LEFT;
+
 
         if (keyStroke.getKeyType() == KeyType.Backspace) {
             animationLoader.getAnimation(0).play();
             soundLoader.getSound(0).play();
         }
-        ;
-        if (keyStroke.getKeyType() == KeyType.Enter) return GUIAction.SELECT;
-
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'e') return GUIAction.SELECT;
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'p') return GUIAction.SKIP;
 
         return GUIAction.NONE;
     }
     @Override
     public void refresh() throws IOException {
+
         screen.refresh();
     }
     @Override
     public void drawMap(Map map) {
-        int[][] grid = map.getMap();
+        Vector<Vector<Integer>> grid = map.getMap();
         int height = map.getHeight();
         int width = map.getWidth();
         int cellsize = map.getCellsize();
@@ -128,13 +149,21 @@ public class LanternaGUI implements GUI {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width * 2, height), ' ');
         // Adjust the size of each cell (square) and border
         int borderSize = 1;
-        for (int y = 0; y < grid.length; y++) {
-            for (int x = 0; x < grid[y].length; x++) {
-                int cellValue = grid[y][x];
+        for (int y = 0; y < grid.size(); y++) {
+            for (int x = 0; x < grid.get(y).size(); x++) {
+                int cellValue = grid.get(y).get(x);
                 TextColor cellColor;
 
                 if (cellValue == 0) {
                     cellColor = WHITE;
+                } else if (cellValue == 1) {
+                    cellColor = BLACK;
+                } else if (cellValue == 2) {
+                    cellColor = new TextColor.RGB(0, 255, 0);
+                } else if (cellValue == 3) {
+                    cellColor = new TextColor.RGB(0, 255, 255);
+                } else if (cellValue == 4) {
+                    cellColor = new TextColor.RGB(255, 255, 0);
                 } else {
                     cellColor = BLACK;
                 }
@@ -171,46 +200,49 @@ public class LanternaGUI implements GUI {
 
             for (Position point : line) {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
-                if (!line.isEmpty()) {
-                    Position collisionPoint = line.get(line.size() - 1);
-                    double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
-                    distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle()))); // TODO Fisheye correction not working when the angle is 90 or 270.
-                    graphics.setBackgroundColor(mapColor(distanceToWall));
-                    int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
-                    int drawStart = -wallHeight / 2 + HEIGHT / 2;
-                    if (drawStart < 0) drawStart = 0;
-                    int drawEnd = wallHeight / 2 + HEIGHT / 2;
-                    if (drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
-                    double wallX = Math.tan(Math.toRadians(rayAngle - playerPosition.getAngle()));
-
-                    graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
-
-                }
             }
+            if (!line.isEmpty()) {
+                Position collisionPoint = line.get(line.size() - 1);
+                double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
+                distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle())));
+                graphics.setBackgroundColor(mapColor(distanceToWall));
+                // red line = players direction
+                if (rayAngle == playerPosition.getAngle()) {
+                    graphics.setBackgroundColor(new TextColor.RGB(255, 0, 0));
+                }
+
+                int maxWallHeight = HEIGHT;
+                int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
+                int drawStart = -wallHeight / 2 + HEIGHT / 2;
+                if (drawStart < 0) drawStart = 0;
+                int drawEnd = wallHeight / 2 + HEIGHT / 2;
+                if (drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
+                double wallX = Math.tan(Math.toRadians(rayAngle - playerPosition.getAngle()));
+
+                graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
+
+            }
+
         }
         animationLoader.drawAllAnimations(graphics);
+        imageLoader.drawAllImages(graphics);
     }
-
     @Override
     public void drawFloor() {
         TerminalSize size = graphics.getSize();
         graphics.setBackgroundColor(BROWN);
         graphics.fillRectangle(new TerminalPosition(size.getColumns() / 2, size.getRows() / 2), new TerminalSize(size.getColumns() / 2, size.getRows() / 2), ' ');
     }
-
     @Override
     public void drawCeiling() {
         TerminalSize size = graphics.getSize();
         graphics.setBackgroundColor(BLUE);
         graphics.fillRectangle(new TerminalPosition(size.getColumns() / 2, 0), new TerminalSize(size.getColumns() / 2, size.getRows() / 2), ' ');
-
     }
-
     TextColor.RGB mapColor(double distance) {
         int brightness = (int) Math.ceil(-0.9 * distance + 255);
         if (brightness < 0) brightness = 0;
         return new TextColor.RGB(brightness, brightness, brightness);
-
     }
     @Override
     public void drawGuard(Position position, Map map) {

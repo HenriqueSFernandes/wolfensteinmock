@@ -5,6 +5,7 @@ import org.wolfenstein.model.elements.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 public class Camera {
     private static Camera camera;
@@ -12,16 +13,18 @@ public class Camera {
     private List<Guard> guardList;
     private final Map map;
 
-    private Camera() {
-        this.player = Player.createPlayer();
+    private Camera() throws IOException {
+        this.player = Player.getInstance();
+
         this.map = new Map();
         this.guardList = createGuardList();
+        player.setPosition(map.playerStartPosition());
     }
     private Camera(Map map, Player player) {
         this.map = map;
         this.player = player;
     }
-    public static Camera createCamera() {
+    public static Camera createCamera() throws IOException {
         if (camera == null) camera = new Camera();
         return camera;
     }
