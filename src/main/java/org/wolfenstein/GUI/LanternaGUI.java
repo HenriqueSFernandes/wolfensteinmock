@@ -197,6 +197,7 @@ public class LanternaGUI implements GUI {
         for (int x = 0; x < WIDTH; x++) {
             double rayAngle = playerPosition.getRayAngle(map, x);
             List<Position> line = playerPosition.createLine(rayAngle, map);
+            List<Position> doorLine = playerPosition.createLineForDoor(rayAngle, map);
 
             for (Position point : line) {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
@@ -210,6 +211,26 @@ public class LanternaGUI implements GUI {
                 if (rayAngle == playerPosition.getAngle()) {
                     graphics.setBackgroundColor(new TextColor.RGB(255, 0, 0));
                 }
+
+                int maxWallHeight = HEIGHT;
+                int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
+                int drawStart = -wallHeight / 2 + HEIGHT / 2;
+                if (drawStart < 0) drawStart = 0;
+                int drawEnd = wallHeight / 2 + HEIGHT / 2;
+                if (drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
+                double wallX = Math.tan(Math.toRadians(rayAngle - playerPosition.getAngle()));
+
+                graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
+
+            }
+            for (Position point : doorLine) {
+                graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
+            }
+            if (!doorLine.isEmpty()) {
+                Position collisionPoint = doorLine.get(doorLine.size() - 1);
+                double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
+                distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle())));
+                graphics.setBackgroundColor(mapColor(distanceToWall));
 
                 int maxWallHeight = HEIGHT;
                 int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
@@ -250,10 +271,14 @@ public class LanternaGUI implements GUI {
         for (int x = 0; x < WIDTH; x++) {
             double rayAngle = position.getRayAngle(map, x);
             List<Position> line = position.createLine(rayAngle, map);
+            List<Position> doorLine = position.createLineForDoor(rayAngle, map);
 
             // Raycaster Render
             for (Position point : line) {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
+            }
+            for (Position point : doorLine) {
+                graphics.setCharacter((int) point.getX(), (int) point.getY(), '@');
             }
         }
     }

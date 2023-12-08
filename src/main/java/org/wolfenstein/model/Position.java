@@ -86,7 +86,49 @@ public class Position {
         int err = dx - dy;
 
         while (x1 != x2 || y1 != y2) {
+            //if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) break;
             if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1) {
+                return line;
+            }
+            line.add(new Position(x1, y1));
+
+            int e2 = 2 * err;
+            if (e2 > -dy) {
+                err -= dy;
+                x1 += sx;
+                side = 2;
+
+            }
+            if (e2 < dx) {
+                err += dx;
+                y1 += sy;
+                side = 1;
+            }
+        }
+        return line;
+    }
+    public List<Position> createLineForDoor(double angle, Map map) {
+        // Creates a line using the Bresenham's line algorithm.
+        List<Position> line = new ArrayList<>();
+        int x1 = (int) this.x;
+        int y1 = (int) this.y;
+        int distance = 1000;
+        int x2 = (int) (x1 + distance * Math.cos(Math.toRadians(angle)));
+        int y2 = (int) (y1 + distance * Math.sin(Math.toRadians(angle)));
+        int dx = Math.abs(x2 - x1);
+        int dy = Math.abs(y2 - y1);
+        int sx = (x1 < x2) ? 1 : -1;
+        int sy = (y1 < y2) ? -1 : 1;
+
+        int side = 1; // 1 for top/bottom, 2 for left/right
+
+        int err = dx - dy;
+
+        while (x1 != x2 || y1 != y2) {
+            if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1) break;
+            if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) {
+                line.add(new Position(x1 + sx, y1 + sy));
+                line.add(new Position(x1 + 2 * sx, y1 + 2 * sy));
                 return line;
             }
             line.add(new Position(x1, y1));

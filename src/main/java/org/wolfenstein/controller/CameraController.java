@@ -11,10 +11,12 @@ import java.io.IOException;
 public class CameraController extends GameController {
     private final PlayerController playerController;
     private final GuardController guardController;
+    private final DoorController doorController;
     public CameraController(Camera model) {
         super(model);
         playerController = new PlayerController(model);
         guardController = new GuardController(model);
+        doorController = new DoorController(model);
     }
     @Override
     public void step(Game game, GUI.GUIAction action, long time) throws IOException {

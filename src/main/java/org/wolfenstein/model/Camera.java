@@ -1,16 +1,19 @@
 package org.wolfenstein.model;
 
+import org.wolfenstein.model.elements.Door;
 import org.wolfenstein.model.elements.Guard;
 import org.wolfenstein.model.elements.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
+import java.util.Vector;
 
 public class Camera {
     private static Camera camera;
     private final Player player;
     private List<Guard> guardList;
+    private Vector<Door> doors;
     private final Map map;
 
     private Camera() throws IOException {
@@ -18,6 +21,7 @@ public class Camera {
 
         this.map = new Map();
         this.guardList = createGuardList();
+        this.doors = createDoors();
         player.setPosition(map.playerStartPosition());
     }
     private Camera(Map map, Player player) {
@@ -50,5 +54,15 @@ public class Camera {
         guardList.add(new Guard(50, 150, 270));
         guardList.add(new Guard(60, 90, 0));
         return guardList;
+    }
+    public Vector<Door> getDoors() { return doors; }
+
+    private Vector<Door> createDoors() {
+        doors = new Vector<>();
+        Vector<Position> doorPos = getMap().getPositionsForDoors();
+        for (Position p : doorPos) {
+            doors.add(new Door((int) p.getX(), (int) p.getY(), 0));
+        }
+        return doors;
     }
 }
