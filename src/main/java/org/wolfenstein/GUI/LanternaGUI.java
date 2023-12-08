@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -88,11 +87,14 @@ public class LanternaGUI implements GUI {
         for (int i = 0; i < Player.getInstance().getMaxHealth(); i++) {
             imageLoader.importImage("heart.png", new Position(242 + 12 * i, 0));
         }
+        imageLoader.importImage("aim.png", new Position(115 + 240, 115));
     }
+
     @Override
     public void stopScreen() throws IOException {
         screen.close();
     }
+
     @Override
     public void clear() {
         screen.clear();
@@ -134,11 +136,13 @@ public class LanternaGUI implements GUI {
 
         return GUIAction.NONE;
     }
+
     @Override
     public void refresh() throws IOException {
 
         screen.refresh();
     }
+
     @Override
     public void drawMap(Map map) {
         Vector<Vector<Integer>> grid = map.getMap();
@@ -184,11 +188,13 @@ public class LanternaGUI implements GUI {
             }
         }
     }
+
     @Override
     public void drawText(int x, int y, String text) {
         graphics.setBackgroundColor(BLACK);
         graphics.putString(x, y, text);
     }
+
     @Override
     public void drawPlayerCamera(Position playerPosition, Map map) {
         int CELLSIZE = map.getCellsize();
@@ -226,12 +232,14 @@ public class LanternaGUI implements GUI {
         }
         animationLoader.drawAllAnimations(graphics);
     }
+
     @Override
     public void drawFloor() {
         TerminalSize size = graphics.getSize();
         graphics.setBackgroundColor(BROWN);
         graphics.fillRectangle(new TerminalPosition(size.getColumns() / 2, size.getRows() / 2), new TerminalSize(size.getColumns() / 2, size.getRows() / 2), ' ');
     }
+
     @Override
     public void drawCeiling() {
         TerminalSize size = graphics.getSize();
@@ -241,9 +249,14 @@ public class LanternaGUI implements GUI {
 
     @Override
     public void drawHearts() {
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             imageLoader.getImage(i).draw(graphics);
         }
+    }
+
+    @Override
+    public void drawAim() {
+        imageLoader.getImage(10).draw(graphics);
     }
 
     @Override
@@ -256,6 +269,7 @@ public class LanternaGUI implements GUI {
         if (brightness < 0) brightness = 0;
         return new TextColor.RGB(brightness, brightness, brightness);
     }
+
     @Override
     public void drawGuard(Position position, Map map) {
         int CELLSIZE = map.getCellsize();

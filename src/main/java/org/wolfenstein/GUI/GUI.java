@@ -18,6 +18,7 @@ public interface GUI {
     public void drawFloor();
     public void drawCeiling();
     public void drawHearts();
+    public void drawAim();
     public TextGraphics getGraphics();
     enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT, SKIP, FIRE}
 }

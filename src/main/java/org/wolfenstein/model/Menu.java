@@ -16,7 +16,7 @@ public class Menu {
         try {
             imageLoader.importImage("menu_play.png", new Position(0, 0));
             imageLoader.importImage("menu_exit.png", new Position(0, 0));
-            imageLoader.getImage(11).setActive(false);
+            imageLoader.getImage(12).setActive(false);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -30,11 +30,11 @@ public class Menu {
         currentEntry++;
         if (currentEntry > this.entries.size() - 1) currentEntry = 0;
         if (currentEntry == 0) {
-            imageLoader.getImage(10).setActive(true);
-            imageLoader.getImage(11).setActive(false);
-        } else {
-            imageLoader.getImage(10).setActive(false);
             imageLoader.getImage(11).setActive(true);
+            imageLoader.getImage(12).setActive(false);
+        } else {
+            imageLoader.getImage(11).setActive(false);
+            imageLoader.getImage(12).setActive(true);
         }
     }
 
@@ -42,11 +42,11 @@ public class Menu {
         currentEntry--;
         if (currentEntry < 0) currentEntry = this.entries.size() - 1;
         if (currentEntry == 0) {
-            imageLoader.getImage(10).setActive(true);
-            imageLoader.getImage(11).setActive(false);
-        } else {
-            imageLoader.getImage(10).setActive(false);
             imageLoader.getImage(11).setActive(true);
+            imageLoader.getImage(12).setActive(false);
+        } else {
+            imageLoader.getImage(11).setActive(false);
+            imageLoader.getImage(12).setActive(true);
         }
     }
 
