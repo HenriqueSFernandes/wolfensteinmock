@@ -26,7 +26,10 @@ public class Game {
     private void start() throws IOException {
         int FPS = 120;
         while (this.state != null) {
-            if (state.getClass() == MenuState.class) FPS = 10;
+            if (state.getClass() == MenuState.class) FPS = 5;
+            else{
+                FPS = 120;
+            }
             int frameTime = 1000 / FPS;
             long startTime = System.currentTimeMillis();
 

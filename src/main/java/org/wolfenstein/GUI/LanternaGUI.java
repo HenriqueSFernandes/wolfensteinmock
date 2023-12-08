@@ -225,7 +225,6 @@ public class LanternaGUI implements GUI {
 
         }
         animationLoader.drawAllAnimations(graphics);
-        imageLoader.drawAllImages(graphics);
     }
     @Override
     public void drawFloor() {
@@ -239,6 +238,19 @@ public class LanternaGUI implements GUI {
         graphics.setBackgroundColor(BLUE);
         graphics.fillRectangle(new TerminalPosition(size.getColumns() / 2, 0), new TerminalSize(size.getColumns() / 2, size.getRows() / 2), ' ');
     }
+
+    @Override
+    public void drawHearts() {
+        for (int i = 0; i < 10; i++){
+            imageLoader.getImage(i).draw(graphics);
+        }
+    }
+
+    @Override
+    public TextGraphics getGraphics() {
+        return graphics;
+    }
+
     TextColor.RGB mapColor(double distance) {
         int brightness = (int) Math.ceil(-0.9 * distance + 255);
         if (brightness < 0) brightness = 0;
