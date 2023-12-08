@@ -20,5 +20,6 @@ public class GameViewer extends Viewer<Camera> {
             gui.drawGuard(guard.getPosition(), getModel().getMap());
         }
         gui.drawHearts();
+        gui.drawAim();
     }
 }

@@ -30,7 +30,7 @@ public class AnimationLoader {
             return false;
         }
         BufferedImage loadedImage = ImageIO.read(resource);
-        Image image = new Image(loadedImage);
+        Image image = new Image(loadedImage, spriteName);
         Animation animation = new ContinuousAnimation(image, position, 6);
         animations.add(animation);
         return true;
@@ -42,7 +42,7 @@ public class AnimationLoader {
             return false;
         }
         BufferedImage loadedImage = ImageIO.read(resource);
-        Image image = new Image(loadedImage);
+        Image image = new Image(loadedImage, spriteName);
         Animation animation = new MomentaryAnimation(image, position, 6);
         animations.add(animation);
         return true;

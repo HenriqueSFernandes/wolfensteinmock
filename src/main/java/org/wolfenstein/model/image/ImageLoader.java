@@ -31,7 +31,7 @@ public class ImageLoader {
             return false;
         }
         BufferedImage loadedImage = ImageIO.read(resource);
-        Image image = new Image(loadedImage, position);
+        Image image = new Image(loadedImage, position, imageName);
         images.add(image);
         return true;
     }

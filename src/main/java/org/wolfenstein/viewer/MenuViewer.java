@@ -20,7 +20,7 @@ public class MenuViewer extends Viewer<Menu> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        imageLoader.getImage(10).draw(gui.getGraphics());
         imageLoader.getImage(11).draw(gui.getGraphics());
+        imageLoader.getImage(12).draw(gui.getGraphics());
     }
 }
