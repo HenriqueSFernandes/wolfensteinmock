@@ -2,7 +2,6 @@ package org.wolfenstein;
 
 import org.wolfenstein.GUI.LanternaGUI;
 import org.wolfenstein.model.Menu;
-import org.wolfenstein.state.GameState;
 import org.wolfenstein.state.MenuState;
 import org.wolfenstein.state.State;
 
@@ -13,8 +12,9 @@ import java.net.URISyntaxException;
 public class Game {
     private final LanternaGUI gui;
     private State state;
+
     public Game() throws IOException, URISyntaxException, FontFormatException {
-        gui = new LanternaGUI(240*2, 240);
+        gui = new LanternaGUI(240 * 2, 240);
         state = new MenuState(new Menu());
     }
 
@@ -26,8 +26,8 @@ public class Game {
     private void start() throws IOException {
         int FPS = 120;
         while (this.state != null) {
-            if (state.getClass() == MenuState.class) FPS = 10;
-            else{
+            if (state.getClass() == MenuState.class) FPS = 5;
+            else {
                 FPS = 120;
             }
             int frameTime = 1000 / FPS;
@@ -40,7 +40,8 @@ public class Game {
 
             try {
                 if (sleepTime > 0) Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+            }
         }
 
         gui.stopScreen();
