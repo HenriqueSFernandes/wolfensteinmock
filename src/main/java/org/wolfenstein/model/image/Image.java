@@ -9,19 +9,22 @@ import java.awt.image.BufferedImage;
 public class Image {
     private BufferedImage image;
     private Position position;
+    private String imageName;
 
     private boolean active;
 
-    public Image(BufferedImage image) {
+    public Image(BufferedImage image, String imageName) {
         this.image = image;
         this.position = new Position(0, 0);
         this.active = true;
+        this.imageName = imageName;
     }
 
-    public Image(BufferedImage image, Position position) {
+    public Image(BufferedImage image, Position position, String imageName) {
         this.image = image;
         this.position = position;
         this.active = true;
+        this.imageName = imageName;
     }
 
     public BufferedImage getImage() {
@@ -38,6 +41,14 @@ public class Image {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     private int getAlpha(int color) {
