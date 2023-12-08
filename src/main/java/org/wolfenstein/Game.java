@@ -27,6 +27,9 @@ public class Game {
         int FPS = 120;
         while (this.state != null) {
             if (state.getClass() == MenuState.class) FPS = 10;
+            else{
+                FPS = 120;
+            }
             int frameTime = 1000 / FPS;
             long startTime = System.currentTimeMillis();
 
