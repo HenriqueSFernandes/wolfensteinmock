@@ -35,7 +35,8 @@ public class GuardController extends GameController {
                     break;
                 }
             }
-            guard.setAggro(guard.getPosition().inFOV(getModel().getPlayer().getPosition(), getModel().getMap()));
+            guard.setAggro(-Position.FOV / 2.0 <= guard.getPosition().viewAngle(getModel().getPlayer().getPosition())
+                    && guard.getPosition().viewAngle(getModel().getPlayer().getPosition()) <= Position.FOV / 2.0);
             if (!guard.isAggro()) moveForward(guard);
         }
     }

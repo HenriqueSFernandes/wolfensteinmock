@@ -90,7 +90,7 @@ public class LanternaGUI implements GUI {
             imageLoader.importImage("heart.png", new Position(242 + 12 * i, 0));
         }
         for (int i = 0; i < Camera.createCamera().getGuardList().size(); i++) {
-            imageLoader.importImage("image_test.png", new Position(332, 120 - 10 * i));
+            imageLoader.importImage("image_test.png", new Position(332, 120));
         }
     }
     @Override
@@ -261,6 +261,9 @@ public class LanternaGUI implements GUI {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
             }
         }
-        imageLoader.getImage(index).setActive(Player.getInstance().getPosition().inFOV(position, map));
+        imageLoader.getImage(index).setPosition(new Position(360 - 2.5 * (int) Player.getInstance().getPosition().viewAngle(position),
+                140 - position.distance(Player.getInstance().getPosition()) / 5));
+        imageLoader.getImage(index).setActive(-Position.FOV / 2.0 <= Player.getInstance().getPosition().viewAngle(position)
+                && Player.getInstance().getPosition().viewAngle(position) <= Position.FOV / 2.0);
     }
 }
