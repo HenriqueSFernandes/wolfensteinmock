@@ -13,7 +13,7 @@ public interface GUI {
     public void drawMap(Map map);
     public void drawText(int x, int y, String text);
     public void drawPlayerCamera(Position position, Map map);
-    public void drawGuard(Position position, Map map);
+    public void drawGuard(int index, Position position, Map map) throws IOException;
     public void drawFloor();
     public void drawCeiling();
     enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT, SKIP, FIRE}

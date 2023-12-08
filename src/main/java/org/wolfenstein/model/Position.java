@@ -107,7 +107,7 @@ public class Position {
         return line;
     }
 
-    public boolean inFOV(Position position) {
+    public boolean inFOV(Position position, Map map) {
         double distance = Math.sqrt(Math.pow(position.getY() - this.y, 2) + Math.pow(position.getX() - this.x, 2));
         if (distance > 60) return false;
         double observer_direction = Math.toDegrees(Math.atan2(position.getY() - this.y, position.getX() - this.x));

@@ -11,6 +11,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
+import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Player;
@@ -85,8 +86,11 @@ public class LanternaGUI implements GUI {
         graphics = screen.newTextGraphics();
         animationLoader.importMomentaryAnimation("pistol_firing.png", new Position(332, 176));
         soundLoader.importSound("gun_shot.wav");
-        for (int i = 0; i < Player.getInstance().getMaxHealth(); i++) {
+        for (int i = 0; i < Player.getMaxHealth(); i++) {
             imageLoader.importImage("heart.png", new Position(242 + 12 * i, 0));
+        }
+        for (int i = 0; i < Camera.createCamera().getGuardList().size(); i++) {
+            imageLoader.importImage("image_test.png", new Position(332, 120 - 10 * i));
         }
     }
     @Override
@@ -245,17 +249,18 @@ public class LanternaGUI implements GUI {
         return new TextColor.RGB(brightness, brightness, brightness);
     }
     @Override
-    public void drawGuard(Position position, Map map) {
+    public void drawGuard(int index, Position position, Map map) {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
         for (int x = 0; x < WIDTH; x++) {
             double rayAngle = position.getRayAngle(map, x);
             List<Position> line = position.createLine(rayAngle, map);
+            graphics.setBackgroundColor(new TextColor.RGB(255, 0, 0));
 
-            // Raycaster Render
             for (Position point : line) {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
             }
         }
+        imageLoader.getImage(index).setActive(Player.getInstance().getPosition().inFOV(position, map));
     }
 }

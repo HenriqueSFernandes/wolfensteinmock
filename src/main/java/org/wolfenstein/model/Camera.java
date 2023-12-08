@@ -15,7 +15,6 @@ public class Camera {
 
     private Camera() throws IOException {
         this.player = Player.getInstance();
-
         this.map = new Map();
         this.guardList = createGuardList();
         player.setPosition(map.playerStartPosition());
@@ -46,7 +45,7 @@ public class Camera {
 
     private List<Guard> createGuardList() {
         guardList = new ArrayList<>();
-        guardList.add(new Guard(180, 100, 0));
+        guardList.add(new Guard(210, 160, 0));
         guardList.add(new Guard(50, 150, 270));
         guardList.add(new Guard(60, 90, 0));
         return guardList;
