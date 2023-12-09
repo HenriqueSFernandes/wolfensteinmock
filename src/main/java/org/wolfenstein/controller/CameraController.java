@@ -23,6 +23,7 @@ public class CameraController extends GameController {
         } else if (action == GUI.GUIAction.SKIP) {
             getModel().getMap().setMap(getModel().getMap().getMapLoader().getNextMap());
             getModel().getPlayer().setPosition(getModel().getMap().playerStartPosition());
+            getModel().createGuardList();
         } else {
             playerController.step(game, action, time);
             guardController.step(game, action, time);
