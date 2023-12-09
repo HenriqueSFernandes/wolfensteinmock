@@ -12,11 +12,13 @@ public class Camera {
     private final Player player;
     private List<Guard> guardList;
     private final Map map;
+    private int mapNumber;
 
     private Camera() throws IOException {
         this.player = Player.getInstance();
         this.map = new Map();
-        this.guardList = createGuardList();
+        this.guardList = new ArrayList<>();
+        createGuardList();
         player.setPosition(map.playerStartPosition());
     }
     private Camera(Map map, Player player) {
@@ -42,12 +44,18 @@ public class Camera {
         return getMap().getXY((int) position.getX() / map.getCellsize(), (int) position.getY() / map.getCellsize()) != 1;
     }
     public List<Guard> getGuardList() { return guardList; }
-
-    private List<Guard> createGuardList() {
-        guardList = new ArrayList<>();
-        guardList.add(new Guard(210, 160, 0));
-        guardList.add(new Guard(50, 150, 270));
-        guardList.add(new Guard(60, 90, 0));
-        return guardList;
+    public void createGuardList() {
+        mapNumber += 1;
+        guardList.clear();
+        switch (mapNumber) {
+            case 1:
+                guardList.add(new Guard(220, 100, 0));
+                guardList.add(new Guard(50, 150, 270));
+                guardList.add(new Guard(60, 90, 0));
+                break;
+            case 2:
+                guardList.add(new Guard(180, 50, 0));
+                break;
+        }
     }
 }

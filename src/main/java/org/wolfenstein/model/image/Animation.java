@@ -29,7 +29,7 @@ public abstract class Animation {
                     frame.setRGB(x, y, sprite.getImage().getRGB(i * frameWidth + x, y));
                 }
             }
-            Image frameImage = new Image(frame, position);
+            Image frameImage = new Image(frame, position, sprite.getImageName());
             frames.add(frameImage);
         }
         currentFrame = frames.get(0);

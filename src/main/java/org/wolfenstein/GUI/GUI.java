@@ -1,5 +1,6 @@
 package org.wolfenstein.GUI;
 
+import com.googlecode.lanterna.graphics.TextGraphics;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
 
@@ -16,5 +17,8 @@ public interface GUI {
     public void drawGuard(int index, Position position, Map map) throws IOException;
     public void drawFloor();
     public void drawCeiling();
+    public void drawHearts();
+    public void drawAim();
+    public TextGraphics getGraphics();
     enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT, SKIP, FIRE}
 }
