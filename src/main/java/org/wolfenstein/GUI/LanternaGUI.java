@@ -145,7 +145,6 @@ public class LanternaGUI implements GUI {
 
     @Override
     public void refresh() throws IOException {
-
         screen.refresh();
     }
 
@@ -289,9 +288,10 @@ public class LanternaGUI implements GUI {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
             }
         }
-        imageLoader.getImage(index).setPosition(new Position(350 - 2.9 * (int) Player.getInstance().getPosition().viewAngle(position),
+        imageLoader.getImage(13 + index).setPosition(new Position(350 - 2.9 * (int) Player.getInstance().getPosition().viewAngle(position),
                 140 - position.distance(Player.getInstance().getPosition()) / 2.0));
-        imageLoader.getImage(index).setActive(-Position.FOV / 2.0 <= Player.getInstance().getPosition().viewAngle(position)
+        imageLoader.getImage(13 + index).setActive(-Position.FOV / 2.0 <= Player.getInstance().getPosition().viewAngle(position)
                 && Player.getInstance().getPosition().viewAngle(position) <= Position.FOV / 2.0);
+        imageLoader.getImage(13 + index).draw(graphics);
     }
 }
