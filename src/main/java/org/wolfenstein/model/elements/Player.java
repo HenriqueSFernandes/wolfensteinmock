@@ -23,7 +23,7 @@ public class Player extends Element {
         return player;
     }
     //public void setHealth(int h) { health = h; }
-    public static int getMaxHealth() {
+    public int getMaxHealth() {
         return maxHealth;
     }
     public void setMaxHealth(int m) {
