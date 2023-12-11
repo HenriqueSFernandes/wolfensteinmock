@@ -13,7 +13,7 @@ public class GuardController extends GameController {
     public GuardController(Camera model) {
         super(model);
     }
-    private void moveForward(Guard guard) { moveGuard(guard.getPosition().moveForward(), guard); guard.setHealth(guard.getHealth() - 1); }
+    private void moveForward(Guard guard) { moveGuard(guard.getPosition().moveForward(), guard); }
     private void rotateClockwise(Guard guard) { moveGuard(guard.getPosition().rotateClockwise(), guard); }
     private void rotateAntiClockwise(Guard guard) { moveGuard(guard.getPosition().rotateAntiClockwise(), guard); }
     private void moveBackward(Guard guard) { moveGuard(guard.getPosition().moveBackwards(), guard); }
