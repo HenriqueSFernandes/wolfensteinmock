@@ -19,6 +19,7 @@ public class CameraController extends GameController {
     @Override
     public void step(Game game, GUI.GUIAction action, long time) throws IOException {
         if (action == GUI.GUIAction.QUIT || playerController.getModel().getPlayer().getHealth() <= 0) {
+            playerController.getModel().getPlayer().changeHealth(playerController.getModel().getPlayer().getMaxHealth());
             game.setState(new MenuState(new Menu()));
         } else if (action == GUI.GUIAction.SKIP) {
             getModel().getMap().setMap(getModel().getMap().getMapLoader().getNextMap());
