@@ -92,7 +92,7 @@ public class LanternaGUI implements GUI {
         imageLoader.importImage("menu_play.png", new Position(0, 0));
         imageLoader.importImage("menu_exit.png", new Position(0, 0));
         for (int i = 0; i < Camera.createCamera().getGuardList().size(); i++) {
-            imageLoader.importImage("image_test.png", new Position(332, 120));
+            imageLoader.importImage("enemy.png", new Position(332, 120));
         }
     }
 
@@ -289,7 +289,7 @@ public class LanternaGUI implements GUI {
             }
         }
         imageLoader.getImage(13 + index).setPosition(new Position(350 - 2.9 * (int) Player.getInstance().getPosition().viewAngle(position),
-                140 - position.distance(Player.getInstance().getPosition()) / 2.0));
+                130 - position.distance(Player.getInstance().getPosition()) / 2.0));
         imageLoader.getImage(13 + index).setActive(-Position.FOV / 2.0 <= Player.getInstance().getPosition().viewAngle(position)
                 && Player.getInstance().getPosition().viewAngle(position) <= Position.FOV / 2.0);
         imageLoader.getImage(13 + index).draw(graphics);
