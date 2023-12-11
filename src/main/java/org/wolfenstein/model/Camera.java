@@ -44,17 +44,18 @@ public class Camera {
         return getMap().getXY((int) position.getX() / map.getCellsize(), (int) position.getY() / map.getCellsize()) != 1;
     }
     public List<Guard> getGuardList() { return guardList; }
-
     public void createGuardList() {
         mapNumber += 1;
         guardList.clear();
         switch (mapNumber) {
             case 1:
-                guardList.add(new Guard(180, 100, 0));
+                guardList.add(new Guard(220, 100, 0));
                 guardList.add(new Guard(50, 150, 270));
                 guardList.add(new Guard(60, 90, 0));
+                break;
             case 2:
                 guardList.add(new Guard(180, 50, 0));
+                break;
         }
     }
 }

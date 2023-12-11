@@ -6,7 +6,7 @@ import java.util.List;
 public class Position {
     double x, y;
     double angle;
-    private static final int FOV = 70;
+    public static final int FOV = 70;
 
     public Position(double x, double y, double angle) {
         this.x = x;
@@ -107,15 +107,18 @@ public class Position {
         return line;
     }
 
-    public boolean inFOV(Position position) {
-        double distance = Math.sqrt(Math.pow(position.getY() - this.y, 2) + Math.pow(position.getX() - this.x, 2));
-        if (distance > 60) return false;
+    public double viewAngle(Position position) {
+        if (this.distance(position) > 60) return Integer.MAX_VALUE;
         double observer_direction = Math.toDegrees(Math.atan2(position.getY() - this.y, position.getX() - this.x));
         if (observer_direction < 0) observer_direction *= -1;
         else observer_direction = 360 - observer_direction;
         double angle_between = observer_direction - this.angle;
         angle_between = (angle_between + 180) % 360 - 180;
 
-        return (-FOV / 2.0 <= angle_between && angle_between <= FOV / 2.0);
+        return angle_between;
+    }
+
+    public double distance(Position position) {
+        return Math.sqrt(Math.pow(position.getY() - this.y, 2) + Math.pow(position.getX() - this.x, 2));
     }
 }

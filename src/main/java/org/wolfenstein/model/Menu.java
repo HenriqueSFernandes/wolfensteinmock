@@ -13,13 +13,7 @@ public class Menu {
 
     public Menu() {
         this.entries = Arrays.asList("Start", "Exit");
-        try {
-            imageLoader.importImage("menu_play.png", new Position(0, 0));
-            imageLoader.importImage("menu_exit.png", new Position(0, 0));
-            imageLoader.getImage(12).setActive(false);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        imageLoader.getImage(12).setActive(false);
     }
 
     public Menu(List<String> ent) {

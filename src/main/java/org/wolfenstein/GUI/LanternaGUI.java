@@ -11,6 +11,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
+import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Player;
@@ -88,6 +89,11 @@ public class LanternaGUI implements GUI {
             imageLoader.importImage("heart.png", new Position(242 + 12 * i, 0));
         }
         imageLoader.importImage("aim.png", new Position(115 + 240, 115));
+        imageLoader.importImage("menu_play.png", new Position(0, 0));
+        imageLoader.importImage("menu_exit.png", new Position(0, 0));
+        for (int i = 0; i < Camera.createCamera().getGuardList().size(); i++) {
+            imageLoader.importImage("enemy.png", new Position(332, 120));
+        }
     }
 
     @Override
@@ -139,7 +145,6 @@ public class LanternaGUI implements GUI {
 
     @Override
     public void refresh() throws IOException {
-
         screen.refresh();
     }
 
@@ -271,17 +276,22 @@ public class LanternaGUI implements GUI {
     }
 
     @Override
-    public void drawGuard(Position position, Map map) {
+    public void drawGuard(int index, Position position, Map map) {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
         for (int x = 0; x < WIDTH; x++) {
             double rayAngle = position.getRayAngle(map, x);
             List<Position> line = position.createLine(rayAngle, map);
+            graphics.setBackgroundColor(new TextColor.RGB(255, 0, 0));
 
-            // Raycaster Render
             for (Position point : line) {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
             }
         }
+        imageLoader.getImage(13 + index).setPosition(new Position(350 - 2.9 * (int) Player.getInstance().getPosition().viewAngle(position),
+                130 - position.distance(Player.getInstance().getPosition()) / 2.0));
+        imageLoader.getImage(13 + index).setActive(-Position.FOV / 2.0 <= Player.getInstance().getPosition().viewAngle(position)
+                && Player.getInstance().getPosition().viewAngle(position) <= Position.FOV / 2.0);
+        imageLoader.getImage(13 + index).draw(graphics);
     }
 }
