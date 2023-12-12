@@ -11,6 +11,7 @@ public class Camera {
     private static Camera camera;
     private final Player player;
     private List<Guard> guardList;
+    private static final int maxGuardNumber = 9;
     private final Map map;
     private int mapNumber;
 
@@ -58,4 +59,6 @@ public class Camera {
                 break;
         }
     }
+
+    public int getMaxGuardNumber() { return maxGuardNumber; }
 }

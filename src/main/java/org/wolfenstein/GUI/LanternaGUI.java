@@ -91,11 +91,11 @@ public class LanternaGUI implements GUI {
         imageLoader.importImage("aim.png", new Position(115 + 240, 115));
         imageLoader.importImage("menu_play.png", new Position(0, 0));
         imageLoader.importImage("menu_exit.png", new Position(0, 0));
-        for (int i = 0; i < Camera.createCamera().getGuardList().size(); i++) {
+        for (int i = 0; i < Camera.createCamera().getMaxGuardNumber(); i++) {
             imageLoader.importImage("enemy.png", new Position(332, 120));
         }
-        for (int i = 0; i < Camera.createCamera().getGuardList().size(); i++) {
-            imageLoader.importImage("heart.png", new Position(242 + 12 * i, 30));
+        for (int i = 0; i < Camera.createCamera().getMaxGuardNumber(); i++) {
+            imageLoader.importImage("enemy.png", new Position(242 + 12 * i, 20));
         }
     }
 
@@ -297,11 +297,11 @@ public class LanternaGUI implements GUI {
                 && Player.getInstance().getPosition().viewAngle(position) <= Position.FOV / 2.0);
         imageLoader.getImage(13 + index).draw(graphics);
     }
-
+    @Override
     public void drawGuardCounter() throws IOException {
         for (int i = 0; i < Camera.createCamera().getGuardList().size(); i++) {
             if (Camera.createCamera().getGuardList().get(i).getHealth() > 0)
-                imageLoader.getImage(16 + i).draw(graphics);
+                imageLoader.getImage(13 + Camera.createCamera().getMaxGuardNumber() + i).draw(graphics);
         }
     }
 }
