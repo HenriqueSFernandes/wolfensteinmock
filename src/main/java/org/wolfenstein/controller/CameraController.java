@@ -27,6 +27,7 @@ public class CameraController extends GameController {
             getModel().getMap().setMap(getModel().getMap().getMapLoader().getNextMap());
             getModel().getPlayer().setPosition(getModel().getMap().playerStartPosition());
             getModel().createGuardList();
+            getModel().createDoors();
         } else {
             playerController.step(game, action, time);
             guardController.step(game, action, time);

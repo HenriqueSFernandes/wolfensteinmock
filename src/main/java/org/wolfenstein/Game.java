@@ -26,7 +26,7 @@ public class Game {
     private void start() throws IOException {
         int FPS = 120;
         while (this.state != null) {
-            if (state.getClass() == MenuState.class) FPS = 5;
+            if (state.getClass() == MenuState.class) FPS = 60;
             else {
                 FPS = 120;
             }

@@ -29,6 +29,7 @@ public class MapLoader {
                 line.add(c-48);
             }
             extractedMap.add(line);
+
         }
         return extractedMap;
     }

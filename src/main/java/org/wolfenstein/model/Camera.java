@@ -21,8 +21,9 @@ public class Camera {
     private Camera() throws IOException {
         this.player = Player.getInstance();
         this.map = new Map();
-        this.doors = createDoors();
+        this.doors = new Vector<>();
         this.guardList = new ArrayList<>();
+        createDoors();
         createGuardList();
         player.setPosition(map.playerStartPosition());
     }
@@ -65,7 +66,7 @@ public class Camera {
         }
     }
     public Vector<Door> getDoors() { return doors; }
-    private Vector<Door> createDoors() {
+    public Vector<Door> createDoors() {
         doors = new Vector<>();
         Vector<Position> doorPos = getMap().getPositionsForDoors();
         for (Position p : doorPos) {

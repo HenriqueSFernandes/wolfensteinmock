@@ -33,6 +33,8 @@ public class PlayerController extends GameController {
                 getModel().getPlayer().getPosition().getY() < getModel().getMap().nextRoomPosition().getY() + getModel().getMap().getCellsize()/2) {
             getModel().getMap().setMap(getModel().getMap().getMapLoader().getNextMap());
             getModel().getPlayer().setPosition(getModel().getMap().playerStartPosition());
+            getModel().createGuardList();
+            getModel().createDoors();
         }
     }
 }
