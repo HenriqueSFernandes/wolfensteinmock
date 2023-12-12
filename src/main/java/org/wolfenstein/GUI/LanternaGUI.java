@@ -11,6 +11,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
+import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Player;
@@ -25,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -88,12 +88,23 @@ public class LanternaGUI implements GUI {
         for (int i = 0; i < Player.getInstance().getMaxHealth(); i++) {
             imageLoader.importImage("heart.png", new Position(242 + 12 * i, 0));
         }
+        imageLoader.importImage("aim.png", new Position(115 + 240, 115));
+        imageLoader.importImage("menu_play.png", new Position(0, 0));
+        imageLoader.importImage("menu_exit.png", new Position(0, 0));
+        for (int i = 0; i < Camera.createCamera().getMaxGuardNumber(); i++) {
+            imageLoader.importImage("enemy.png", new Position(332, 120));
+        }
+        for (int i = 0; i < Camera.createCamera().getMaxGuardNumber(); i++) {
+            imageLoader.importImage("enemy.png", new Position(242 + 12 * i, 20));
+        }
     }
 
+    @Override
     public void stopScreen() throws IOException {
         screen.close();
     }
 
+    @Override
     public void clear() {
         screen.clear();
     }
@@ -135,11 +146,12 @@ public class LanternaGUI implements GUI {
         return GUIAction.NONE;
     }
 
+    @Override
     public void refresh() throws IOException {
-
         screen.refresh();
     }
 
+    @Override
     public void drawMap(Map map) {
         Vector<Vector<Integer>> grid = map.getMap();
         int height = map.getHeight();
@@ -167,7 +179,7 @@ public class LanternaGUI implements GUI {
                 } else {
                     cellColor = BLACK;
                 }
-//                  RENDER GRID
+                //RENDER GRID
                 for (int i = 0; i < cellsize; i++) {
                     for (int j = 0; j < cellsize; j++) {
                         // Draw the border
@@ -184,12 +196,12 @@ public class LanternaGUI implements GUI {
             }
         }
     }
-
+    @Override
     public void drawText(int x, int y, String text) {
         graphics.setBackgroundColor(BLACK);
         graphics.putString(x, y, text);
     }
-
+    @Override
     public void drawPlayerCamera(Position playerPosition, Map map) throws IOException {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
@@ -246,40 +258,71 @@ public class LanternaGUI implements GUI {
 
         }
         animationLoader.drawAllAnimations(graphics);
-        imageLoader.drawAllImages(graphics);
     }
+
     @Override
     public void drawFloor() {
         TerminalSize size = graphics.getSize();
         graphics.setBackgroundColor(BROWN);
         graphics.fillRectangle(new TerminalPosition(size.getColumns() / 2, size.getRows() / 2), new TerminalSize(size.getColumns() / 2, size.getRows() / 2), ' ');
     }
+
     @Override
     public void drawCeiling() {
         TerminalSize size = graphics.getSize();
         graphics.setBackgroundColor(BLUE);
         graphics.fillRectangle(new TerminalPosition(size.getColumns() / 2, 0), new TerminalSize(size.getColumns() / 2, size.getRows() / 2), ' ');
     }
+
+    @Override
+    public void drawHearts() {
+        for (int i = 0; i < 10; i++) {
+            imageLoader.getImage(i).draw(graphics);
+        }
+    }
+
+    @Override
+    public void drawAim() {
+        imageLoader.getImage(10).draw(graphics);
+    }
+
+    @Override
+    public TextGraphics getGraphics() {
+        return graphics;
+    }
+
     TextColor.RGB mapColor(double distance) {
         int brightness = (int) Math.ceil(-2.5 * distance + 255);
         if (brightness < 0) brightness = 0;
         return new TextColor.RGB(brightness, brightness, brightness);
     }
-    public void drawGuard(Position position, Map map) throws IOException {
+    @Override
+    public void drawGuard(int index, Position position, Map map) throws IOException {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
         for (int x = 0; x < WIDTH; x++) {
             double rayAngle = position.getRayAngle(map, x);
             List<Position> line = position.createLine(rayAngle, map);
             List<Position> doorLine = position.createLineForDoor(rayAngle, map);
-
-            // Raycaster Render
+            graphics.setBackgroundColor(new TextColor.RGB(255, 0, 0));
             for (Position point : line) {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), ' ');
             }
             for (Position point : doorLine) {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), '@');
             }
+        }
+        imageLoader.getImage(13 + index).setPosition(new Position(350 - 2.9 * (int) Player.getInstance().getPosition().viewAngle(position),
+                130 - position.distance(Player.getInstance().getPosition()) / 2.0));
+        imageLoader.getImage(13 + index).setActive(-Position.FOV / 2.0 <= Player.getInstance().getPosition().viewAngle(position)
+                && Player.getInstance().getPosition().viewAngle(position) <= Position.FOV / 2.0);
+        imageLoader.getImage(13 + index).draw(graphics);
+    }
+    @Override
+    public void drawGuardCounter() throws IOException {
+        for (int i = 0; i < Camera.createCamera().getGuardList().size(); i++) {
+            if (Camera.createCamera().getGuardList().get(i).getHealth() > 0)
+                imageLoader.getImage(13 + Camera.createCamera().getMaxGuardNumber() + i).draw(graphics);
         }
     }
 }
