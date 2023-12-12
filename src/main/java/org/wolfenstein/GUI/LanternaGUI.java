@@ -215,18 +215,15 @@ public class LanternaGUI implements GUI {
                 double distanceToWall = Math.sqrt(Math.pow(collisionPoint.getX() - playerPosition.getX(), 2) + Math.pow(collisionPoint.getY() - playerPosition.getY(), 2));
                 distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle())));
                 graphics.setBackgroundColor(mapColor(distanceToWall));
-                // red line = players direction
                 if (rayAngle == playerPosition.getAngle()) {
                     graphics.setBackgroundColor(new TextColor.RGB(255, 0, 0));
                 }
 
-                int maxWallHeight = HEIGHT;
                 int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
                 int drawStart = -wallHeight / 2 + HEIGHT / 2;
                 if (drawStart < 0) drawStart = 0;
                 int drawEnd = wallHeight / 2 + HEIGHT / 2;
                 if (drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
-                double wallX = Math.tan(Math.toRadians(rayAngle - playerPosition.getAngle()));
 
                 graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
 
@@ -240,13 +237,11 @@ public class LanternaGUI implements GUI {
                 distanceToWall *= Math.abs(Math.cos(Math.toRadians(rayAngle - playerPosition.getAngle())));
                 graphics.setBackgroundColor(mapColor(distanceToWall));
 
-                int maxWallHeight = HEIGHT;
                 int wallHeight = (int) ((HEIGHT * CELLSIZE) / distanceToWall);
                 int drawStart = -wallHeight / 2 + HEIGHT / 2;
                 if (drawStart < 0) drawStart = 0;
                 int drawEnd = wallHeight / 2 + HEIGHT / 2;
                 if (drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
-                double wallX = Math.tan(Math.toRadians(rayAngle - playerPosition.getAngle()));
 
                 graphics.drawLine(2 * WIDTH - x, drawStart, 2 * WIDTH - x, drawEnd, ' ');
 

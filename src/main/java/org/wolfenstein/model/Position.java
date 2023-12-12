@@ -81,8 +81,6 @@ public class Position {
         int sx = (x1 < x2) ? 1 : -1;
         int sy = (y1 < y2) ? -1 : 1;
 
-        int side = 1;
-
         int err = dx - dy;
 
         while (x1 != x2 || y1 != y2) {
@@ -95,13 +93,11 @@ public class Position {
             if (e2 > -dy) {
                 err -= dy;
                 x1 += sx;
-                side = 2;
 
             }
             if (e2 < dx) {
                 err += dx;
                 y1 += sy;
-                side = 1;
             }
         }
         return line;
@@ -117,8 +113,6 @@ public class Position {
         int dy = Math.abs(y2 - y1);
         int sx = (x1 < x2) ? 1 : -1;
         int sy = (y1 < y2) ? -1 : 1;
-
-        int side = 1;
 
         int err = dx - dy;
 
@@ -141,13 +135,10 @@ public class Position {
             if (e2 > -dy) {
                 err -= dy;
                 x1 += sx;
-                side = 2;
-
             }
             if (e2 < dx) {
                 err += dx;
                 y1 += sy;
-                side = 1;
             }
         }
         return line;
