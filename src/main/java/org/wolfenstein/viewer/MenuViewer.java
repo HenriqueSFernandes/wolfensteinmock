@@ -15,11 +15,6 @@ public class MenuViewer extends Viewer<Menu> {
 
     @Override
     protected void drawElements(GUI gui) {
-        try {
-            gui.refresh();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         imageLoader.getImage(11).draw(gui.getGraphics());
         imageLoader.getImage(12).draw(gui.getGraphics());
     }
