@@ -13,7 +13,9 @@ public class MenuViewer extends Viewer<Menu> {
 
     @Override
     protected void drawElements(GUI gui) {
-        imageLoader.getImage(11).draw(gui.getGraphics());
-        imageLoader.getImage(12).draw(gui.getGraphics());
+        if (getModel().isSelectedStart())
+            imageLoader.getImage(11).draw(gui.getGraphics());
+        else if (getModel().isSelectedExit())
+            imageLoader.getImage(12).draw(gui.getGraphics());
     }
 }

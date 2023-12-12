@@ -7,12 +7,10 @@ import java.util.List;
 
 public class Menu {
     private final List<String> entries;
-    ImageLoader imageLoader = ImageLoader.getInstance();
     private int currentEntry = 0;
 
     public Menu() {
         this.entries = Arrays.asList("Start", "Exit");
-        imageLoader.getImage(12).setActive(false);
     }
 
     public Menu(List<String> ent) {
@@ -22,25 +20,11 @@ public class Menu {
     public void nextEntry() {
         currentEntry++;
         if (currentEntry > this.entries.size() - 1) currentEntry = 0;
-        if (currentEntry == 0) {
-            imageLoader.getImage(11).setActive(true);
-            imageLoader.getImage(12).setActive(false);
-        } else {
-            imageLoader.getImage(11).setActive(false);
-            imageLoader.getImage(12).setActive(true);
-        }
     }
 
     public void previousEntry() {
         currentEntry--;
         if (currentEntry < 0) currentEntry = this.entries.size() - 1;
-        if (currentEntry == 0) {
-            imageLoader.getImage(11).setActive(true);
-            imageLoader.getImage(12).setActive(false);
-        } else {
-            imageLoader.getImage(11).setActive(false);
-            imageLoader.getImage(12).setActive(true);
-        }
     }
 
     public String getEntry(int i) {
