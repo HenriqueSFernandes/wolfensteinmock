@@ -11,9 +11,9 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 1. [Gameplay](#gameplay)
 2. [Implemented features](#implemented-features)
-3. [Planned Features](#planned-features)
-4. [Current Bugs](#current-bugs)
-5. [Design](#design)
+3. [Design](#design)
+4. [Testing](#testing)
+5. [Self-evaluation](#self-evaluation)
 
 ---
 
@@ -43,7 +43,7 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 - **HUD** - HUD to visualize health and enemies remaining.
 - **Enemies** - The game will present enemies that need to be killed to advance to the next level.
 - **Multiple Rooms** - The game is a sequence of rooms/levels connected by doors to one another.
-- - **Shooting** - The player possesses a gun to defeat the enemies.
+- **Shooting** - The player possesses a gun to defeat the enemies.
 
 ---
 
