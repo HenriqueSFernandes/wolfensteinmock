@@ -20,5 +20,6 @@ public interface GUI {
     public void drawHearts();
     public void drawAim();
     public TextGraphics getGraphics();
+    public void drawGuardCounter() throws IOException;
     enum GUIAction {FRONT, RIGHT, BACK, LEFT, NONE, QUIT, SELECT, SKIP, FIRE}
 }
