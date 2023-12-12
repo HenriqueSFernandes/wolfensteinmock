@@ -305,8 +305,6 @@ public class LanternaGUI implements GUI {
         }
         imageLoader.getImage(13 + index).setPosition(new Position(350 - 2.9 * (int) Player.getInstance().getPosition().viewAngle(position),
                 130 - position.distance(Player.getInstance().getPosition()) / 2.0));
-        imageLoader.getImage(13 + index).setActive(-Position.FOV / 2.0 <= Player.getInstance().getPosition().viewAngle(position)
-                && Player.getInstance().getPosition().viewAngle(position) <= Position.FOV / 2.0);
         imageLoader.getImage(13 + index).draw(graphics);
     }
     @Override
