@@ -8,7 +8,7 @@ public class Guard extends Element {
     private boolean isAggro;
     public Guard(int x, int y, double angle) {
         super(x, y, angle);
-        maxHealth = 20; // temp value
+        maxHealth = 2;
         health = maxHealth;
         this.isAggro = false;
     }

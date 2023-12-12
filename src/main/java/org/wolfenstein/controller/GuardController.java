@@ -18,7 +18,6 @@ public class GuardController extends GameController {
         if (getModel().isEmpty(position)) guard.setPosition(position);
     }
 
-
     @Override
     public void step(Game game, GUI.GUIAction action, long time) {
         for (Guard guard : getModel().getGuardList()) {

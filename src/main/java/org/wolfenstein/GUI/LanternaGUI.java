@@ -46,7 +46,6 @@ public class LanternaGUI implements GUI {
         createScreen(HEIGHT, WIDTH, fontConfig);
     }
 
-    // For testing purposes only
     public LanternaGUI(TerminalScreen screen, TextGraphics textGraphics) throws IOException {
         this.screen = screen;
         graphics = textGraphics;
@@ -159,7 +158,6 @@ public class LanternaGUI implements GUI {
         int cellsize = map.getCellsize();
         graphics.setBackgroundColor(GRAY);
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width * 2, height), ' ');
-        // Adjust the size of each cell (square) and border
         int borderSize = 1;
         for (int y = 0; y < grid.size(); y++) {
             for (int x = 0; x < grid.get(y).size(); x++) {
@@ -179,17 +177,15 @@ public class LanternaGUI implements GUI {
                 } else {
                     cellColor = BLACK;
                 }
-                //RENDER GRID
+
                 for (int i = 0; i < cellsize; i++) {
                     for (int j = 0; j < cellsize; j++) {
-                        // Draw the border
                         if (i < borderSize || i >= cellsize - borderSize || j < borderSize || j >= cellsize - borderSize) {
                             graphics.setBackgroundColor(GRAY);
                         } else {
                             graphics.setBackgroundColor(cellColor);
                         }
 
-                        // Draw the square
                         graphics.putString(x * cellsize + i, y * cellsize + j, " ");
                     }
                 }

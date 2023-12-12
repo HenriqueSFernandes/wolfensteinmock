@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Position {
-    double x, y;
-    double angle;
+    private final double x, y;
+    private final double angle;
     public static final int FOV = 70;
 
     public Position(double x, double y, double angle) {
@@ -70,7 +70,6 @@ public class Position {
     }
 
     public List<Position> createLine(double angle, Map map) {
-        // Creates a line using the Bresenham's line algorithm.
         List<Position> line = new ArrayList<>();
         int x1 = (int) this.x;
         int y1 = (int) this.y;
@@ -109,7 +108,6 @@ public class Position {
         return line;
     }
     public List<Position> createLineForDoor(double angle, Map map) throws IOException {
-        // Creates a line using the Bresenham's line algorithm.
         List<Position> line = new ArrayList<>();
         int x1 = (int) this.x;
         int y1 = (int) this.y;
@@ -121,7 +119,7 @@ public class Position {
         int sx = (x1 < x2) ? 1 : -1;
         int sy = (y1 < y2) ? -1 : 1;
 
-        int side = 1; // 1 for top/bottom, 2 for left/right
+        int side = 1;
 
         int err = dx - dy;
 
