@@ -44,7 +44,7 @@ public class Position {
     }
 
     public Position rotateClockwise() {
-        return new Position(this.x, this.y, (angle - 10 + 360) % 360.0);  // 10 is the rotation speed
+        return new Position(this.x, this.y, (angle - 10 + 360) % 360.0);
     }
 
     public Position rotateAntiClockwise() {
@@ -81,12 +81,11 @@ public class Position {
         int sx = (x1 < x2) ? 1 : -1;
         int sy = (y1 < y2) ? -1 : 1;
 
-        int side = 1; // 1 for top/bottom, 2 for left/right
+        int side = 1;
 
         int err = dx - dy;
 
         while (x1 != x2 || y1 != y2) {
-            //if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) break;
             if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1) {
                 return line;
             }
