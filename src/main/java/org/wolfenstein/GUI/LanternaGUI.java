@@ -190,7 +190,7 @@ public class LanternaGUI implements GUI {
         graphics.putString(x, y, text);
     }
 
-    public void drawPlayerCamera(Position playerPosition, Map map) {
+    public void drawPlayerCamera(Position playerPosition, Map map) throws IOException {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
         int HEIGHT = map.getHeight() * CELLSIZE;
@@ -265,7 +265,7 @@ public class LanternaGUI implements GUI {
         if (brightness < 0) brightness = 0;
         return new TextColor.RGB(brightness, brightness, brightness);
     }
-    public void drawGuard(Position position, Map map) {
+    public void drawGuard(Position position, Map map) throws IOException {
         int CELLSIZE = map.getCellsize();
         int WIDTH = map.getWidth() * CELLSIZE;
         for (int x = 0; x < WIDTH; x++) {

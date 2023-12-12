@@ -28,6 +28,7 @@ public class CameraController extends GameController {
         } else {
             playerController.step(game, action, time);
             guardController.step(game, action, time);
+            doorController.step(game, action, time);
         }
     }
 }

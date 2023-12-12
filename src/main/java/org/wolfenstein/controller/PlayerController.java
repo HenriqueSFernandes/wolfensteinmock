@@ -5,6 +5,7 @@ import org.wolfenstein.Game;
 import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
+import org.wolfenstein.model.elements.Door;
 
 import java.io.IOException;
 import java.util.Vector;
@@ -32,15 +33,6 @@ public class PlayerController extends GameController {
                 getModel().getPlayer().getPosition().getY() < getModel().getMap().nextRoomPosition().getY() + getModel().getMap().getCellsize()/2) {
             getModel().getMap().setMap(getModel().getMap().getMapLoader().getNextMap());
             getModel().getPlayer().setPosition(getModel().getMap().playerStartPosition());
-        }
-        if (action == GUI.GUIAction.SELECT) {
-            //interact action
-            Vector<Position> p = getModel().getMap().getPositionsForDoors();
-            for (Position pos : p) {
-                System.out.println(pos.getX());
-                System.out.println(pos.getY());
-                System.out.println("------------");
-            }
         }
     }
 }

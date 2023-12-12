@@ -16,14 +16,25 @@ public class DoorController extends GameController {
 
     @Override
     public void step(Game game, GUI.GUIAction action, long time) throws IOException {
+        Vector<Door> doors = getModel().getDoors();
         if (action == GUI.GUIAction.SELECT) {
             //interact action
-            Vector<Door> d = getModel().getDoors();
-            for (Door dr : d) {
-                System.out.println(dr.getPosition().getX());
-                System.out.println(dr.getPosition().getY());
+            for (Door d : doors) {
+                if (Math.sqrt((getModel().getPlayer().getPosition().getX()-d.getPosition().getX())*(getModel().getPlayer().getPosition().getX()-d.getPosition().getX()) + (getModel().getPlayer().getPosition().getY()-d.getPosition().getY())*(getModel().getPlayer().getPosition().getY()-d.getPosition().getY())) <= 11.9) d.setOpen(true);
+                System.out.println(Math.sqrt((getModel().getPlayer().getPosition().getX()-d.getPosition().getX())*(getModel().getPlayer().getPosition().getX()-d.getPosition().getX()) + (getModel().getPlayer().getPosition().getY()-d.getPosition().getY())*(getModel().getPlayer().getPosition().getY()-d.getPosition().getY())));
+            }
+            for (Door d : getModel().getDoors()) {
+                System.out.println(d.getPosition().getX());
+                System.out.println(d.getPosition().getY());
+                System.out.println(d.isVertical());
+                System.out.println(d.isOpen());
                 System.out.println("------------");
             }
         }
+        for (Door d : doors) {
+            if (Math.sqrt(Math.pow(getModel().getPlayer().getPosition().getX()-d.getPosition().getX(), 2) + Math.pow(getModel().getPlayer().getPosition().getY()-d.getPosition().getY(), 2)) > 11.9 && d.isOpen()) d.setOpen(false);
+        }
     }
 }
+
+

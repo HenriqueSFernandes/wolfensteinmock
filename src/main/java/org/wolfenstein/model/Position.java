@@ -1,5 +1,6 @@
 package org.wolfenstein.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,7 +108,7 @@ public class Position {
         }
         return line;
     }
-    public List<Position> createLineForDoor(double angle, Map map) {
+    public List<Position> createLineForDoor(double angle, Map map) throws IOException {
         // Creates a line using the Bresenham's line algorithm.
         List<Position> line = new ArrayList<>();
         int x1 = (int) this.x;
@@ -124,13 +125,19 @@ public class Position {
 
         int err = dx - dy;
 
+        Camera cam = Camera.createCamera();
         while (x1 != x2 || y1 != y2) {
             if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1) break;
             if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) {
-                line.add(new Position(x1 + sx, y1 + sy));
-                line.add(new Position(x1 + 2 * sx, y1 + 2 * sy));
-                return line;
+                if (cam.returnDoorAt(x1, y1) != null) {
+                    if (!cam.returnDoorAt(x1, y1).isOpen()) {
+                        line.add(new Position(x1 + sx, y1 + sy));
+                        line.add(new Position(x1 + 2 * sx, y1 + 2 * sy));
+                        return line;
+                    }
+                }
             }
+
             line.add(new Position(x1, y1));
 
             int e2 = 2 * err;
