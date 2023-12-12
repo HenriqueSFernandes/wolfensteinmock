@@ -136,7 +136,7 @@ public class LanternaGUI implements GUI {
         if (keyStroke.getKeyType() == KeyType.ArrowLeft) return GUIAction.LEFT;
 
 
-        if (keyStroke.getKeyType() == KeyType.Backspace) {
+        if (keyStroke.getKeyType() == KeyType.Backspace && (animationLoader.getAnimation(0).getAnimation().get(0) == animationLoader.getAnimation(0).getCurrentFrame())) {
             animationLoader.getAnimation(0).play();
             soundLoader.getSound(0).play();
         }
