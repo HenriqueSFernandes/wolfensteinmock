@@ -44,7 +44,8 @@ public class Camera {
         return map;
     }
     public boolean isEmpty(Position position) {
-        return getMap().getXY((int) position.getX() / map.getCellsize(), (int) position.getY() / map.getCellsize()) != 1;
+        return (getMap().getXY((int) position.getX() / map.getCellsize(), (int) position.getY() / map.getCellsize()) != 1) &&
+                !(getMap().getXY((int) position.getX() / map.getCellsize(), (int) position.getY() / map.getCellsize()) == 4 && !returnDoorAt((int) position.getX(), (int) position.getY()).isOpen());
     }
     public List<Guard> getGuardList() { return guardList; }
 

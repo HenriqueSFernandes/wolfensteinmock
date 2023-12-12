@@ -261,7 +261,7 @@ public class LanternaGUI implements GUI {
         graphics.fillRectangle(new TerminalPosition(size.getColumns() / 2, 0), new TerminalSize(size.getColumns() / 2, size.getRows() / 2), ' ');
     }
     TextColor.RGB mapColor(double distance) {
-        int brightness = (int) Math.ceil(-0.9 * distance + 255);
+        int brightness = (int) Math.ceil(-2.5 * distance + 255);
         if (brightness < 0) brightness = 0;
         return new TextColor.RGB(brightness, brightness, brightness);
     }
