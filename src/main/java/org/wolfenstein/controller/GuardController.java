@@ -6,9 +6,6 @@ import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Guard;
 
-import java.util.List;
-import java.util.Random;
-
 public class GuardController extends GameController {
     public GuardController(Camera model) {
         super(model);
@@ -20,7 +17,6 @@ public class GuardController extends GameController {
     private void moveGuard(Position position, Guard guard) {
         if (getModel().isEmpty(position)) guard.setPosition(position);
     }
-
 
     @Override
     public void step(Game game, GUI.GUIAction action, long time) {

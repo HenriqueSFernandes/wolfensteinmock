@@ -1,7 +1,5 @@
 package org.wolfenstein.model.elements;
 
-import org.wolfenstein.model.Position;
-
 public class Door extends Element {
     private boolean open;
     private boolean vertical;

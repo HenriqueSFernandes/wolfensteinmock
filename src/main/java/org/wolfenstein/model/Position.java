@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Position {
-    double x, y;
-    double angle;
+    private final double x, y;
+    private final double angle;
     public static final int FOV = 70;
 
     public Position(double x, double y, double angle) {
@@ -44,7 +44,7 @@ public class Position {
     }
 
     public Position rotateClockwise() {
-        return new Position(this.x, this.y, (angle - 10 + 360) % 360.0);  // 10 is the rotation speed
+        return new Position(this.x, this.y, (angle - 10 + 360) % 360.0);
     }
 
     public Position rotateAntiClockwise() {
@@ -70,7 +70,6 @@ public class Position {
     }
 
     public List<Position> createLine(double angle, Map map) {
-        // Creates a line using the Bresenham's line algorithm.
         List<Position> line = new ArrayList<>();
         int x1 = (int) this.x;
         int y1 = (int) this.y;
@@ -82,12 +81,9 @@ public class Position {
         int sx = (x1 < x2) ? 1 : -1;
         int sy = (y1 < y2) ? -1 : 1;
 
-        int side = 1; // 1 for top/bottom, 2 for left/right
-
         int err = dx - dy;
 
         while (x1 != x2 || y1 != y2) {
-            //if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) break;
             if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1) {
                 return line;
             }
@@ -97,19 +93,16 @@ public class Position {
             if (e2 > -dy) {
                 err -= dy;
                 x1 += sx;
-                side = 2;
 
             }
             if (e2 < dx) {
                 err += dx;
                 y1 += sy;
-                side = 1;
             }
         }
         return line;
     }
     public List<Position> createLineForDoor(double angle, Map map) throws IOException {
-        // Creates a line using the Bresenham's line algorithm.
         List<Position> line = new ArrayList<>();
         int x1 = (int) this.x;
         int y1 = (int) this.y;
@@ -120,8 +113,6 @@ public class Position {
         int dy = Math.abs(y2 - y1);
         int sx = (x1 < x2) ? 1 : -1;
         int sy = (y1 < y2) ? -1 : 1;
-
-        int side = 1; // 1 for top/bottom, 2 for left/right
 
         int err = dx - dy;
 
@@ -144,13 +135,10 @@ public class Position {
             if (e2 > -dy) {
                 err -= dy;
                 x1 += sx;
-                side = 2;
-
             }
             if (e2 < dx) {
                 err += dx;
                 y1 += sy;
-                side = 1;
             }
         }
         return line;

@@ -2,7 +2,6 @@ package org.wolfenstein.viewer;
 
 import org.wolfenstein.GUI.GUI;
 import org.wolfenstein.model.Camera;
-import org.wolfenstein.model.elements.Guard;
 
 import java.io.IOException;
 

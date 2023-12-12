@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class Animation {
     protected final int frameAmount;
     protected List<Image> frames = new ArrayList<>();
-    protected Image sprite; // Image with all frames
+    protected Image sprite;
     protected int frameCounter = 0;
     protected Image currentFrame;
     protected Position position;
