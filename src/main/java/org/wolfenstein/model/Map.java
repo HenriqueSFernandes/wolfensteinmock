@@ -1,6 +1,5 @@
 package org.wolfenstein.model;
 
-
 import java.io.IOException;
 import java.util.Vector;
 

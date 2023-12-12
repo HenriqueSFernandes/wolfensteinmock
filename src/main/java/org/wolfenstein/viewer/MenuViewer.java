@@ -4,8 +4,6 @@ import org.wolfenstein.GUI.GUI;
 import org.wolfenstein.model.Menu;
 import org.wolfenstein.model.image.ImageLoader;
 
-import java.io.IOException;
-
 public class MenuViewer extends Viewer<Menu> {
     private final ImageLoader imageLoader = ImageLoader.getInstance();
 

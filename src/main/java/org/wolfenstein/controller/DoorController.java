@@ -3,7 +3,6 @@ package org.wolfenstein.controller;
 import org.wolfenstein.GUI.GUI;
 import org.wolfenstein.Game;
 import org.wolfenstein.model.Camera;
-import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Door;
 
 import java.io.IOException;

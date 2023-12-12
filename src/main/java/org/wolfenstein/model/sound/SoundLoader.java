@@ -1,6 +1,5 @@
 package org.wolfenstein.model.sound;
 
-import javax.sound.sampled.*;
 import java.util.ArrayList;
 import java.util.List;
 

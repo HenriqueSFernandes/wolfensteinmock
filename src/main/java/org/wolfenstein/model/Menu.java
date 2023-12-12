@@ -2,7 +2,6 @@ package org.wolfenstein.model;
 
 import org.wolfenstein.model.image.ImageLoader;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
