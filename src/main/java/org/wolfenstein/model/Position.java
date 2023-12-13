@@ -158,4 +158,34 @@ public class Position {
     public double distance(Position position) {
         return Math.sqrt(Math.pow(position.getY() - this.y, 2) + Math.pow(position.getX() - this.x, 2));
     }
+
+    public boolean checkWall(Position position, Map map) {
+        int x1 = (int) this.x;
+        int y1 = (int) this.y;
+        int x2 = (int)position.getX();
+        int y2 = (int)position.getY();
+        int dx = Math.abs(x2 - x1);
+        int dy = Math.abs(y2 - y1);
+        int sx = (x1 < x2) ? 1 : -1;
+        int sy = (y1 < y2) ? 1 : -1;
+
+        int err = dx - dy;
+
+        while (x1 != x2 && y1 != y2) {
+            if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1
+            || map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) { return true; }
+
+            int e2 = 2 * err;
+            if (e2 > -dy) {
+                err -= dy;
+                x1 += sx;
+
+            }
+            if (e2 < dx) {
+                err += dx;
+                y1 += sy;
+            }
+        }
+        return false;
+    }
 }
