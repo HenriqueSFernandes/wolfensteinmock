@@ -5,6 +5,7 @@ import org.wolfenstein.Game;
 import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Guard;
+import org.wolfenstein.model.sound.SoundLoader;
 
 import java.util.List;
 import java.util.Random;
@@ -24,6 +25,9 @@ public class GuardController extends GameController {
     public void step(Game game, GUI.GUIAction action, long time) {
         for (Guard guard : getModel().getGuardList()) {
             if (guard.getHealth() > 0) {
+                boolean t = guard.tick();
+                SoundLoader s = SoundLoader.getInstance();
+                double distance = Math.sqrt((getModel().getPlayer().getPosition().getX() - guard.getPosition().getX())*(getModel().getPlayer().getPosition().getX() - guard.getPosition().getX()) + (getModel().getPlayer().getPosition().getY() - guard.getPosition().getY())*(getModel().getPlayer().getPosition().getY() - guard.getPosition().getY()));
                 /*for (Position position : guard.getPosition().lookForward()) {
                     if (position.getX() < 0 || position.getY() < 0 ||
                             position.getX() > (getModel().getMap().getWidth() * getModel().getMap().getCellsize())
@@ -37,9 +41,22 @@ public class GuardController extends GameController {
                 guard.setAggro(-Position.FOV / 2.0 <= guard.getPosition().viewAngle(getModel().getPlayer().getPosition())
                         && guard.getPosition().viewAngle(getModel().getPlayer().getPosition()) <= Position.FOV / 2.0);
                 if (!guard.isAggro()) moveForward(guard);*/
+                if (!guard.isAggro()) {
+                    if (distance < 72) guard.setAggro(true);
+                }
                 if (guard.isAggro()) {
                     guard.pointTo(getModel().getPlayer().getPosition());
-                    moveForward(guard);
+                    if (distance >= 32) {
+                        moveForward(guard);
+                    } else if (distance < 28) {
+                        moveBackward(guard);
+                    } else if (distance >= 88) {
+                        guard.setAggro(false);
+                    }
+                    if (distance < 32 && t) {
+                        s.getSound(0).play();
+                        getModel().getPlayer().changeHealth(-1);
+                    }
                 }
             }
         }

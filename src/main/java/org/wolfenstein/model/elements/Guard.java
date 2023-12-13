@@ -7,7 +7,7 @@ import static java.lang.Math.min;
 public class Guard extends Element {
     private int health;
     private boolean isAggro;
-    private boolean alive;
+    private int clock = 0;
     public Guard(int x, int y, double angle) {
         super(x, y, angle);
         health = 3;
@@ -36,6 +36,14 @@ public class Guard extends Element {
         if (Math.sqrt((p.getX() - this.getPosition().getX())*(p.getX() - this.getPosition().getX()) + (p.getY() - this.getPosition().getY())*(p.getY() - this.getPosition().getY())) <
                 Math.sqrt((p.getX() - this.getPosition().moveForward().getX())*(p.getX() - this.getPosition().moveForward().getX()) + (p.getY() - this.getPosition().moveForward().getY())*(p.getY() - this.getPosition().moveForward().getY())))
             this.setPosition(new Position(this.getPosition().getX(), this.getPosition().getY(), (this.getPosition().getAngle() + 180) % 360));
+    }
+    public boolean tick() {
+        clock++;
+        if (clock == 60) {
+            clock = 0;
+            return true;
+        }
+        return false;
     }
 }
 
