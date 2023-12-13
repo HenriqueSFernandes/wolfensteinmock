@@ -32,5 +32,4 @@ public class MomentaryAnimation extends Animation {
     public void play() {
         this.playing = true;
     }
-
 }

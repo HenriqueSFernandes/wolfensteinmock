@@ -41,6 +41,34 @@ public class GuardController extends GameController {
                 if (!guard.isAggro()) moveForward(guard);
             }
         }
+        if (action == GUI.GUIAction.FIRE) {
+            for (Guard g : getModel().getGuardList()) {
+                double m1 = Math.tan(Math.toRadians((getModel().getPlayer().getPosition().getAngle() - 15 + 360) % 360));
+                double m2 = Math.tan(Math.toRadians((getModel().getPlayer().getPosition().getAngle() + 15) % 360));
+
+                if ((getModel().getPlayer().getPosition().getAngle() >= 0 && getModel().getPlayer().getPosition().getAngle() <= 70) ||
+                        getModel().getPlayer().getPosition().getAngle() >= 290 && getModel().getPlayer().getPosition().getAngle() <= 350) {
+                    if (-g.getPosition().getY() >= m1 * (g.getPosition().getX() - getModel().getPlayer().getPosition().getX()) - getModel().getPlayer().getPosition().getY() &&
+                            -g.getPosition().getY() <= m2 * (g.getPosition().getX() - getModel().getPlayer().getPosition().getX()) - getModel().getPlayer().getPosition().getY()) {
+                        g.takeShot();
+                        break;
+                    }
+                } else if ((getModel().getPlayer().getPosition().getAngle() >= 80 && getModel().getPlayer().getPosition().getAngle() <= 100) ||
+                        getModel().getPlayer().getPosition().getAngle() >= 260 && getModel().getPlayer().getPosition().getAngle() <= 280) {
+                    if (-g.getPosition().getY() >= m1 * (g.getPosition().getX() - getModel().getPlayer().getPosition().getX()) - getModel().getPlayer().getPosition().getY() &&
+                            -g.getPosition().getY() >= m2 * (g.getPosition().getX() - getModel().getPlayer().getPosition().getX()) - getModel().getPlayer().getPosition().getY()) {
+                        g.takeShot();
+                        break;
+                    }
+                } else if (getModel().getPlayer().getPosition().getAngle() >= 110 && getModel().getPlayer().getPosition().getAngle() <= 250) {
+                    if (-g.getPosition().getY() >= m1 * (-(g.getPosition().getX() - getModel().getPlayer().getPosition().getX())) - getModel().getPlayer().getPosition().getY() &&
+                            -g.getPosition().getY() <= m2 * (-(g.getPosition().getX() - getModel().getPlayer().getPosition().getX())) - getModel().getPlayer().getPosition().getY()) {
+                        g.takeShot();
+                        break;
+                    }
+                }
+            }
+        }
         getModel().getGuardList().removeIf(guard -> guard.getHealth() <= 0);
     }
 }
