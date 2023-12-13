@@ -20,13 +20,11 @@ public class GuardController extends GameController {
     private void moveGuard(Position position, Guard guard) {
         if (getModel().isEmpty(position)) guard.setPosition(position);
     }
-
-
     @Override
     public void step(Game game, GUI.GUIAction action, long time) {
         for (Guard guard : getModel().getGuardList()) {
             if (guard.getHealth() > 0) {
-                for (Position position : guard.getPosition().lookForward()) {
+                /*for (Position position : guard.getPosition().lookForward()) {
                     if (position.getX() < 0 || position.getY() < 0 ||
                             position.getX() > (getModel().getMap().getWidth() * getModel().getMap().getCellsize())
                             || position.getY() > (getModel().getMap().getWidth() * getModel().getMap().getCellsize()))
@@ -38,7 +36,11 @@ public class GuardController extends GameController {
                 }
                 guard.setAggro(-Position.FOV / 2.0 <= guard.getPosition().viewAngle(getModel().getPlayer().getPosition())
                         && guard.getPosition().viewAngle(getModel().getPlayer().getPosition()) <= Position.FOV / 2.0);
-                if (!guard.isAggro()) moveForward(guard);
+                if (!guard.isAggro()) moveForward(guard);*/
+                if (guard.isAggro()) {
+                    guard.pointTo(getModel().getPlayer().getPosition());
+                    moveForward(guard);
+                }
             }
         }
         if (action == GUI.GUIAction.FIRE) {
