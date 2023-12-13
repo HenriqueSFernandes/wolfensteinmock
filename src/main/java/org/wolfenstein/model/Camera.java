@@ -14,9 +14,8 @@ public class Camera {
     private final Player player;
     private List<Guard> guardList;
     private Vector<Door> doors;
-    private static final int maxGuardNumber = 9;
+    private static final int maxGuardNumber = 30;
     private final Map map;
-    private int mapNumber;
 
     private Camera() throws IOException {
         this.player = Player.getInstance();
