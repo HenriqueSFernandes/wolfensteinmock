@@ -25,7 +25,6 @@ public class ImageLoader {
     }
 
     public boolean importImage(String imageName, Position position) throws IOException {
-        // This assumes the image is inside /resources/images
         URL resource = getClass().getResource("/images/" + imageName);
         if (resource == null) {
             return false;

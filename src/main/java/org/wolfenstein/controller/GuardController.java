@@ -7,9 +7,6 @@ import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Guard;
 import org.wolfenstein.model.sound.SoundLoader;
 
-import java.util.List;
-import java.util.Random;
-
 public class GuardController extends GameController {
     public GuardController(Camera model) {
         super(model);
@@ -38,7 +35,8 @@ public class GuardController extends GameController {
                         break;
                     }
                 }
-                guard.setAggro(-Position.FOV / 2.0 <= guard.getPosition().viewAngle(getModel().getPlayer().getPosition())
+                guard.setAggro(-Position.FOV / 2.0 <= guard.getPosition().viewAngle(getModel().getPlayer().getPosition()) &&
+                        !guard.getPosition().checkWall(getModel().getPlayer().getPosition(), getModel().getMap())
                         && guard.getPosition().viewAngle(getModel().getPlayer().getPosition()) <= Position.FOV / 2.0);
                 if (!guard.isAggro()) moveForward(guard);*/
                 if (!guard.isAggro()) {

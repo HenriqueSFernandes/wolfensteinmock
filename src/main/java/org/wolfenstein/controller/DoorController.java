@@ -3,10 +3,8 @@ package org.wolfenstein.controller;
 import org.wolfenstein.GUI.GUI;
 import org.wolfenstein.Game;
 import org.wolfenstein.model.Camera;
-import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Door;
 
-import java.io.IOException;
 import java.util.Vector;
 
 public class DoorController extends GameController {
@@ -15,10 +13,9 @@ public class DoorController extends GameController {
     }
 
     @Override
-    public void step(Game game, GUI.GUIAction action, long time) throws IOException {
+    public void step(Game game, GUI.GUIAction action, long time) {
         Vector<Door> doors = getModel().getDoors();
         if (action == GUI.GUIAction.SELECT) {
-            //interact action
             for (Door d : doors) {
                 if (Math.sqrt((getModel().getPlayer().getPosition().getX()-d.getPosition().getX())*(getModel().getPlayer().getPosition().getX()-d.getPosition().getX()) + (getModel().getPlayer().getPosition().getY()-d.getPosition().getY())*(getModel().getPlayer().getPosition().getY()-d.getPosition().getY())) <= 11.9) d.setOpen(true);
             }

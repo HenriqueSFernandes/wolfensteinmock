@@ -14,7 +14,6 @@ public class Player extends Element {
         super(x, y, angle);
         health = 10;
         ammo = 30;
-        //by default, max values for health and ammo are the same as their default values when player is created
         maxHealth = health;
         maxAmmo = ammo;
     }
@@ -24,7 +23,6 @@ public class Player extends Element {
         return player;
     }
 
-    //public void setAmmo(int a) { ammo = a; }
     public static int getMaxAmmo() {
         return maxAmmo;
     }
@@ -34,7 +32,6 @@ public class Player extends Element {
         ammo = Math.min(ammo, maxAmmo);
     }
 
-    //public void setHealth(int h) { health = h; }
     public int getMaxHealth() {
         return maxHealth;
     }

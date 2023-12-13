@@ -36,7 +36,6 @@ public class Camera {
         return camera;
     }
     public static Camera createCamera(Map map, Player player) {
-        // This function is only used for testing purposes
         if (camera == null) camera = new Camera(map, player);
         return camera;
     }

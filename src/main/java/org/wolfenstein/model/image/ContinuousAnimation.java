@@ -18,7 +18,6 @@ public class ContinuousAnimation extends Animation {
         currentFrame = frames.get(frameCounter);
     }
 
-
     @Override
     public void draw(TextGraphics graphics) {
         if (playing) {

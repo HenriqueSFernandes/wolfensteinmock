@@ -1,6 +1,5 @@
 package org.wolfenstein.model;
 
-
 import java.io.IOException;
 import java.util.Vector;
 
@@ -32,7 +31,6 @@ public class Map {
         setMap(mapLoader.getNextMap());
     }
     public Map(Vector<Vector<Integer>> newMap) {
-        //Construtor só para testes
         setMap(newMap);
     }
     public Position playerStartPosition() {
@@ -59,11 +57,10 @@ public class Map {
     }
     public Vector<Position> getPositionsForDoors() {
         Vector<Position> res = new Vector<>();
-        Position doorPos = new Position(-1, -1, 0);
         for (int y = 0; y < map.size(); y++) {
             for (int x = 0; x < map.get(y).size(); x++) {
                 if (map.get(y).get(x) != 4) continue;
-                doorPos = new Position(8.0 * x + 4, 8.0 * y + 4, 0.0);
+                Position doorPos = new Position(8.0 * x + 4, 8.0 * y + 4, 0.0);
                 res.add(doorPos);
             }
         }
