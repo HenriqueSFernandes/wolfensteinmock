@@ -75,6 +75,7 @@ public class CameraControllerTest {
 
     @Test
     public void stepTest() throws IOException {
+        when(mockPlayer.getHealth()).thenReturn(20);
         testController.step(mockGame, GUI.GUIAction.NONE, 0);
 
         verify(mockPlayerController).step(mockGame, GUI.GUIAction.NONE, 0);
