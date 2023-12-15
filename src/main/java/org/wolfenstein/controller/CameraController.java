@@ -18,6 +18,13 @@ public class CameraController extends GameController {
         guardController = new GuardController(model);
         doorController = new DoorController(model);
     }
+
+    public CameraController(Camera model, PlayerController playerController, GuardController guardController, DoorController doorController) {
+        super(model);
+        this.playerController = playerController;
+        this.guardController = guardController;
+        this.doorController = doorController;
+    }
     @Override
     public void step(Game game, GUI.GUIAction action, long time) throws IOException {
         if (action == GUI.GUIAction.QUIT || playerController.getModel().getPlayer().getHealth() <= 0) {
