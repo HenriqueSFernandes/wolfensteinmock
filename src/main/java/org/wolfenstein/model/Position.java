@@ -171,9 +171,11 @@ public class Position {
 
         int err = dx - dy;
 
-        while (x1 != x2 && y1 != y2) {
+        while (x1 != x2 || y1 != y2) {
             if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1
-            || map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) { return true; }
+            || map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) {
+                return true;
+            }
 
             int e2 = 2 * err;
             if (e2 > -dy) {

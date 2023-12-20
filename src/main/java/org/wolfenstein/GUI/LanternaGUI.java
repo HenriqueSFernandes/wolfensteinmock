@@ -125,19 +125,20 @@ public class LanternaGUI implements GUI {
 
         if (keyStroke.getKeyType() == KeyType.ArrowUp) {
             Player.getInstance().changeHealth(1);
-            return GUIAction.FRONT;
+            return GUIAction.NONE;
         }
-        if (keyStroke.getKeyType() == KeyType.ArrowRight) return GUIAction.RIGHT;
+        //if (keyStroke.getKeyType() == KeyType.ArrowRight) return GUIAction.RIGHT;
         if (keyStroke.getKeyType() == KeyType.ArrowDown) {
             Player.getInstance().changeHealth(-1);
-            return GUIAction.BACK;
+            return GUIAction.NONE;
         }
-        if (keyStroke.getKeyType() == KeyType.ArrowLeft) return GUIAction.LEFT;
+        //if (keyStroke.getKeyType() == KeyType.ArrowLeft) return GUIAction.LEFT;
 
 
-        if (keyStroke.getKeyType() == KeyType.Backspace) {
+        if ((keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') && (animationLoader.getAnimation(0).getAnimation().get(0) == animationLoader.getAnimation(0).getCurrentFrame())) {
             animationLoader.getAnimation(0).play();
             soundLoader.getSound(0).play();
+            return GUIAction.FIRE;
         }
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'e') return GUIAction.SELECT;
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'p') return GUIAction.SKIP;
@@ -174,6 +175,8 @@ public class LanternaGUI implements GUI {
                     cellColor = new TextColor.RGB(0, 255, 255);
                 } else if (cellValue == 4) {
                     cellColor = new TextColor.RGB(255, 255, 0);
+                } else if (cellValue == 5) {
+                    cellColor = new TextColor.RGB(255, 0, 0);
                 } else {
                     cellColor = BLACK;
                 }

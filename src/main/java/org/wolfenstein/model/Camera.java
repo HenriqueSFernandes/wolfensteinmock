@@ -14,9 +14,8 @@ public class Camera {
     private final Player player;
     private List<Guard> guardList;
     private Vector<Door> doors;
-    private static final int maxGuardNumber = 9;
+    private static final int maxGuardNumber = 30;
     private final Map map;
-    private int mapNumber;
 
     private Camera() throws IOException {
         this.player = Player.getInstance();
@@ -50,19 +49,14 @@ public class Camera {
                 !(getMap().getXY((int) position.getX() / map.getCellsize(), (int) position.getY() / map.getCellsize()) == 4 && !returnDoorAt((int) position.getX(), (int) position.getY()).isOpen());
     }
     public List<Guard> getGuardList() { return guardList; }
-    public void createGuardList() {
-        mapNumber += 1;
-        guardList.clear();
-        switch (mapNumber) {
-            case 1:
-                guardList.add(new Guard(220, 100, 0));
-                guardList.add(new Guard(50, 150, 270));
-                guardList.add(new Guard(60, 90, 0));
-                break;
-            case 2:
-                guardList.add(new Guard(180, 50, 0));
-                break;
+    public List<Guard> createGuardList() {
+        guardList = new ArrayList<>();
+        Vector<Position> guardPos = getMap().getPositionsForGuards();
+        for (Position p : guardPos) {
+            Guard g = new Guard((int) p.getX(), (int) p.getY(), 0);
+            guardList.add(g);
         }
+        return guardList;
     }
     public Vector<Door> getDoors() { return doors; }
     public Vector<Door> createDoors() {
