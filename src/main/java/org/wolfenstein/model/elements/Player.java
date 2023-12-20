@@ -7,8 +7,6 @@ public class Player extends Element {
     private static Player player;
     private static int health = 10;
     private static int maxHealth = health;
-    private static int ammo = 30;
-    private static int maxAmmo = ammo;
 
     private Player(int x, int y, double angle) {
         super(x, y, angle);
@@ -17,15 +15,6 @@ public class Player extends Element {
     public static Player getInstance() {
         if (player == null) player = new Player(10, 10, 0);
         return player;
-    }
-
-    public static int getMaxAmmo() {
-        return maxAmmo;
-    }
-
-    public void setMaxAmmo(int m) {
-        maxAmmo = Math.max(1, m);
-        ammo = Math.min(ammo, maxAmmo);
     }
 
     public int getMaxHealth() {
@@ -49,11 +38,4 @@ public class Player extends Element {
         return health;
     }
 
-    public int getAmmo() {
-        return ammo;
-    }
-
-    public void changeAmmo(int d) {
-        ammo = Math.max(0, Math.min(ammo + d, maxAmmo));
-    }
 }
