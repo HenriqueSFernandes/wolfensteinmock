@@ -35,7 +35,7 @@ public class LanternaGUI implements GUI {
     public static final TextColor.RGB GRAY = new TextColor.RGB(128, 128, 128);
     public static final TextColor.RGB BROWN = new TextColor.RGB(73, 42, 21);
     public static final TextColor.RGB BLUE = new TextColor.RGB(14, 28, 46);
-    public static TextGraphics graphics;
+    public TextGraphics graphics;
     private final AnimationLoader animationLoader = AnimationLoader.getInstance();
     private final SoundLoader soundLoader = SoundLoader.getInstance();
     private final ImageLoader imageLoader = ImageLoader.getInstance();

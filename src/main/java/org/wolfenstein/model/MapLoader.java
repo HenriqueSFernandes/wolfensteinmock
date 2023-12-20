@@ -9,7 +9,7 @@ import java.util.Vector;
 public class MapLoader {
     private static MapLoader mapLoader;
     private static FileInputStream in;
-    private static List<List<Integer>> extractedMap = new Vector<>();
+    private static List<List<Integer>> extractedMap = new ArrayList<>();
     private static int c;
     private MapLoader() {}
     public static MapLoader createMapLoader() {
@@ -25,7 +25,7 @@ public class MapLoader {
     public List<List<Integer>> getNextMap() throws IOException {
         extractedMap = new ArrayList<>();
         while ((c = in.read()) != 88) {
-            Vector<Integer> line = new Vector<>();
+            List<Integer> line = new ArrayList<>();
             line.add(c-48);
             while ((c = in.read()) != 10) {
                 line.add(c-48);

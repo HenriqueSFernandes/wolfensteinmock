@@ -38,7 +38,7 @@ public class PlayerController extends GameController {
         if (action == GUI.GUIAction.RIGHT) rotateClockwise();
         if (action == GUI.GUIAction.BACK) moveBackward();
         if (action == GUI.GUIAction.LEFT) rotateAntiClockwise();
-        if (getModel().getPlayer().getPosition().getX() > getModel().getMap().nextRoomPosition().getX() - getModel().getMap().getCellsize() / 2 && getModel().getPlayer().getPosition().getY() > getModel().getMap().nextRoomPosition().getY() - getModel().getMap().getCellsize() / 2 && getModel().getPlayer().getPosition().getX() < getModel().getMap().nextRoomPosition().getX() + getModel().getMap().getCellsize() / 2 && getModel().getPlayer().getPosition().getY() < getModel().getMap().nextRoomPosition().getY() + getModel().getMap().getCellsize() / 2) {
+        if (getModel().getPlayer().getPosition().getX() > getModel().getMap().nextRoomPosition().getX() - (double) getModel().getMap().getCellsize() / 2 && getModel().getPlayer().getPosition().getY() > getModel().getMap().nextRoomPosition().getY() - (double) getModel().getMap().getCellsize() / 2 && getModel().getPlayer().getPosition().getX() < getModel().getMap().nextRoomPosition().getX() + (double) getModel().getMap().getCellsize() / 2 && getModel().getPlayer().getPosition().getY() < getModel().getMap().nextRoomPosition().getY() + (double) getModel().getMap().getCellsize() / 2) {
             getModel().getMap().setMap(getModel().getMap().getMapLoader().getNextMap());
             getModel().getPlayer().setPosition(getModel().getMap().playerStartPosition());
             getModel().createGuardList();
