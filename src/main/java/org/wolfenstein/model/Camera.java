@@ -60,7 +60,7 @@ public class Camera {
     }
     public List<Door> getDoors() { return doors; }
     public List<Door> createDoors() {
-        doors = new Vector<>();
+        doors = new ArrayList<>();
         Vector<Position> doorPos = getMap().getPositionsForDoors();
         for (Position p : doorPos) {
             Door d = new Door((int) p.getX(), (int) p.getY(), 0);

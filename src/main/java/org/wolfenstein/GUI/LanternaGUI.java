@@ -153,7 +153,7 @@ public class LanternaGUI implements GUI {
 
     @Override
     public void drawMap(Map map) {
-        Vector<Vector<Integer>> grid = map.getMap();
+        List<List<Integer>> grid = map.getMap();
         int height = map.getHeight();
         int width = map.getWidth();
         int cellsize = map.getCellsize();
