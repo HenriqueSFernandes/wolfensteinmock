@@ -45,15 +45,19 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 
 
-> **Controls:**
+> **Gameplay Controls:**
 > - `w` to move forward / up in menu
 > - `a` to rotate left
 > - `s` to move backwards / down in menu
 > - `d` to rotate right
 > - `e` to open doors / select in menu
 > - `space` to shoot
-> - `q` to quit
+> - `q` to quit  
 
+> **Debug Controls:**  
+> - `p` to skip the level. Note that skipping the last level (the third) results in a crash.
+> - `↑` increase health
+> - `↓` decrease health
 ---
 
 ### IMPLEMENTED FEATURES
