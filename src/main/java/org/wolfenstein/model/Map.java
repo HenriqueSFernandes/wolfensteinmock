@@ -3,7 +3,6 @@ package org.wolfenstein.model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class Map {
     private List<List<Integer>> map = new ArrayList<>();
@@ -11,30 +10,43 @@ public class Map {
     private int height;
     private final int cellsize = 8;
     private MapLoader mapLoader;
+
     public void setMap(List<List<Integer>> newMap) {
         this.map = newMap;
         this.height = newMap.size();
         this.width = newMap.get(0).size();
     }
-    public List<List<Integer>> getMap() { return map; }
-    public int getXY(int x, int y) { return map.get(y).get(x); }
+
+    public List<List<Integer>> getMap() {
+        return map;
+    }
+
+    public int getXY(int x, int y) {
+        return map.get(y).get(x);
+    }
+
     public int getHeight() {
         return height;
     }
+
     public int getWidth() {
         return width;
     }
+
     public int getCellsize() {
         return cellsize;
     }
+
     public Map() throws IOException {
         mapLoader = MapLoader.createMapLoader();
         mapLoader.importMapFile();
         setMap(mapLoader.getNextMap());
     }
+
     public Map(List<List<Integer>> newMap) {
         setMap(newMap);
     }
+
     public Position playerStartPosition() {
         Position startPos = new Position(-1, -1, 0);
         for (int y = 0; y < map.size(); y++) {
@@ -46,6 +58,7 @@ public class Map {
         }
         return startPos;
     }
+
     public Position nextRoomPosition() {
         Position transPos = new Position(-1, -1, 0);
         for (int y = 0; y < map.size(); y++) {
@@ -57,6 +70,7 @@ public class Map {
         }
         return transPos;
     }
+
     public List<Position> getPositionsForDoors() {
         List<Position> res = new ArrayList<>();
         for (int y = 0; y < map.size(); y++) {
@@ -68,6 +82,7 @@ public class Map {
         }
         return res;
     }
+
     public MapLoader getMapLoader() {
         return mapLoader;
     }

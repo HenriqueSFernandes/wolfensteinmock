@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AnimationLoader {
     private static AnimationLoader instance;
-    private List<Animation> animations = new ArrayList<>();
+    private final List<Animation> animations = new ArrayList<>();
 
     private AnimationLoader() {
     }

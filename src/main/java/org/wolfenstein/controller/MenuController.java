@@ -12,9 +12,10 @@ public class MenuController extends Controller<Menu> {
     public MenuController(Menu model) {
         super(model);
     }
+
     @Override
     public void step(Game game, GUI.GUIAction action, long time) throws IOException {
-        switch(action) {
+        switch (action) {
             case FRONT:
                 getModel().previousEntry();
                 break;

@@ -45,6 +45,7 @@ public class CameraControllerTest {
         when(mockMap.getMapLoader()).thenReturn(mockMapLoader);
         when(mockMapLoader.getNextMap()).thenReturn(null);
     }
+
     @Test
     public void quitTest() throws IOException {
         testController.step(mockGame, GUI.GUIAction.QUIT, 0);

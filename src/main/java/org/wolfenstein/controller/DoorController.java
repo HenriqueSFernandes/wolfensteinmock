@@ -6,7 +6,6 @@ import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.elements.Door;
 
 import java.util.List;
-import java.util.Vector;
 
 public class DoorController extends GameController {
     public DoorController(Camera model) {
@@ -18,11 +17,13 @@ public class DoorController extends GameController {
         List<Door> doors = getModel().getDoors();
         if (action == GUI.GUIAction.SELECT) {
             for (Door d : doors) {
-                if (Math.sqrt((getModel().getPlayer().getPosition().getX()-d.getPosition().getX())*(getModel().getPlayer().getPosition().getX()-d.getPosition().getX()) + (getModel().getPlayer().getPosition().getY()-d.getPosition().getY())*(getModel().getPlayer().getPosition().getY()-d.getPosition().getY())) <= 11.9) d.setOpen(true);
+                if (Math.sqrt((getModel().getPlayer().getPosition().getX() - d.getPosition().getX()) * (getModel().getPlayer().getPosition().getX() - d.getPosition().getX()) + (getModel().getPlayer().getPosition().getY() - d.getPosition().getY()) * (getModel().getPlayer().getPosition().getY() - d.getPosition().getY())) <= 11.9)
+                    d.setOpen(true);
             }
         }
         for (Door d : doors) {
-            if (Math.sqrt(Math.pow(getModel().getPlayer().getPosition().getX()-d.getPosition().getX(), 2) + Math.pow(getModel().getPlayer().getPosition().getY()-d.getPosition().getY(), 2)) > 11.9 && d.isOpen()) d.setOpen(false);
+            if (Math.sqrt(Math.pow(getModel().getPlayer().getPosition().getX() - d.getPosition().getX(), 2) + Math.pow(getModel().getPlayer().getPosition().getY() - d.getPosition().getY(), 2)) > 11.9 && d.isOpen())
+                d.setOpen(false);
         }
     }
 }

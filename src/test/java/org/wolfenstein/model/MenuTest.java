@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class MenuTest {
     List<String> e = Arrays.asList("option1", "option2", "option3", "option4", "option5");
     Menu testMenu = new Menu(e);
@@ -14,7 +15,9 @@ public class MenuTest {
     void NumberEntriesTest() {
         assertEquals(5, testMenu.getNumberEntries());
     }
+
     Boolean[] selected = {true, false, false, false, false};
+
     @Test
     void isSelectedTest() {
         //isSelectedStart and isSelectedExit are just calls to the isSelected function set for a specific menu
@@ -22,6 +25,7 @@ public class MenuTest {
             assertEquals(selected[i], testMenu.isSelected(i));
         }
     }
+
     @Test
     void NextEntryTest() {
         //first entry (0) is selected by default
@@ -41,6 +45,7 @@ public class MenuTest {
         selected[0] = true;
         isSelectedTest();
     }
+
     @Test
     void previousEntryTest() {
         int lastSelect = 0;

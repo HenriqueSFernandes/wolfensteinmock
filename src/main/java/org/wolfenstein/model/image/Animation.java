@@ -42,7 +42,14 @@ public abstract class Animation {
     public void setPlaying(boolean playing) {
         this.playing = playing;
     }
-    public Image getCurrentFrame() {return currentFrame;}
-    public List<Image> getAnimation() {return frames;}
+
+    public Image getCurrentFrame() {
+        return currentFrame;
+    }
+
+    public List<Image> getAnimation() {
+        return frames;
+    }
+
     public abstract void play();
 }

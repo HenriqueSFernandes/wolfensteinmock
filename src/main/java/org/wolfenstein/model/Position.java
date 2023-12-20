@@ -38,7 +38,7 @@ public class Position {
         double deltaY = 2 * Math.sin(Math.toRadians(angle));
         List<Position> positionList = new ArrayList<>();
         for (int i = 1; i < 20; i++) {
-            positionList.add(new Position (x + deltaX * i, y - deltaY * i, this.angle));
+            positionList.add(new Position(x + deltaX * i, y - deltaY * i, this.angle));
         }
         return positionList;
     }
@@ -102,6 +102,7 @@ public class Position {
         }
         return line;
     }
+
     public List<Position> createLineForDoor(double angle, Map map) throws IOException {
         List<Position> line = new ArrayList<>();
         int x1 = (int) this.x;
@@ -162,8 +163,8 @@ public class Position {
     public boolean checkWall(Position position, Map map) {
         int x1 = (int) this.x;
         int y1 = (int) this.y;
-        int x2 = (int)position.getX();
-        int y2 = (int)position.getY();
+        int x2 = (int) position.getX();
+        int y2 = (int) position.getY();
         int dx = Math.abs(x2 - x1);
         int dy = Math.abs(y2 - y1);
         int sx = (x1 < x2) ? 1 : -1;
@@ -172,8 +173,7 @@ public class Position {
         int err = dx - dy;
 
         while (x1 != x2 || y1 != y2) {
-            if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1
-            || map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) {
+            if (map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 1 || map.getXY(x1 / map.getCellsize(), y1 / map.getCellsize()) == 4) {
                 return true;
             }
 

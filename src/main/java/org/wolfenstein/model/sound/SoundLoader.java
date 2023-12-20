@@ -17,16 +17,18 @@ public class SoundLoader {
         return instance;
     }
 
-    public void importSound(String soundName){
+    public void importSound(String soundName) {
 
         sounds.add(new Sound(soundName));
     }
-    public void playAllSounds(){
-        for (Sound sound : sounds){
+
+    public void playAllSounds() {
+        for (Sound sound : sounds) {
             sound.play();
         }
     }
-    public Sound getSound(int index){
+
+    public Sound getSound(int index) {
         return sounds.get(index);
     }
 }

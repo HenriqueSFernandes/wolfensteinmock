@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class Sound {
-    private URL resource;
+    private final URL resource;
 
     public Sound(String soundName) {
         resource = getClass().getResource("/sounds/" + soundName);
