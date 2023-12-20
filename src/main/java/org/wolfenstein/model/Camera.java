@@ -51,7 +51,7 @@ public class Camera {
     public List<Guard> getGuardList() { return guardList; }
     public List<Guard> createGuardList() {
         guardList = new ArrayList<>();
-        Vector<Position> guardPos = getMap().getPositionsForGuards();
+        List<Position> guardPos = getMap().getPositionsForGuards();
         for (Position p : guardPos) {
             Guard g = new Guard((int) p.getX(), (int) p.getY(), 0);
             guardList.add(g);

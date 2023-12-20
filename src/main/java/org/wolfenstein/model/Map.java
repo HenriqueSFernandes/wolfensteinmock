@@ -72,8 +72,8 @@ public class Map {
         return mapLoader;
     }
 
-    public Vector<Position> getPositionsForGuards() {
-        Vector<Position> res = new Vector<>();
+    public List<Position> getPositionsForGuards() {
+        List<Position> res = new ArrayList<>();
         Position doorPos = new Position(-1, -1, 0);
         for (int y = 0; y < map.size(); y++) {
             for (int x = 0; x < map.get(y).size(); x++) {
