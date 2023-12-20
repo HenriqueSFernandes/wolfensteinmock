@@ -228,9 +228,9 @@ State Diagram of the current game:
 - Menu and Game are now isolated.
 - The addition of a different screen (e.g. Game Over) is extremely simple.
 
-#### CODE SMELLS (WIP)
+#### Known bugs
 
-**_! TODO !_**
+- There is a bug where sometimes it seems like the enemies are inside the wall, but that is only a display issue.
 
 ### TESTING (WIP)
 
