@@ -57,8 +57,8 @@ public class Map {
         }
         return transPos;
     }
-    public Vector<Position> getPositionsForDoors() {
-        Vector<Position> res = new Vector<>();
+    public List<Position> getPositionsForDoors() {
+        List<Position> res = new ArrayList<>();
         for (int y = 0; y < map.size(); y++) {
             for (int x = 0; x < map.get(y).size(); x++) {
                 if (map.get(y).get(x) != 4) continue;

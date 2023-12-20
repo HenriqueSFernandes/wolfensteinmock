@@ -61,7 +61,7 @@ public class Camera {
     public List<Door> getDoors() { return doors; }
     public List<Door> createDoors() {
         doors = new ArrayList<>();
-        Vector<Position> doorPos = getMap().getPositionsForDoors();
+        List<Position> doorPos = getMap().getPositionsForDoors();
         for (Position p : doorPos) {
             Door d = new Door((int) p.getX(), (int) p.getY(), 0);
             if (map.getXY((int) ((p.getX() - 4) / 8) + 1, (int) (p.getY() - 4) / 8) == 1) d.setVertical(true);
