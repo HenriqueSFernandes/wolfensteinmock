@@ -13,36 +13,29 @@ public class GuardController extends GameController {
     public GuardController(Camera model) {
         super(model);
     }
-    private void moveForward(Guard guard) { moveGuard(guard.getPosition().moveForward(), guard); }
-    private void rotateClockwise(Guard guard) { moveGuard(guard.getPosition().rotateClockwise(), guard); }
-    private void rotateAntiClockwise(Guard guard) { moveGuard(guard.getPosition().rotateAntiClockwise(), guard); }
-    private void moveBackward(Guard guard) { moveGuard(guard.getPosition().moveBackwards(), guard); }
+
+    private void moveForward(Guard guard) {
+        moveGuard(guard.getPosition().moveForward(), guard);
+    }
+
+    private void moveBackward(Guard guard) {
+        moveGuard(guard.getPosition().moveBackwards(), guard);
+    }
+
     private void moveGuard(Position position, Guard guard) {
         if (getModel().isEmpty(position)) guard.setPosition(position);
     }
+
     @Override
     public void step(Game game, GUI.GUIAction action, long time) throws IOException {
         for (Guard guard : getModel().getGuardList()) {
             if (guard.getHealth() > 0) {
                 boolean t = guard.tick();
                 SoundLoader s = SoundLoader.getInstance();
-                double distance = Math.sqrt((getModel().getPlayer().getPosition().getX() - guard.getPosition().getX())*(getModel().getPlayer().getPosition().getX() - guard.getPosition().getX()) + (getModel().getPlayer().getPosition().getY() - guard.getPosition().getY())*(getModel().getPlayer().getPosition().getY() - guard.getPosition().getY()));
-                /*for (Position position : guard.getPosition().lookForward()) {
-                    if (position.getX() < 0 || position.getY() < 0 ||
-                            position.getX() > (getModel().getMap().getWidth() * getModel().getMap().getCellsize())
-                            || position.getY() > (getModel().getMap().getWidth() * getModel().getMap().getCellsize()))
-                        continue;
-                    if (!getModel().isEmpty(position) && !guard.isAggro()) {
-                        rotateAntiClockwise(guard);
-                        break;
-                    }
-                }
-                guard.setAggro(-Position.FOV / 2.0 <= guard.getPosition().viewAngle(getModel().getPlayer().getPosition()) &&
-                        !guard.getPosition().checkWall(getModel().getPlayer().getPosition(), getModel().getMap())
-                        && guard.getPosition().viewAngle(getModel().getPlayer().getPosition()) <= Position.FOV / 2.0);
-                if (!guard.isAggro()) moveForward(guard);*/
+                double distance = Math.sqrt((getModel().getPlayer().getPosition().getX() - guard.getPosition().getX()) * (getModel().getPlayer().getPosition().getX() - guard.getPosition().getX()) + (getModel().getPlayer().getPosition().getY() - guard.getPosition().getY()) * (getModel().getPlayer().getPosition().getY() - guard.getPosition().getY()));
                 if (!guard.isAggro()) {
-                    if (distance < 72 && !(guard.getPosition().checkWall(getModel().getPlayer().getPosition(), getModel().getMap()))) guard.setAggro(true);
+                    if (distance < 72 && !guard.getPosition().checkWall(getModel().getPlayer().getPosition(), getModel().getMap()))
+                        guard.setAggro(true);
                 }
                 if (guard.isAggro()) {
                     guard.pointTo(getModel().getPlayer().getPosition());
@@ -50,7 +43,7 @@ public class GuardController extends GameController {
                         moveForward(guard);
                     } else if (distance < 28) {
                         moveBackward(guard);
-                    } else if (distance >= 88 || (guard.getPosition().checkWall(getModel().getPlayer().getPosition(), getModel().getMap()))) {
+                    } else if (distance >= 88 || guard.getPosition().checkWall(getModel().getPlayer().getPosition(), getModel().getMap())) {
                         guard.setAggro(false);
                     }
                     if (distance < 32 && t) {
@@ -61,11 +54,12 @@ public class GuardController extends GameController {
             }
         }
         if (action == GUI.GUIAction.FIRE) {
-            double distance; double minDist = Integer.MAX_VALUE;
+            double distance;
+            double minDist = Integer.MAX_VALUE;
             Guard grd = null;
             for (Guard g : getModel().getGuardList()) {
                 distance = Math.sqrt((getModel().getPlayer().getPosition().getX() - g.getPosition().getX()) * (getModel().getPlayer().getPosition().getX() - g.getPosition().getX()) + (getModel().getPlayer().getPosition().getY() - g.getPosition().getY()) * (getModel().getPlayer().getPosition().getY() - g.getPosition().getY()));
-                if(!getModel().getPlayer().getPosition().checkWall(g.getPosition(), getModel().getMap())) {
+                if (!getModel().getPlayer().getPosition().checkWall(g.getPosition(), getModel().getMap())) {
                     /*double m1 = Math.tan(Math.toRadians((getModel().getPlayer().getPosition().getAngle() - 15 + 360) % 360));
                     double m2 = Math.tan(Math.toRadians((getModel().getPlayer().getPosition().getAngle() + 15) % 360));
 

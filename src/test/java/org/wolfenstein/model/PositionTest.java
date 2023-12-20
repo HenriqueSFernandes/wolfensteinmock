@@ -39,8 +39,7 @@ public class PositionTest {
     }
 
     @Property
-    void rotateTest(@ForAll @Positive @IntRange(min = 0, max = 359) int th,
-                    @ForAll int r) {
+    void rotateTest(@ForAll @Positive @IntRange(min = 0, max = 359) int th, @ForAll int r) {
         position = new Position(r, r, th);
 
         position = position.rotateClockwise();
@@ -55,10 +54,9 @@ public class PositionTest {
     }
 
     @Property
-    void goAndGoBackTest(@ForAll @IntRange(max = Integer.MAX_VALUE - 2) int x,
-                         @ForAll @IntRange(max = Integer.MAX_VALUE - 2) int y) {
+    void goAndGoBackTest(@ForAll @IntRange(max = Integer.MAX_VALUE - 2) int x, @ForAll @IntRange(max = Integer.MAX_VALUE - 2) int y) {
         position = new Position(x, y, 0);
-        for(int j = 0; j < 4; j++) {
+        for (int j = 0; j < 4; j++) {
             position = position.moveForward();
             for (int i = 0; i < 9; i++) {
                 position = position.rotateClockwise();

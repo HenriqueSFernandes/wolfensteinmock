@@ -1,7 +1,5 @@
 package org.wolfenstein.model;
 
-import org.wolfenstein.model.image.ImageLoader;
-
 import java.util.Arrays;
 import java.util.List;
 

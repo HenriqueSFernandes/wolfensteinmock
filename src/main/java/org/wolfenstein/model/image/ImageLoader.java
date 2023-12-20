@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ImageLoader {
     private static ImageLoader instance;
-    private List<Image> images = new ArrayList<>();
+    private final List<Image> images = new ArrayList<>();
 
     private ImageLoader() {
     }
@@ -40,7 +40,8 @@ public class ImageLoader {
             image.draw(graphics);
         }
     }
-    public Image getImage(int index){
+
+    public Image getImage(int index) {
         return images.get(index);
     }
 }

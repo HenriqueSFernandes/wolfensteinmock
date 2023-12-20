@@ -1,11 +1,5 @@
 package org.wolfenstein.model;
 
-import net.jqwik.api.ForAll;
-import net.jqwik.api.Property;
-import net.jqwik.api.constraints.IntRange;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MapTest {
     /*int[][] m = {{1,1,1,1,1,1,1,1},
                  {1,0,0,0,0,0,0,1},

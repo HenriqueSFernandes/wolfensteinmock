@@ -10,8 +10,8 @@ import org.wolfenstein.model.elements.Guard;
 import org.wolfenstein.model.elements.Player;
 
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.List;
+import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;

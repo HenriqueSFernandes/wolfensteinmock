@@ -5,17 +5,13 @@ import org.wolfenstein.model.image.ImageLoader;
 public class Player extends Element {
 
     private static Player player;
-    private static int health;
-    private static int maxHealth;
-    private static int ammo;
-    private static int maxAmmo;
+    private static int health = 10;
+    private static int maxHealth = health;
+    private static int ammo = 30;
+    private static int maxAmmo = ammo;
 
     private Player(int x, int y, double angle) {
         super(x, y, angle);
-        health = 10;
-        ammo = 30;
-        maxHealth = health;
-        maxAmmo = ammo;
     }
 
     public static Player getInstance() {

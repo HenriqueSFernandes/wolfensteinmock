@@ -1,19 +1,18 @@
 package org.wolfenstein.model;
 
-import net.jqwik.api.ForAll;
-import net.jqwik.api.Property;
-import net.jqwik.api.constraints.IntRange;
 import org.junit.jupiter.api.Test;
 import org.wolfenstein.model.elements.Player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.wolfenstein.model.elements.Player.getInstance;
 
 public class PlayerTest {
     Player player;
+
     @Test
     void createPlayerTest() {
-        assertEquals(null, player);
+        assertNull(player);
         player = getInstance();
         //a posição default do player é no ponto (10, 10) com ângulo 0
         assertEquals(10, player.getPosition().getX());

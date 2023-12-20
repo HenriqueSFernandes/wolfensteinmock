@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
-import java.util.Vector;
 
 public class LanternaGUI implements GUI {
     public static final TextColor.RGB BLACK = new TextColor.RGB(0, 0, 0);
@@ -35,7 +34,7 @@ public class LanternaGUI implements GUI {
     public static final TextColor.RGB GRAY = new TextColor.RGB(128, 128, 128);
     public static final TextColor.RGB BROWN = new TextColor.RGB(73, 42, 21);
     public static final TextColor.RGB BLUE = new TextColor.RGB(14, 28, 46);
-    public static TextGraphics graphics;
+    public TextGraphics graphics;
     private final AnimationLoader animationLoader = AnimationLoader.getInstance();
     private final SoundLoader soundLoader = SoundLoader.getInstance();
     private final ImageLoader imageLoader = ImageLoader.getInstance();
@@ -153,7 +152,7 @@ public class LanternaGUI implements GUI {
 
     @Override
     public void drawMap(Map map) {
-        Vector<Vector<Integer>> grid = map.getMap();
+        List<List<Integer>> grid = map.getMap();
         int height = map.getHeight();
         int width = map.getWidth();
         int cellsize = map.getCellsize();
@@ -195,11 +194,13 @@ public class LanternaGUI implements GUI {
             }
         }
     }
+
     @Override
     public void drawText(int x, int y, String text) {
         graphics.setBackgroundColor(BLACK);
         graphics.putString(x, y, text);
     }
+
     @Override
     public void drawPlayerCamera(Position playerPosition, Map map) throws IOException {
         int CELLSIZE = map.getCellsize();
@@ -290,6 +291,7 @@ public class LanternaGUI implements GUI {
         if (brightness < 0) brightness = 0;
         return new TextColor.RGB(brightness, brightness, brightness);
     }
+
     @Override
     public void drawGuard(int index, Position position, Map map) throws IOException {
         int CELLSIZE = map.getCellsize();
@@ -306,10 +308,10 @@ public class LanternaGUI implements GUI {
                 graphics.setCharacter((int) point.getX(), (int) point.getY(), '@');
             }
         }
-        imageLoader.getImage(13 + index).setPosition(new Position(350 - 2.9 * (int) Player.getInstance().getPosition().viewAngle(position),
-                130 - position.distance(Player.getInstance().getPosition()) / 2.0));
+        imageLoader.getImage(13 + index).setPosition(new Position(350 - 2.9 * (int) Player.getInstance().getPosition().viewAngle(position), 130 - position.distance(Player.getInstance().getPosition()) / 2.0));
         imageLoader.getImage(13 + index).draw(graphics);
     }
+
     @Override
     public void drawGuardCounter() throws IOException {
         for (int i = 0; i < Camera.createCamera().getGuardList().size(); i++) {

@@ -5,11 +5,9 @@ import java.io.IOException;
 import java.net.URL;
 
 public class Sound {
-    private String soundName;
-    private URL resource;
+    private final URL resource;
 
     public Sound(String soundName) {
-        this.soundName = soundName;
         resource = getClass().getResource("/sounds/" + soundName);
     }
 
@@ -20,7 +18,7 @@ public class Sound {
             clip.open(audioIn);
             clip.start();
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 }
