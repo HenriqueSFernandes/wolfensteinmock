@@ -13,14 +13,14 @@ public class Camera {
     private static Camera camera;
     private final Player player;
     private List<Guard> guardList;
-    private Vector<Door> doors;
+    private List<Door> doors;
     private static final int maxGuardNumber = 30;
     private final Map map;
 
     private Camera() throws IOException {
         this.player = Player.getInstance();
         this.map = new Map();
-        this.doors = new Vector<>();
+        this.doors = new ArrayList<>();
         this.guardList = new ArrayList<>();
         createDoors();
         createGuardList();
@@ -58,8 +58,8 @@ public class Camera {
         }
         return guardList;
     }
-    public Vector<Door> getDoors() { return doors; }
-    public Vector<Door> createDoors() {
+    public List<Door> getDoors() { return doors; }
+    public List<Door> createDoors() {
         doors = new Vector<>();
         Vector<Position> doorPos = getMap().getPositionsForDoors();
         for (Position p : doorPos) {
