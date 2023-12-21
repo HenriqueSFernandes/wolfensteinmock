@@ -83,6 +83,7 @@ public class LanternaGUI implements GUI {
         graphics = screen.newTextGraphics();
         animationLoader.importMomentaryAnimation("pistol_firing.png", new Position(332, 176));
         soundLoader.importSound("gun_shot.wav");
+        soundLoader.importSound("enemy_dying.wav");
         for (int i = 0; i < Player.getInstance().getMaxHealth(); i++) {
             imageLoader.importImage("heart.png", new Position(242 + 12 * i, 0));
         }

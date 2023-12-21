@@ -94,6 +94,12 @@ public class GuardController extends GameController {
             }
             if (grd != null) grd.takeShot();
         }
+        SoundLoader soundLoader = SoundLoader.getInstance();
+        for (Guard g : getModel().getGuardList()){
+            if (g.getHealth() <= 0){
+                soundLoader.getSound(1).play();
+            }
+        }
         getModel().getGuardList().removeIf(guard -> guard.getHealth() <= 0);
     }
 }
