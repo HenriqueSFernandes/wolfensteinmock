@@ -5,10 +5,16 @@ import org.wolfenstein.model.Menu;
 import org.wolfenstein.model.image.ImageLoader;
 
 public class MenuViewer extends Viewer<Menu> {
-    private final ImageLoader imageLoader = ImageLoader.getInstance();
+    private final ImageLoader imageLoader;
 
     public MenuViewer(Menu model) {
         super(model);
+        imageLoader = ImageLoader.getInstance();
+    }
+
+    public MenuViewer(Menu model, ImageLoader imageLoader) {
+        super(model);
+        this.imageLoader = imageLoader;
     }
 
     @Override
