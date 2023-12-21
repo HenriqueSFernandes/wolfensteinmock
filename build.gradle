@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'net.ltgt.errorprone' version '3.1.0'
+    id 'info.solidsoft.pitest' version '1.15.0'
 }
 
 group = 'org.wolfenstein'
@@ -18,6 +19,11 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.7.0'
     testImplementation group: 'net.jqwik', name: 'jqwik', version: '1.8.2'
     errorprone "com.google.errorprone:error_prone_core:2.20.0"
+}
+
+pitest {
+    junit5PluginVersion = '1.2.0'
+    pitestVersion = '1.15.0'
 }
 
 test {
