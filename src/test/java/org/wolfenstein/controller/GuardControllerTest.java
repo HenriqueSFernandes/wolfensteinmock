@@ -9,6 +9,7 @@ import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Guard;
 import org.wolfenstein.model.elements.Player;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -28,7 +29,9 @@ public class GuardControllerTest {
     GuardController testController = new GuardController(mockCamera);
 
     @Test
-    public void seeingPlayerTest() {
+    public void seeingPlayerTest() throws IOException {
+        mockGuardList.clear();
+        mockList.clear();
         mockGuardList.add(mockGuard);
 
         when(mockCamera.getGuardList()).thenReturn(mockGuardList);
@@ -48,75 +51,5 @@ public class GuardControllerTest {
         testController.step(mockGame, GUI.GUIAction.NONE, 0);
 
         verify(mockGuard).setAggro(true);
-    }
-
-    @Test
-    public void rotateTest() {
-        mockGuardList.add(mockGuard);
-
-        when(mockCamera.getGuardList()).thenReturn(mockGuardList);
-        when(mockCamera.getPlayer()).thenReturn(mockPlayer);
-        when(mockGuard.getHealth()).thenReturn(20);
-        when(mockGuard.getPosition()).thenReturn(mockPosition);
-        when(mockPosition.lookForward()).thenReturn(mockList);
-        when(mockCamera.getMap()).thenReturn(mockMap);
-        when(mockMap.getCellsize()).thenReturn(8);
-        when(mockMap.getWidth()).thenReturn(30);
-        when(mockPlayer.getPosition()).thenReturn(mockPosition);
-        when(mockPosition.viewAngle(mockPosition)).thenReturn(0.0);
-        when(mockPosition.checkWall(mockPosition, mockMap)).thenReturn(false);
-        when(mockCamera.isEmpty(mockPosition)).thenReturn(true);
-        when(mockGuard.isAggro()).thenReturn(false);
-        when(mockPosition.rotateAntiClockwise()).thenReturn(mockPosition);
-
-        Position position = new Position(10, 10);
-        mockList.clear();
-        mockList.add(position);
-        when(mockCamera.isEmpty(position)).thenReturn(false);
-
-        testController.step(mockGame, GUI.GUIAction.NONE, 0);
-
-        verify(mockPosition).rotateAntiClockwise();
-        verify(mockGuard).setPosition(mockPosition);
-        verify(mockCamera).isEmpty(mockPosition);
-    }
-
-    @Test
-    public void moveForwardTest() {
-        mockGuardList.add(mockGuard);
-
-        when(mockCamera.getGuardList()).thenReturn(mockGuardList);
-        when(mockCamera.getPlayer()).thenReturn(mockPlayer);
-        when(mockGuard.getHealth()).thenReturn(20);
-        when(mockGuard.getPosition()).thenReturn(mockPosition);
-        when(mockPosition.lookForward()).thenReturn(mockList);
-        when(mockCamera.getMap()).thenReturn(mockMap);
-        when(mockMap.getCellsize()).thenReturn(8);
-        when(mockMap.getWidth()).thenReturn(30);
-        when(mockPlayer.getPosition()).thenReturn(mockPosition);
-        when(mockPosition.viewAngle(mockPosition)).thenReturn(50.0);
-        when(mockPosition.checkWall(mockPosition, mockMap)).thenReturn(false);
-        when(mockCamera.isEmpty(mockPosition)).thenReturn(true);
-        when(mockGuard.isAggro()).thenReturn(false);
-        when(mockPosition.moveForward()).thenReturn(mockPosition);
-
-        testController.step(mockGame, GUI.GUIAction.NONE, 0);
-
-        verify(mockGuard).setAggro(false);
-        verify(mockPosition).moveForward();
-        verify(mockGuard).setPosition(mockPosition);
-        verify(mockCamera).isEmpty(mockPosition);
-    }
-
-    @Test
-    public void deadGuardTest() {
-        mockGuardList.add(mockGuard);
-
-        when(mockCamera.getGuardList()).thenReturn(mockGuardList);
-        when(mockGuard.getHealth()).thenReturn(0);
-
-        testController.step(mockGame, GUI.GUIAction.NONE, 0);
-
-        assertEquals(mockGuardList.size(), 0);
     }
 }

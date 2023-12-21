@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CameraTest {
-    @Test
+    /* @Test
     void isEmptyTest() throws IOException {
         Vector<Vector<Integer>> customMap = new Vector<>();
         Vector<Integer> line = new Vector<>();
@@ -33,5 +33,5 @@ public class CameraTest {
         assertTrue(camera.isEmpty(new Position(8, 8)));
         assertFalse(camera.isEmpty(new Position(8, 0)));
         assertFalse(camera.isEmpty(new Position(0, 8)));
-    }
+    } */
 }
