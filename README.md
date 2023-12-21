@@ -1,6 +1,6 @@
 # LDTS_T1G06 - Wolfenstein Mock
 
-> As the title states, this game is a mock version of Wolfenstein 3D, a game released in 1992 which is considered the
+> As the title states, this game is a mock version of Wolfenstein 3D, a game released in 1992 that is considered the
 _grandfather of 3D shooters_.
 > It was one of the first games that presented 3D graphics, using a raycasting engine to achieve that goal.
 >
@@ -11,9 +11,9 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 1. [Gameplay](#gameplay)
 2. [Implemented features](#implemented-features)
-3. [Planned Features](#planned-features)
-4. [Current Bugs](#current-bugs)
-5. [Design](#design)
+3. [Design](#design)
+4. [Testing](#testing)
+5. [Self-evaluation](#self-evaluation)
 
 ---
 
@@ -24,38 +24,26 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 </p>
 
 > Use the arrows to move.  
-> - Left arrow makes the player look to the left.  
-> - Right arrow makes the player look to the right.  
-> - Up arrow makes the player move forward.  
-> - Down arrow makes the player move backward.
+> - The left arrow makes the player look to the left.  
+> - The right arrow makes the player look to the right.  
+> - The up arrow makes the player move forward.  
+> - The down arrow makes the player move backward.
 
 ---
 
 ### IMPLEMENTED FEATURES
 
-- **2D View** - The player has a top-down view of the map. This feature is going to be removed, since its only purpose
+- **2D View** - The player has a top-down view of the map. This feature is going to be removed since its only purpose
   is to test if the 3D view is correct.
 - **3D View** - The game character has a 3D view based on _raycasting_.
-- **Basic Lighting System** - The walls that are far away from the player are darker, while the one that are near the
+- **Basic Lighting System** - The walls that are far away from the player are darker, while the ones that are near the
   player are brighter.
 - **Collision System** - The player cannot go through walls.
-
-### PLANNED FEATURES
-
-- **Multiple Rooms** - The overall game will be a sequence of rooms/levels connected by doors to one another.
-- **Enemies** - The game will present different enemies with different behaviours.
-- **Shooting** - The player will possess a gun and ammunition and may launch projectiles to defeat the enemy.
-- **Health and Ammo Packs** - The player will be able to pick up packs in order to replenish his health and ammo.
-- **Sound effects** - Soundtrack and/or sound effects (gunshot noises, footsteps, etc).
-- **HUD** - HUD to visualize health and ammunition.
-
-### Known Bugs
-
-- _Fisheye_ effect when the player is looking to the north side of walls.
-- The menu is too small due to the font size. For now, when the game opens the selected option is "Start" and the next
-  option is "Exit".
-- Due to the coordinates being stored as integers, depending on the angle the player might not move forward in the direction it is looking.
-- In some instances, the player may continue moving even after releasing the key. This is caused by the way the input is handled.
+- **Sound effects** - Gunshot noises and other sound effects.
+- **HUD** - HUD to visualize health and enemies remaining.
+- **Enemies** - The game will present enemies that need to be killed to advance to the next level.
+- **Multiple Rooms** - The game is a sequence of rooms/levels connected by doors to one another.
+- **Shooting** - The player possesses a gun to defeat the enemies.
 
 ---
 
@@ -65,14 +53,14 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 The chosen algorithm for converting the 2D map to a 3D view is called _Raycasting_, which is the same algorithm as the one used in the original _Wolfenstein_.
 
-The process begins with the player's viewpoint in the 2D map. For each vertical column of pixels on the screen, a ray is cast into the map from the player's position. As the ray travels, it checks for intersections with walls. The distance to the first intersection is used to determine the apparent height of the wall on the screen. This information is then used to render the 3D view, giving the player the perception of depth and distance.
+The process begins with the player's viewpoint on the 2D map. For each vertical column of pixels on the screen, a ray is cast into the map from the player's position. As the ray travels, it checks for intersections with walls. The distance to the first intersection is used to determine the apparent height of the wall on the screen. This information is then used to render the 3D view, giving the player the perception of depth and distance.
 
 Raycasting doesn't involve the complex 3D rendering techniques seen in modern games but rather simulates the effect using clever calculations. Despite its simplicity, raycasting was a revolutionary approach in early game development and played a crucial role in shaping the visual style of early first-person shooters.
 
 ### _Fisheye_ Effect
 
 Since the distance to the walls is calculated in a straight line, the objects at the center are closer than objects on the left/right, thus appearing bigger.  
-This behaviour can be corrected using simple trigonometry.
+This behavior can be corrected using simple trigonometry.
 
 <p align="center">
     <img src="docs/images/fisheye.png">
@@ -82,30 +70,30 @@ This behaviour can be corrected using simple trigonometry.
 
 **Problem in Context**
 
-The game screen consists of two parts, the player view and the map of the room he is in. However drawing the player
-camera depends on the map and drawing the map depends on the player. This is a violation of the DIP(Dependency Inversion
+The game screen consists of two parts, the player's view and the map of the room he is in. However, drawing the player's
+camera depends on the map, and drawing the map depends on the player. This is a violation of the DIP(Dependency Inversion
 Principle)
 
 **The Pattern**
 
-The Factory Design Pattern can help us to avoid the circular dependencies. By creating a class to act as an interface
+The Factory Design Pattern can help us to avoid circular dependencies. By creating a class to act as an interface
 between the player and map, both of these will depend on the interface, making the dependency non-circular.
 
 **Implementation**
 
-A class Camera (it was not named Screen to avoid confusion with the Lanterna Library) was created in order to act as an
+A class Camera (it was not named Screen to avoid confusion with the Lanterna Library) was created to act as an
 interface between the Player and Map classes.
-Example of the comunication between classes when the Player moves:
+Example of the communication between classes when the Player moves:
 <p align="center">
     <img src="docs/images/camera_implementation.drawio.png">
 </p>
 
 **Consequences**
 
-- The Player and Map classes were successfully isolated and no longer depend on eachother.
+- The Player and Map classes were successfully isolated and no longer depend on each other.
 - The Camera class allows for further extension to the screen if desired (for example to switch to the menu screen).
 - Ensures simplicity for the client, who only needs to request screen drawing from the Camera class, instead of every
-  sing individual component.
+  single individual component.
 
 #### THERE CAN ONLY BE ONE PLAYER AND ONE CAMERA
 
@@ -119,7 +107,7 @@ The Singleton pattern will make it impossible to create more than one instance o
 
 **Implementation**
 
-The classes Player and Camera each have a private instance of itself and a private constructor to prevent the creation of new instances. Instead the singular instance is acquired by calling a separate function which returns the singular private instance, or calls the constructor if the instance does not exist yet.
+The classes Player and Camera each have a private instance of itself and a private constructor to prevent the creation of new instances. Thus, the singular instance is acquired by calling a separate function which returns the singular private instance or calls the constructor if the instance does not exist yet.
 
 **Consequences**
 
@@ -130,7 +118,7 @@ The classes Player and Camera each have a private instance of itself and a priva
 
 **Problem in Context**
 
-The game functions by having a state that takes a step every loop. It is necessary that every time this step occurs, all of the elements of the screen are updated.
+The game functions by having a state that takes a step in every loop. It is necessary that every time this step occurs, all of the elements of the screen are updated.
 
 **The Pattern**
 
@@ -138,7 +126,7 @@ The Observer pattern creates a mechanism to support these updates. By creating a
 
 **Implementation**
 
-Any controllers implemented (except for the menu controller) are observers of the GameController class. When this class takes a step in state, it calls all the other classes' step methods as well. The same happens for the viewers.
+Any controllers implemented (except for the menu controller) are observers of the GameController class. When this class takes a step in the state, it calls all the other classes' step methods as well. The same happens for the viewers.
 Sequence diagram of a step in the game loop:
 <p align="center">
     <img src="docs/images/observer_implementation.drawio.png">
@@ -158,7 +146,7 @@ It is required for the player to be able to change between the menu and the actu
 
 **The Pattern**
 
-The State pattern offers a solution to our problem by allowing an object to alter its behaviour when the state changes.
+The State pattern offers a solution to our problem by allowing an object to alter its behavior when the state changes.
 
 **Implementation**
 
@@ -179,7 +167,7 @@ We have not searched for code smells yet.
 
 ### TESTING
 
-Basic testing has been done with JUnit for unit testing, Mockito for mocks and dependency injection and JQwik for property-based testing. Although the testing process it still far from concluded
+Basic testing has been done with JUnit for unit testing, Mockito for mocks and dependency injection, and JQwik for property-based testing. Although the testing process is still far from concluded
 
 ### SELF-EVALUATION
 
