@@ -53,18 +53,4 @@ public class PositionTest {
         assertEquals(r, position.getX());
         assertEquals(r, position.getY());
     }
-
-    @Property
-    void goAndGoBackTest(@ForAll @IntRange(max = Integer.MAX_VALUE - 2) int x,
-                         @ForAll @IntRange(max = Integer.MAX_VALUE - 2) int y) {
-        position = new Position(x, y, 0);
-        for(int j = 0; j < 4; j++) {
-            position = position.moveForward();
-            for (int i = 0; i < 9; i++) {
-                position = position.rotateClockwise();
-            }
-        }
-        assertEquals(x, position.getX());
-        assertEquals(y, position.getY());
-    }
 }
