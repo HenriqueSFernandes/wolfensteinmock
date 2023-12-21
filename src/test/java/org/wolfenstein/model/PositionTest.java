@@ -39,8 +39,7 @@ public class PositionTest {
     }
 
     @Property
-    void rotateTest(@ForAll @Positive @IntRange(min = 0, max = 359) int th,
-                    @ForAll int r) {
+    void rotateTest(@ForAll @Positive @IntRange(min = 0, max = 359) int th, @ForAll int r) {
         position = new Position(r, r, th);
 
         position = position.rotateClockwise();

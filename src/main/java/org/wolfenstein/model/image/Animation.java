@@ -43,5 +43,13 @@ public abstract class Animation {
         this.playing = playing;
     }
 
+    public Image getCurrentFrame() {
+        return currentFrame;
+    }
+
+    public List<Image> getAnimation() {
+        return frames;
+    }
+
     public abstract void play();
 }

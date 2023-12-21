@@ -5,31 +5,16 @@ import org.wolfenstein.model.image.ImageLoader;
 public class Player extends Element {
 
     private static Player player;
-    private static int health;
-    private static int maxHealth;
-    private static int ammo;
-    private static int maxAmmo;
+    private static int health = 10;
+    private static int maxHealth = health;
 
     private Player(int x, int y, double angle) {
         super(x, y, angle);
-        health = 10;
-        ammo = 30;
-        maxHealth = health;
-        maxAmmo = ammo;
     }
 
     public static Player getInstance() {
         if (player == null) player = new Player(10, 10, 0);
         return player;
-    }
-
-    public static int getMaxAmmo() {
-        return maxAmmo;
-    }
-
-    public void setMaxAmmo(int m) {
-        maxAmmo = Math.max(1, m);
-        ammo = Math.min(ammo, maxAmmo);
     }
 
     public int getMaxHealth() {
@@ -53,11 +38,4 @@ public class Player extends Element {
         return health;
     }
 
-    public int getAmmo() {
-        return ammo;
-    }
-
-    public void changeAmmo(int d) {
-        ammo = Math.max(0, Math.min(ammo + d, maxAmmo));
-    }
 }

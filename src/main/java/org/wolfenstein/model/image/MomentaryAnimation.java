@@ -14,9 +14,8 @@ public class MomentaryAnimation extends Animation {
         if (frameCounter >= frameAmount) {
             playing = false;
             frameCounter = 0;
-        } else {
-            currentFrame = frames.get(frameCounter);
         }
+        currentFrame = frames.get(frameCounter);
     }
 
     @Override
@@ -33,5 +32,4 @@ public class MomentaryAnimation extends Animation {
     public void play() {
         this.playing = true;
     }
-
 }

@@ -1,31 +1,21 @@
 package org.wolfenstein.model.elements;
 
-import static java.lang.Math.min;
+import org.wolfenstein.model.Position;
 
 public class Guard extends Element {
     private int health;
-    private int maxHealth;
     private boolean isAggro;
+    private int clock = 0;
+
     public Guard(int x, int y, double angle) {
         super(x, y, angle);
-        maxHealth = 2;
-        health = maxHealth;
+        health = 3;
         this.isAggro = false;
     }
+
     public int getHealth() {
         return health;
     }
-    public void setHealth(int health) {
-        if (health < 0) this.health = 0;
-        else this.health = min(maxHealth, health);
-    }
-    public void setMaxHealth(int i) {
-        if (i >= 1) {
-            maxHealth = i;
-            if (health > maxHealth) health = maxHealth;
-        }
-    }
-    public int getMaxHealth() { return maxHealth; }
 
     public boolean isAggro() {
         return isAggro;
@@ -34,4 +24,31 @@ public class Guard extends Element {
     public void setAggro(boolean aggro) {
         isAggro = aggro;
     }
+
+    public void takeShot() {
+        health--;
+        if (!isAggro) isAggro = true;
+    }
+
+    public void pointTo(Position p) {
+        if (p.getX() == this.getPosition().getX()) {
+
+            this.setPosition(new Position(this.getPosition().getX(), this.getPosition().getY(), 90));
+        } else {
+            this.setPosition(new Position(this.getPosition().getX(), this.getPosition().getY(), (((int) Math.toDegrees(Math.atan(-(p.getY() - this.getPosition().getY()) / (p.getX() - this.getPosition().getX())))) / 10) * 10));
+        }
+        if (Math.sqrt((p.getX() - this.getPosition().getX()) * (p.getX() - this.getPosition().getX()) + (p.getY() - this.getPosition().getY()) * (p.getY() - this.getPosition().getY())) < Math.sqrt((p.getX() - this.getPosition().moveForward().getX()) * (p.getX() - this.getPosition().moveForward().getX()) + (p.getY() - this.getPosition().moveForward().getY()) * (p.getY() - this.getPosition().moveForward().getY())))
+            this.setPosition(new Position(this.getPosition().getX(), this.getPosition().getY(), (this.getPosition().getAngle() + 180) % 360));
+    }
+
+    public boolean tick() {
+        clock++;
+        if (clock == 60) {
+            clock = 0;
+            return true;
+        }
+        return false;
+    }
 }
+
+
