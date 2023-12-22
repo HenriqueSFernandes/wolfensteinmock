@@ -1,11 +1,13 @@
 package org.wolfenstein.GUI;
 
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import org.junit.jupiter.api.Test;
 import org.wolfenstein.model.Map;
+import org.wolfenstein.model.Position;
 import org.wolfenstein.model.image.Animation;
 import org.wolfenstein.model.image.AnimationLoader;
 import org.wolfenstein.model.image.ImageLoader;
@@ -17,10 +19,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.wolfenstein.GUI.LanternaGUI.*;
 
 public class LanternaGUITest {
     TextGraphics mockGraphics = mock(TextGraphics.class);
@@ -33,6 +37,7 @@ public class LanternaGUITest {
     TerminalScreen mockScreen = mock(TerminalScreen.class);
     KeyStroke mockKey = mock(KeyStroke.class);
     Map mockMap = mock(Map.class);
+    Position mockPosition = mock(Position.class);
     LanternaGUI testGUI = new LanternaGUI(mockScreen, mockGraphics, mockAnimationLoader, mockSoundLoader, mockImageLoader);;
 
 
@@ -123,5 +128,56 @@ public class LanternaGUITest {
         when(mockSoundLoader.getSound(0)).thenReturn(mockSound);
 
         assertEquals(GUI.GUIAction.FIRE, testGUI.getNextAction());
+    }
+
+    @Test
+    public void drawMapTest() {
+        List<List<Integer>> mockGrid = Arrays.asList(Arrays.asList(1, 2, 3), Arrays.asList(4, 0, 5), Arrays.asList(6, 1, 1));
+        when(mockMap.getMap()).thenReturn(mockGrid);
+        when(mockMap.getHeight()).thenReturn(3);
+        when(mockMap.getWidth()).thenReturn(3);
+        when(mockMap.getCellsize()).thenReturn(3);
+
+        testGUI.drawMap(mockMap);
+
+        verify(mockGraphics, times(73)).setBackgroundColor(GRAY);
+        verify(mockGraphics).fillRectangle(any(), any(), eq(' '));
+        verify(mockGraphics, times(4)).setBackgroundColor(BLACK);
+        verify(mockGraphics, times(1)).setBackgroundColor(new TextColor.RGB(0, 255, 0));
+        verify(mockGraphics, times(1)).setBackgroundColor(new TextColor.RGB(0, 255, 255));
+        verify(mockGraphics, times(1)).setBackgroundColor(new TextColor.RGB(255, 255, 0));
+        verify(mockGraphics, times(1)).setBackgroundColor(new TextColor.RGB(255, 0, 0));
+        verify(mockGraphics, times(1)).setBackgroundColor(WHITE);
+        verify(mockGraphics, times(81)).putString(anyInt(), anyInt(), eq(" "));
+    }
+
+    @Test
+    public void drawTextTest() {
+        testGUI.drawText(0, 0, "test");
+
+        verify(mockGraphics).setBackgroundColor(BLACK);
+        verify(mockGraphics).putString(0, 0, "test");
+    }
+
+    @Test
+    public void drawPlayerCameraTest() throws IOException {
+        List<List<Integer>> mockGrid = Arrays.asList(Arrays.asList(1, 1, 1), Arrays.asList(4, 0, 1), Arrays.asList(1, 1, 1));
+        List<Position> mockLine = Arrays.asList(mockPosition);
+        List<Position> mockDoorLine = Arrays.asList(mockPosition);
+        when(mockMap.getMap()).thenReturn(mockGrid);
+        when(mockMap.getHeight()).thenReturn(3);
+        when(mockMap.getWidth()).thenReturn(3);
+        when(mockMap.getCellsize()).thenReturn(3);
+        when(mockPosition.getRayAngle(eq(mockMap), anyInt())).thenReturn(0.0);
+        when(mockPosition.getAngle()).thenReturn(0.0);
+        when(mockPosition.createLine(0.0, mockMap)).thenReturn(mockLine);
+        when(mockPosition.createLineForDoor(0.0, mockMap)).thenReturn(mockDoorLine);
+
+        testGUI.drawPlayerCamera(mockPosition, mockMap);
+
+        verify(mockAnimationLoader).drawAllAnimations(mockGraphics);
+        verify(mockGraphics, times(18)).setCharacter(anyInt(), anyInt(), eq(' '));
+        verify(mockGraphics, times(27)).setBackgroundColor(any());
+        verify(mockGraphics, times(18)).drawLine(anyInt(), anyInt(), anyInt(), anyInt(), eq(' '));
     }
 }
