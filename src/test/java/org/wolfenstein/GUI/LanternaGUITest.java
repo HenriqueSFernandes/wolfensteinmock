@@ -1,11 +1,13 @@
 package org.wolfenstein.GUI;
 
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import org.junit.jupiter.api.Test;
+import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
 import org.wolfenstein.model.image.Animation;
@@ -56,6 +58,7 @@ public class LanternaGUITest {
         verify(mockScreen).close();
         verify(mockScreen).refresh();
         verify(mockScreen).clear();
+        assertEquals(mockGraphics, testGUI.getGraphics());
     }
 
     @Test
@@ -179,5 +182,81 @@ public class LanternaGUITest {
         verify(mockGraphics, times(18)).setCharacter(anyInt(), anyInt(), eq(' '));
         verify(mockGraphics, times(27)).setBackgroundColor(any());
         verify(mockGraphics, times(18)).drawLine(anyInt(), anyInt(), anyInt(), anyInt(), eq(' '));
+    }
+
+    @Test
+    public void drawFloorTest() {
+        when(mockGraphics.getSize()).thenReturn(new TerminalSize(10, 10));
+
+        testGUI.drawFloor();
+
+        verify(mockGraphics).getSize();
+        verify(mockGraphics).setBackgroundColor(BROWN);
+        verify(mockGraphics).fillRectangle(any(), any(), eq(' '));
+    }
+
+    @Test
+    public void drawCeilingTest() {
+        when(mockGraphics.getSize()).thenReturn(new TerminalSize(10, 10));
+
+        testGUI.drawCeiling();
+
+        verify(mockGraphics).getSize();
+        verify(mockGraphics).setBackgroundColor(BLUE);
+        verify(mockGraphics).fillRectangle(any(), any(), eq(' '));
+    }
+
+    @Test
+    public void drawHeartsTest() {
+        when(mockImageLoader.getImage(anyInt())).thenReturn(mockImage);
+
+        testGUI.drawHearts();
+
+        verify(mockImage, times(10)).draw(mockGraphics);
+    }
+
+    @Test
+    public void drawAimTest() {
+        when(mockImageLoader.getImage(10)).thenReturn(mockImage);
+
+        testGUI.drawAim();
+
+        verify(mockImage).draw(mockGraphics);
+    }
+
+    @Test
+    public void drawGuardTest() throws IOException {
+        when(mockImageLoader.getImage(13)).thenReturn(mockImage);
+        List<List<Integer>> mockGrid = Arrays.asList(Arrays.asList(1, 1, 1), Arrays.asList(4, 0, 1), Arrays.asList(1, 1, 1));
+        List<Position> mockLine = Arrays.asList(mockPosition);
+        List<Position> mockDoorLine = Arrays.asList(mockPosition, mockPosition);
+        when(mockMap.getMap()).thenReturn(mockGrid);
+        when(mockMap.getHeight()).thenReturn(3);
+        when(mockMap.getWidth()).thenReturn(3);
+        when(mockMap.getCellsize()).thenReturn(3);
+        when(mockPosition.getRayAngle(eq(mockMap), anyInt())).thenReturn(0.0);
+        when(mockPosition.getAngle()).thenReturn(0.0);
+        when(mockPosition.createLine(0.0, mockMap)).thenReturn(mockLine);
+        when(mockPosition.createLineForDoor(0.0, mockMap)).thenReturn(mockDoorLine);
+
+        testGUI.drawGuard(0, mockPosition, mockMap);
+
+        verify(mockGraphics, times(9)).setBackgroundColor(new TextColor.RGB(255, 0, 0));
+        verify(mockGraphics, times(9)).setCharacter(anyInt(), anyInt(), eq(' '));
+        verify(mockGraphics, times(18)).setCharacter(anyInt(), anyInt(), eq('@'));
+        verify(mockImage).draw(mockGraphics);
+        verify(mockImage).setPosition(any());
+    }
+
+    @Test
+    public void drawGuardCounterTest() throws IOException {
+        Camera mockCamera = Camera.createCamera();
+        mockCamera.createGuardList();
+        when(mockImageLoader.getImage(anyInt())).thenReturn(mockImage);
+
+        testGUI.drawGuardCounter();
+
+        verify(mockImage, times(9)).draw(mockGraphics);
+
     }
 }
