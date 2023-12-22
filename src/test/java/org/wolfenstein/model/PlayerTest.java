@@ -13,7 +13,7 @@ public class PlayerTest {
     @Test
     void createPlayerTest() {
         assertNull(player);
-        player = getInstance();
+        player = Player.getInstance();
         //a posição default do player é no ponto (10, 10) com ângulo 0
         assertEquals(10, player.getPosition().getX());
         assertEquals(10, player.getPosition().getY());

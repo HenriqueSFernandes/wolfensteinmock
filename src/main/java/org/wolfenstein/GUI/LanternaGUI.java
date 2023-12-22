@@ -35,20 +35,25 @@ public class LanternaGUI implements GUI {
     public static final TextColor.RGB BROWN = new TextColor.RGB(73, 42, 21);
     public static final TextColor.RGB BLUE = new TextColor.RGB(14, 28, 46);
     public TextGraphics graphics;
-    private final AnimationLoader animationLoader = AnimationLoader.getInstance();
-    private final SoundLoader soundLoader = SoundLoader.getInstance();
-    private final ImageLoader imageLoader = ImageLoader.getInstance();
+    private final AnimationLoader animationLoader;
+    private final SoundLoader soundLoader;
+    private final ImageLoader imageLoader;
     private TerminalScreen screen;
 
     public LanternaGUI(int WIDTH, int HEIGHT) throws IOException, URISyntaxException, FontFormatException {
         AWTTerminalFontConfiguration fontConfig = createGameFont();
+        animationLoader = AnimationLoader.getInstance();
+        soundLoader = SoundLoader.getInstance();
+        imageLoader = ImageLoader.getInstance();
         createScreen(HEIGHT, WIDTH, fontConfig);
     }
 
-    public LanternaGUI(TerminalScreen screen, TextGraphics textGraphics) throws IOException {
+    public LanternaGUI(TerminalScreen screen, TextGraphics textGraphics, AnimationLoader animationLoader, SoundLoader soundLoader, ImageLoader imageLoader) {
         this.screen = screen;
+        this.animationLoader = animationLoader;
+        this.soundLoader = soundLoader;
+        this.imageLoader = imageLoader;
         graphics = textGraphics;
-        screen.startScreen();
     }
 
     private AWTTerminalFontConfiguration createGameFont() throws URISyntaxException, IOException, FontFormatException {
