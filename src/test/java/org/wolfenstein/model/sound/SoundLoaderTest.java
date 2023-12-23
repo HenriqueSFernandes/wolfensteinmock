@@ -4,16 +4,15 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SoundLoaderTest {
     SoundLoader testSoundLoad;
     @Test
-    void importSoundTest() throws IOException {
+    void importSoundTest() {
         testSoundLoad = SoundLoader.getInstance();
-        assertTrue(testSoundLoad.getLoadedSounds().isEmpty());
+        int testSize = testSoundLoad.getLoadedSounds().size();
         testSoundLoad.importSound("gun_shot.wav");
-        assertFalse(testSoundLoad.getLoadedSounds().isEmpty());
+        assertEquals(testSize + 1, testSoundLoad.getLoadedSounds().size());
     }
 }

@@ -42,7 +42,7 @@ public class Camera {
     }
 
     public static Camera createCamera(Map map, Player player) {
-        if (camera == null) camera = new Camera(map, player);
+        camera = new Camera(map, player);
         return camera;
     }
 
