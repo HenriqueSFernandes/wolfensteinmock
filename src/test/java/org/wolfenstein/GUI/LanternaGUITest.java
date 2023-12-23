@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
+import org.wolfenstein.model.elements.Player;
 import org.wolfenstein.model.image.Animation;
 import org.wolfenstein.model.image.AnimationLoader;
 import org.wolfenstein.model.image.ImageLoader;
@@ -40,7 +41,8 @@ public class LanternaGUITest {
     KeyStroke mockKey = mock(KeyStroke.class);
     Map mockMap = mock(Map.class);
     Position mockPosition = mock(Position.class);
-    LanternaGUI testGUI = new LanternaGUI(mockScreen, mockGraphics, mockAnimationLoader, mockSoundLoader, mockImageLoader);;
+    Player mockPlayer = Player.getInstance();
+    LanternaGUI testGUI = new LanternaGUI(mockScreen, mockGraphics, mockAnimationLoader, mockSoundLoader, mockImageLoader);
 
 
     @Test
@@ -71,6 +73,16 @@ public class LanternaGUITest {
         when(mockKey.getKeyType()).thenReturn(KeyType.EOF);
 
         assertEquals(GUI.GUIAction.QUIT, testGUI.getNextAction());
+
+        when(mockScreen.pollInput()).thenReturn(mockKey).thenReturn(null);
+        when(mockKey.getKeyType()).thenReturn(KeyType.ArrowUp);
+
+        assertEquals(GUI.GUIAction.NONE, testGUI.getNextAction());
+
+        when(mockScreen.pollInput()).thenReturn(mockKey).thenReturn(null);
+        when(mockKey.getKeyType()).thenReturn(KeyType.ArrowDown);
+
+        assertEquals(GUIAction.NONE, testGUI.getNextAction());
 
         when(mockScreen.pollInput()).thenReturn(mockKey).thenReturn(null);
         when(mockKey.getKeyType()).thenReturn(KeyType.Character);
@@ -257,6 +269,5 @@ public class LanternaGUITest {
         testGUI.drawGuardCounter();
 
         verify(mockImage, times(9)).draw(mockGraphics);
-
     }
 }

@@ -60,30 +60,6 @@ public class GuardController extends GameController {
             for (Guard g : getModel().getGuardList()) {
                 distance = Math.sqrt((getModel().getPlayer().getPosition().getX() - g.getPosition().getX()) * (getModel().getPlayer().getPosition().getX() - g.getPosition().getX()) + (getModel().getPlayer().getPosition().getY() - g.getPosition().getY()) * (getModel().getPlayer().getPosition().getY() - g.getPosition().getY()));
                 if (!getModel().getPlayer().getPosition().checkWall(g.getPosition(), getModel().getMap())) {
-                    /*double m1 = Math.tan(Math.toRadians((getModel().getPlayer().getPosition().getAngle() - 15 + 360) % 360));
-                    double m2 = Math.tan(Math.toRadians((getModel().getPlayer().getPosition().getAngle() + 15) % 360));
-
-                    if ((getModel().getPlayer().getPosition().getAngle() >= 0 && getModel().getPlayer().getPosition().getAngle() <= 70) ||
-                            getModel().getPlayer().getPosition().getAngle() >= 290 && getModel().getPlayer().getPosition().getAngle() <= 350) {
-                        if (-g.getPosition().getY() >= m1 * (g.getPosition().getX() - getModel().getPlayer().getPosition().getX()) - getModel().getPlayer().getPosition().getY() &&
-                                -g.getPosition().getY() <= m2 * (g.getPosition().getX() - getModel().getPlayer().getPosition().getX()) - getModel().getPlayer().getPosition().getY()) {
-                            g.takeShot();
-                            break;
-                        }
-                    } else if ((getModel().getPlayer().getPosition().getAngle() >= 80 && getModel().getPlayer().getPosition().getAngle() <= 100) ||
-                            getModel().getPlayer().getPosition().getAngle() >= 260 && getModel().getPlayer().getPosition().getAngle() <= 280) {
-                        if (-g.getPosition().getY() >= m1 * (g.getPosition().getX() - getModel().getPlayer().getPosition().getX()) - getModel().getPlayer().getPosition().getY() &&
-                                -g.getPosition().getY() >= m2 * (g.getPosition().getX() - getModel().getPlayer().getPosition().getX()) - getModel().getPlayer().getPosition().getY()) {
-                            g.takeShot();
-                            break;
-                        }
-                    } else if (getModel().getPlayer().getPosition().getAngle() >= 110 && getModel().getPlayer().getPosition().getAngle() <= 250) {
-                        if (-g.getPosition().getY() >= m1 * (-(g.getPosition().getX() - getModel().getPlayer().getPosition().getX())) - getModel().getPlayer().getPosition().getY() &&
-                                -g.getPosition().getY() <= m2 * (-(g.getPosition().getX() - getModel().getPlayer().getPosition().getX())) - getModel().getPlayer().getPosition().getY()) {
-                            g.takeShot();
-                            break;
-                        }
-                    }*/
                     if ((getModel().getPlayer().getPosition().getAngle() >= (g.getPosition().getAngle() - 180 + 360) % 360 - 15) && (getModel().getPlayer().getPosition().getAngle() <= (g.getPosition().getAngle() - 180 + 360) % 360 + 15)) {
                         if (distance < minDist) {
                             minDist = distance;
