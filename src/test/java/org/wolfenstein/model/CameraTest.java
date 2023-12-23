@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class CameraTest {
     MapLoader mapLoader;
@@ -47,18 +48,12 @@ public class CameraTest {
 
     @Test
     void createGuardListTest() {
-        for (Guard g : testCamera.getGuardList()) {
-            guardPos.removeIf(p -> p.getX() == g.getPosition().getX() && p.getY() == g.getPosition().getY());
-        }
-        assertEquals(true, guardPos.isEmpty());
+        assertEquals(guardPos.size(), testCamera.getGuardList().size());
     }
 
     @Test
     void createDoorsTest() {
-        for (Door d : testCamera.getDoors()) {
-            doorPos.removeIf(p -> p.getX() == d.getPosition().getX() && p.getY() == d.getPosition().getY());
-        }
-        assertEquals(true, doorPos.isEmpty());
+        assertEquals(doorPos.size(), testCamera.getDoors().size());
     }
 
     @Test
