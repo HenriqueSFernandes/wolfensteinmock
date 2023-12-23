@@ -268,6 +268,6 @@ public class LanternaGUITest {
 
         testGUI.drawGuardCounter();
 
-        verify(mockImage, times(9)).draw(mockGraphics);
+        verify(mockImage, times(Camera.createCamera().getGuardList().size())).draw(mockGraphics);
     }
 }
