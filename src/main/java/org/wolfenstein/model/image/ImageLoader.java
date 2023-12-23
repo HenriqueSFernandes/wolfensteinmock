@@ -44,10 +44,12 @@ public class ImageLoader {
     public Image getImage(int index) {
         return images.get(index);
     }
-    public List<Image> getLoadedImages(){
+
+    public List<Image> getLoadedImages() {
         return images;
     }
-    public void clearAllImages(){
+
+    public void clearAllImages() {
         images = new ArrayList<>();
     }
 }

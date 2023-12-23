@@ -3,7 +3,6 @@ package org.wolfenstein.model.sound;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.*;
 
 public class SoundTest {
     @Test
@@ -17,8 +16,7 @@ public class SoundTest {
         Sound sound = new Sound(getClass().getResource("/images/aim.png"));
         try {
             sound.play();
-        } catch (RuntimeException e){
-            return;
+        } catch (RuntimeException e) {
         }
     }
 }

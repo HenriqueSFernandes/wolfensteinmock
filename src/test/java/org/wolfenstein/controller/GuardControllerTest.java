@@ -8,13 +8,11 @@ import org.wolfenstein.model.Map;
 import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Guard;
 import org.wolfenstein.model.elements.Player;
-import org.wolfenstein.model.sound.Sound;
 import org.wolfenstein.model.sound.SoundLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -23,7 +21,7 @@ public class GuardControllerTest {
     Game mockGame = mock(Game.class);
     Camera mockCamera = mock(Camera.class);
     Guard mockGuard = mock(Guard.class);
-    Vector<Guard> mockGuardList = new Vector<>();
+    List<Guard> mockGuardList = new ArrayList<>();
     Map mockMap = mock(Map.class);
     Player mockPlayer = mock(Player.class);
     Position mockPosition = mock(Position.class);

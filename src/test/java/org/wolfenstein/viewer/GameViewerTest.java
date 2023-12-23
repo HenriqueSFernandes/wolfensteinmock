@@ -20,6 +20,7 @@ public class GameViewerTest {
     Player mockPlayer = mock(Player.class);
     Position mockPosition = mock(Position.class);
     GameViewer testViewer = new GameViewer(mockCamera);
+    MapViewer mockMapViewer = mock(MapViewer.class);
     List<Guard> mockGuardList = new ArrayList<>();
     Guard mockGuard = mock(Guard.class);
 
@@ -50,5 +51,6 @@ public class GameViewerTest {
         verify(mockGUI).drawAim();
         verify(mockGUI).drawGuardCounter();
         verify(mockGUI).refresh();
+        verify(mockGUI).drawMap(mockMapViewer.getModel());
     }
 }

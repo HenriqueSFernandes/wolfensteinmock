@@ -6,7 +6,7 @@ public class Player extends Element {
 
     private static Player player;
     private static int health = 10;
-    private static int maxHealth = health;
+    private static final int maxHealth = health;
 
     private Player(int x, int y, double angle) {
         super(x, y, angle);

@@ -4,22 +4,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.wolfenstein.model.elements.Door;
-import org.wolfenstein.model.elements.Guard;
 import org.wolfenstein.model.elements.Player;
 
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CameraTest {
     MapLoader mapLoader;
     Map map;
     Position playerStart;
     Position nextRoom;
-    Vector<Position> doorPos;
-    Vector<Position> guardPos;
+    List<Position> doorPos;
+    List<Position> guardPos;
     Camera testCamera;
     Player player;
 
@@ -31,12 +30,12 @@ public class CameraTest {
 
         playerStart = new Position(20, 20);
         nextRoom = new Position(84, 52);
-        doorPos = new Vector<>();
+        doorPos = new ArrayList<>();
         doorPos.add(new Position(36, 20));
         doorPos.add(new Position(20, 36));
         doorPos.add(new Position(68, 36));
         doorPos.add(new Position(52, 52));
-        guardPos = new Vector<>();
+        guardPos = new ArrayList<>();
         guardPos.add(new Position(52, 20));
         guardPos.add(new Position(76, 20));
         guardPos.add(new Position(28, 52));
@@ -61,14 +60,14 @@ public class CameraTest {
         for (int y = 0; y < map.getHeight(); y++) {
             for (int x = 0; x < map.getWidth(); x++) {
                 if (map.getXY(x, y) == 0) {
-                    assertEquals(true, testCamera.isEmpty(new Position(x * 8 + 4, y * 8 + 4)));
+                    assertTrue(testCamera.isEmpty(new Position(x * 8 + 4, y * 8 + 4)));
                 } else if (map.getXY(x, y) == 1) {
-                    assertEquals(false, testCamera.isEmpty(new Position(x * 8 + 4, y * 8 + 4)));
+                    assertFalse(testCamera.isEmpty(new Position(x * 8 + 4, y * 8 + 4)));
                 } else if (map.getXY(x, y) == 4) {
                     Door d = testCamera.returnDoorAt(x * 8 + 4, y * 8 + 4);
-                    assertEquals(false, testCamera.isEmpty(new Position(x * 8 + 4, y * 8 + 4)));
+                    assertFalse(testCamera.isEmpty(new Position(x * 8 + 4, y * 8 + 4)));
                     d.setOpen(true);
-                    assertEquals(true, testCamera.isEmpty(new Position(x * 8 + 4, y * 8 + 4)));
+                    assertTrue(testCamera.isEmpty(new Position(x * 8 + 4, y * 8 + 4)));
                 }
             }
         }

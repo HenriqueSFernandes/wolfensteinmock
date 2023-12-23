@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 public class Image {
     private BufferedImage image;
     private Position position;
-    private String imageName;
+    private final String imageName;
 
     private boolean active;
 
@@ -46,6 +46,7 @@ public class Image {
     public String getImageName() {
         return imageName;
     }
+
     public int getAlpha(int color) {
         return (color >> 24) & 0xFF;
     }
@@ -78,6 +79,7 @@ public class Image {
             }
         }
     }
+
     public void setActive(boolean active) {
         this.active = active;
     }
