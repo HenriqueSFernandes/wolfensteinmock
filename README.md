@@ -13,7 +13,8 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 2. [Implemented features](#implemented-features)
 3. [Design](#design)
 4. [Testing](#testing-wip)
-5. [Self-evaluation](#self-evaluation)
+5. [Other information](#other-information)
+6. [Self-evaluation](#self-evaluation)
 
 ---
 
@@ -52,9 +53,9 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 > - `d` to rotate right
 > - `e` to open doors / select in menu
 > - `space` to shoot
-> - `q` to quit  
+> - `q` to quit
 
-> **Debug Controls:**  
+> **Debug Controls:**
 > - `p` to skip the level. Note that skipping the last level (the third) results in a crash.
 > - `↑` increase health
 > - `↓` decrease health
@@ -63,16 +64,20 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 ### IMPLEMENTED FEATURES
 
 - **2D View** - The player has a top-down view of the map. The blue square is the starting tile, the green square is the
-  end (and transports the player to the next map), yellow squares are doors and red squares are the initial positions of
+  end (and takes the player to the next map), yellow squares are doors and red squares are the initial positions of
   enemies.
 - **3D View** - The game character has a 3D view based on _raycasting_.
 - **Basic Lighting System** - The walls that are far away from the player are darker, while the ones that are near the
   player are brighter.
-- **Collision System** - The player cannot go through walls.
-- **Sound effects** - Gunshot noises.
+- **Collision System** - The player cannot go through walls and doors.
+- **Sound effects** - Gunshot noises and other sound effects.
 - **HUD** - HUD to visualize health and enemies remaining.
-- **Enemies** - The game includes enemies that the player can kill. Each enemy requires 3 shots to be killed.
+- **Enemies** - The game includes enemies that the player can kill. Each enemy requires 3 shots to be killed. The
+  enemies can also shoot the player.
 - **Doors** - The game is a sequence of rooms connected by doors to one another.
+- **Multiple Levels** - The game features multiple levels, that can be altered using a .txt file that is located inside
+  the resources folder. `X` is the delimiter of the map in the file, `0` means an empty square, `1` means a wall, `2` is
+  the final position of the map, `3` is the starting position, `4` represents a door and `5` is an enemy.
 - **Shooting** - The player possesses a gun to defeat the enemies.
 
 ---
@@ -109,8 +114,10 @@ This behavior can be corrected using simple trigonometry.
 
 #### Images, sounds and animations
 
-The game has the ability to load images (in .png format), sounds (in .wav format) and animations (.png file containing a sprite, that is, a sequence of frames).  
-In order to achieve that, the game uses a loader class for each type of file. This makes the process of adding and manipulating resources easier.
+The game has the ability to load images (in .png format), sounds (in .wav format) and animations (.png file containing a
+sprite, that is, a sequence of frames).  
+In order to achieve that, the game uses a loader class for each type of file. This makes the process of adding and
+manipulating resources easier.
 
 ---
 
@@ -118,10 +125,9 @@ In order to achieve that, the game uses a loader class for each type of file. Th
 
 **Problem in Context**
 
-The game screen consists of two parts, the player's view and the map of the room he is in. However, drawing the player's
-camera depends on the map, and drawing the map depends on the player. This is a violation of the DIP(Dependency
-Inversion
-Principle)
+The game screen consists of two parts, the player's view and the map of the current level. However, drawing the player's
+camera depends on the map, and drawing the map depends on the player. This is a violation of the DIP (Dependency
+Inversion Principle).
 
 **The Pattern**
 
@@ -228,26 +234,51 @@ State Diagram of the current game:
 - Menu and Game are now isolated.
 - The addition of a different screen (e.g. Game Over) is extremely simple.
 
+---
+
+### TESTING
+
+In order to achieve good functionality and reliability, we integrated a robust testing framework employing _JUnit_,
+_Mockito_, _JQWIK_ and _PITEST_. These powerful tools enabled us to detect bugs without the need for exhaustive manual
+testing.  
+Not every aspect of the game is conducive to conventional testing methods, making complete coverage impractical or even irrelevant in certain cases. Similarly, in mutation testing, not all potential code mutations significantly contribute to the overall robustness of the code.
+
+- Coverage report:
+
+<p align="center">
+    <img src="docs/images/coverage_report.png" alt="Coverage Report">
+</p>
+
+- _Pitest_ report:
+<p align="center">
+    <img src="docs/images/pitest_report.png" alt="Coverage Report">
+</p>
+
+---
+
+### Other Information
+
 #### Known bugs
 
 - There is a bug where sometimes it seems like the enemies are inside the wall, but that is only a display issue.
 
+---
+
 #### Code smells
 
-- Duplicated Code: There are some instances of duplicated code, however these are due to similar functions with small but key differences (e.g. createLine and createLineForDoor in the Position class).
-- Long Functions: Some functions, such as drawPlayerCamera in the LanternaGUI class can be quite verbose. This is because doors and walls behave differently and the function is required to deal with both.
-- Dead Code: Many fragments of dead code were present in the project. However, with the help of error-prone warnings these were eliminated.
-- Message Chains: Some information requires navigation through the class structure to be accessed (e.g. getModel().getPlayer().getPosition().moveForward() to get the position in front of the player from it's controller). This was caused by the design chosen to make sure the Single Responsability Principle was being fulfilled by the program.
+- Duplicated Code: There are some instances of duplicated code, however these are due to similar functions with small
+  but key differences (e.g. createLine and createLineForDoor in the Position class).
+- Long Functions: Some functions, such as drawPlayerCamera in the LanternaGUI class can be quite verbose. This is
+  because doors and walls behave differently and the function is required to deal with both.
+- Dead Code: Many fragments of dead code were present in the project. However, with the help of error-prone warnings
+  these were eliminated.
+- Message Chains: Some information requires navigation through the class structure to be accessed (e.g. getModel()
+  .getPlayer().getPosition().moveForward() to get the position in front of the player from its controller). This was
+  caused by the design chosen to make sure the Single Responsibility Principle was being fulfilled by the program.
 
-### TESTING (WIP)
-
-Basic testing has been done with JUnit for unit testing, Mockito for mocks and dependency injection, and JQwik for
-property-based testing. Although the testing process is still far from concluded
-
-TODO: coverage report and pitest
+---
 
 ### SELF-EVALUATION
 
-- Henrique Fernandes: 33%
-- Rafael Magalhães: 33%
-- Ricardo Oliveira: 33%
+Everyone played a key role in the development of the project.  
+The work was distributed in a balanced way, which, together with _git_ and _github_, facilitated collaboration in order to develop the game in a smooth way.
