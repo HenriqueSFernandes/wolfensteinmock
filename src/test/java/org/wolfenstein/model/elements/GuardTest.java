@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Guard;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class GuardTest {
@@ -52,5 +51,23 @@ public class GuardTest {
             frameNum--;
         }
         assertEquals(t / 60, n);
+    }
+
+    @Test
+    void setAggro() {
+        Guard guard = new Guard(0, 0, 0);
+        guard.setAggro(true);
+        assertTrue(guard.isAggro());
+        guard.setAggro(false);
+        assertFalse(guard.isAggro());
+    }
+
+    @Test
+    void pointTo() {
+        Guard guard = new Guard(0, 0, 0);
+        guard.pointTo(new Position(0, 0));
+        assertEquals(270, guard.getPosition().getAngle());
+        guard.pointTo(new Position(1, 0));
+        assertEquals(0, guard.getPosition().getAngle());
     }
 }
