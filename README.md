@@ -18,27 +18,27 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 ---
 
-### Gameplay
+## Gameplay
 
-#### Menu
+### Menu
 
 <p align="center">
     <img src="docs/gifs/menu.gif" alt="Menu Gif">
 </p>
 
-#### Moving
+### Moving
 
 <p align="center">
     <img src="docs/gifs/walking.gif" alt="Moving Gif">
 </p>
 
-#### Doors
+### Doors
 
 <p align="center">
     <img src="docs/gifs/doors.gif" alt="Doors Gif">
 </p>
 
-#### Shooting
+### Shooting
 
 <p align="center">
     <img src="docs/gifs/shooting.gif" alt="Shooting Gif">
@@ -61,7 +61,7 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 > - `↓` decrease health
 ---
 
-### IMPLEMENTED FEATURES
+## IMPLEMENTED FEATURES
 
 - **2D View** - The player has a top-down view of the map. The blue square is the starting tile, the green square is the
   end (and takes the player to the next map), yellow squares are doors and red squares are the initial positions of
@@ -82,9 +82,9 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 ---
 
-### DESIGN
+## DESIGN
 
-#### _Raycasting_ Engine
+### _Raycasting_ Engine
 
 The chosen algorithm for converting the 2D map to a 3D view is called _Raycasting_, which is the same algorithm as the
 one used in the original _Wolfenstein_.
@@ -100,7 +100,7 @@ played a crucial role in shaping the visual style of early first-person shooters
 
 ---
 
-#### _Fisheye_ Effect
+### _Fisheye_ Effect
 
 Since the distance to the walls is calculated in a straight line, the objects at the center are closer than objects on
 the left/right, thus appearing bigger.  
@@ -112,7 +112,7 @@ This behavior can be corrected using simple trigonometry.
 
 ---
 
-#### Images, sounds and animations
+### Images, sounds and animations
 
 The game has the ability to load images (in .png format), sounds (in .wav format) and animations (.png file containing a
 sprite, that is, a sequence of frames).  
@@ -121,7 +121,7 @@ manipulating resources easier.
 
 ---
 
-#### Drawing the map and player view on the screen
+### Drawing the map and player view on the screen
 
 **Problem in Context**
 
@@ -152,7 +152,7 @@ Example of the communication between classes when the Player moves:
 
 ---
 
-#### There can only be one player and one camera
+### There can only be one player and one camera
 
 **Problem in Context**
 
@@ -179,7 +179,7 @@ private instance or calls the constructor if the instance does not exist yet.
 
 ---
 
-#### Updating the screen
+### Updating the screen
 
 **Problem in Context**
 
@@ -208,7 +208,7 @@ Sequence diagram of a step in the game loop:
 
 ---
 
-#### Changing between menu and game
+### Changing between menu and game
 
 **Problem in context**
 
@@ -236,7 +236,7 @@ State Diagram of the current game:
 
 ---
 
-### TESTING
+## TESTING
 
 In order to achieve good functionality and reliability, we integrated a robust testing framework employing _JUnit_,
 _Mockito_, _JQWIK_ and _PITEST_. These powerful tools enabled us to detect bugs without the need for exhaustive manual
@@ -256,15 +256,15 @@ Not every aspect of the game is conducive to conventional testing methods, makin
 
 ---
 
-### Other Information
+## Other Information
 
-#### Known bugs
+### Known bugs
 
 - There is a bug where sometimes it seems like the enemies are inside the wall, but that is only a display issue.
 
 ---
 
-#### Code smells
+### Code smells
 
 - Duplicated Code: There are some instances of duplicated code, however these are due to similar functions with small
   but key differences (e.g. createLine and createLineForDoor in the Position class).
@@ -278,7 +278,8 @@ Not every aspect of the game is conducive to conventional testing methods, makin
 
 ---
 
-### SELF-EVALUATION
+## Conclusion and self-evaluation
 
-Everyone played a key role in the development of the project.  
-The work was distributed in a balanced way, which, together with _git_ and _github_, facilitated collaboration in order to develop the game in a smooth way.
+Everyone played a key role in the development of the project. The work was distributed in a balanced way, which, together with _git_ and _github_, facilitated collaboration in order to develop the game in a smooth way.  
+
+Building a game from scratch also deepened our respect for the developers of older games. They accomplished a lot with the limited tools and hardware they had, and still set the foundation for the game development industry.
