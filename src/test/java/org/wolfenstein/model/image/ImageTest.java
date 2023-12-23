@@ -12,6 +12,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class ImageTest {
@@ -53,5 +54,32 @@ public class ImageTest {
         for(TextColor c : colorsUsed) {
             verify(testGraphics, times(pixelNum.get(c))).setBackgroundColor(c);
         }
+    }
+
+    @Test
+    void setImage() throws IOException {
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.clearAllImages();
+        imageLoader.importImage("aim.png", new Position(0, 0));
+        imageLoader.importImage("heart.png", new Position(0, 0));
+        imageLoader.getImage(0).setImage(imageLoader.getImage(1).getImage());
+        assertEquals(imageLoader.getImage(0).getImage(), imageLoader.getImage(1).getImage());
+    }
+
+    @Test
+    void getPosition() throws IOException {
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.clearAllImages();
+        imageLoader.importImage("aim.png", new Position(0, 0));
+        assertEquals(imageLoader.getImage(0).getPosition(), new Position(0 ,0));
+    }
+
+    @Test
+    void setPosition() throws IOException {
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.clearAllImages();
+        imageLoader.importImage("aim.png", new Position(0, 0));
+        imageLoader.getImage(0).setPosition(new Position(1, 1));
+        assertEquals(imageLoader.getImage(0).getPosition(), new Position(1, 1));
     }
 }

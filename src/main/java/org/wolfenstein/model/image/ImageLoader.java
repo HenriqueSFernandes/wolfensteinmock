@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ImageLoader {
     private static ImageLoader instance;
-    private List<Image> images = new ArrayList<>();
+    protected List<Image> images = new ArrayList<>();
 
     private ImageLoader() {
     }
