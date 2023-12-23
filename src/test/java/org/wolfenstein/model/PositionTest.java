@@ -69,7 +69,7 @@ public class PositionTest {
 
         for (Position p : testLine) {
             // check if line does not pass through walls
-            assertEquals(false, map.getXY((int) p.getX() / 8, (int) p.getY() / 8) == 1);
+            assertNotEquals(1, map.getXY((int) p.getX() / 8, (int) p.getY() / 8));
             avgX += (p.getX() - testPos.getX());
             avgY -= (p.getY() - testPos.getY());
             // check if any of the points of the line are behind the player -> line exists only in the same quadrant as the direction of the player
@@ -106,7 +106,6 @@ public class PositionTest {
     }
 
     @Property
-        // TODO
     void createLineForDoorTest(@ForAll @IntRange(min = 0, max = 360) int th) throws IOException {
 
         MapLoader mapLoader = MapLoader.createMapLoader();
@@ -120,8 +119,6 @@ public class PositionTest {
         List<Position> testLine = testPos.createLineForDoor(th, map);
 
         for (Position p : testLine) {
-            // check if line does not pass through walls
-            //assertEquals(false, map.getXY((int) p.getX() / 8, (int) p.getY() / 8) == 1);
             // check if line does not pass through closed doors
             assertEquals(false, map.getXY((int) (p.getX() - 4) / 8, (int) (p.getY() - 4) / 8) == 4);
             avgX += (p.getX() - testPos.getX());
@@ -135,14 +132,10 @@ public class PositionTest {
                 assertFalse(p.getY() - testPos.getY() < 0 || p.getX() - testPos.getX() > 0);
             } else if (th > 270 && th < 360) {
                 assertFalse(p.getY() - testPos.getY() < 0 || p.getX() - testPos.getX() < 0);
-            } else if (th == 0 || th == 360) {
-                //assertFalse(p.getY() - testPos.getY() > 0);
             } else if (th == 90) {
                 assertFalse(p.getX() - testPos.getX() > 0);
             } else if (th == 180) {
                 assertFalse(p.getY() - testPos.getY() < 0);
-            } else if (th == 270) {
-                //assertFalse(p.getX() - testPos.getX() < 0);
             }
         }
 

@@ -1,19 +1,20 @@
 package org.wolfenstein.model.elements;
 
 import org.junit.jupiter.api.Test;
-import org.wolfenstein.model.elements.Door;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DoorTest {
     Door testDoor;
+
     @Test
     void openTest() {
         testDoor = new Door(0, 0, 0);
-        assertEquals(false, testDoor.isOpen());
+        assertFalse(testDoor.isOpen());
         testDoor.setOpen(true);
-        assertEquals(true, testDoor.isOpen());
+        assertTrue(testDoor.isOpen());
         testDoor.setOpen(false);
-        assertEquals(false, testDoor.isOpen());
+        assertFalse(testDoor.isOpen());
     }
 }

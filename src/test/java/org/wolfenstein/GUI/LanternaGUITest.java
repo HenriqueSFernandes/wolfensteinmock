@@ -4,7 +4,6 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import org.junit.jupiter.api.Test;
 import org.wolfenstein.model.Camera;
@@ -13,16 +12,14 @@ import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Player;
 import org.wolfenstein.model.image.Animation;
 import org.wolfenstein.model.image.AnimationLoader;
-import org.wolfenstein.model.image.ImageLoader;
 import org.wolfenstein.model.image.Image;
+import org.wolfenstein.model.image.ImageLoader;
 import org.wolfenstein.model.sound.Sound;
 import org.wolfenstein.model.sound.SoundLoader;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -177,8 +174,8 @@ public class LanternaGUITest {
     @Test
     public void drawPlayerCameraTest() throws IOException {
         List<List<Integer>> mockGrid = Arrays.asList(Arrays.asList(1, 1, 1), Arrays.asList(4, 0, 1), Arrays.asList(1, 1, 1));
-        List<Position> mockLine = Arrays.asList(mockPosition);
-        List<Position> mockDoorLine = Arrays.asList(mockPosition);
+        List<Position> mockLine = Collections.singletonList(mockPosition);
+        List<Position> mockDoorLine = Collections.singletonList(mockPosition);
         when(mockMap.getMap()).thenReturn(mockGrid);
         when(mockMap.getHeight()).thenReturn(3);
         when(mockMap.getWidth()).thenReturn(3);
@@ -240,7 +237,7 @@ public class LanternaGUITest {
     public void drawGuardTest() throws IOException {
         when(mockImageLoader.getImage(13)).thenReturn(mockImage);
         List<List<Integer>> mockGrid = Arrays.asList(Arrays.asList(1, 1, 1), Arrays.asList(4, 0, 1), Arrays.asList(1, 1, 1));
-        List<Position> mockLine = Arrays.asList(mockPosition);
+        List<Position> mockLine = Collections.singletonList(mockPosition);
         List<Position> mockDoorLine = Arrays.asList(mockPosition, mockPosition);
         when(mockMap.getMap()).thenReturn(mockGrid);
         when(mockMap.getHeight()).thenReturn(3);

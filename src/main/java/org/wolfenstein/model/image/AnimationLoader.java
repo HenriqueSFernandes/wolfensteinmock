@@ -51,7 +51,7 @@ public class AnimationLoader {
         return animations;
     }
 
-    public void clearAllAnimations(){
+    public void clearAllAnimations() {
         animations = new ArrayList<>();
     }
 }

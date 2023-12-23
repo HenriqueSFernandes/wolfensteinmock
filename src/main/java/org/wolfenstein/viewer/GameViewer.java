@@ -3,7 +3,6 @@ package org.wolfenstein.viewer;
 import org.wolfenstein.GUI.GUI;
 import org.wolfenstein.model.Camera;
 import org.wolfenstein.model.Position;
-import org.wolfenstein.model.elements.Player;
 
 import java.io.IOException;
 

@@ -4,10 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,8 +22,8 @@ public class MapLoaderTest {
 
     @Test
     void importMapFIleTest() throws IOException {
-        Vector<Vector<Integer>> testMap = new Vector<>();
-        Vector<Integer> line = new Vector<>();
+        List<List<Integer>> testMap = new ArrayList<>();
+        List<Integer> line = new ArrayList<>();
         line.add(0);
         testMap.add(line);
 
@@ -36,7 +34,7 @@ public class MapLoaderTest {
     void getNextMapTest() throws IOException {
         List<List<Integer>> testMap = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            Vector<Integer>line = new Vector<>();
+            List<Integer> line = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
                 if (i == 1 && j == 1) line.add(0);
                 else line.add(1);

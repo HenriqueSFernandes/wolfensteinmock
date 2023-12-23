@@ -20,7 +20,7 @@ public class SoundLoader {
 
     public boolean importSound(String soundName) {
         URL resource = getClass().getResource("/sounds/" + soundName);
-        if (resource == null){
+        if (resource == null) {
             return false;
         }
         sounds.add(new Sound(resource));
@@ -30,11 +30,12 @@ public class SoundLoader {
     public Sound getSound(int index) {
         return sounds.get(index);
     }
-    public List<Sound> getLoadedSounds(){
+
+    public List<Sound> getLoadedSounds() {
         return sounds;
     }
 
-    public void clearAllSounds(){
+    public void clearAllSounds() {
         sounds = new ArrayList<>();
     }
 }

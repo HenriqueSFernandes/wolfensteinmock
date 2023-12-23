@@ -8,7 +8,8 @@ import org.wolfenstein.model.Position;
 import org.wolfenstein.model.elements.Door;
 import org.wolfenstein.model.elements.Player;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -28,7 +29,7 @@ public class DoorControllerTest {
         Game mockGame = mock(Game.class);
         DoorController testController = new DoorController(mockCamera);
         Door mockDoor = mock(Door.class);
-        Vector<Door> result = new Vector<>();
+        List<Door> result = new ArrayList<>();
         result.add(mockDoor);
         Player mockPlayer = mock(Player.class);
 
@@ -48,7 +49,7 @@ public class DoorControllerTest {
         Game mockGame = mock(Game.class);
         DoorController testController = new DoorController(mockCamera);
         Door mockDoor = mock(Door.class);
-        Vector<Door> result = new Vector<>();
+        List<Door> result = new ArrayList<>();
         result.add(mockDoor);
         Player mockPlayer = mock(Player.class);
 

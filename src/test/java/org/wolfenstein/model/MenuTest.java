@@ -48,7 +48,7 @@ public class MenuTest {
 
     @Test
     void previousEntryTest() {
-        int lastSelect = 0;
+        int lastSelect;
         isSelectedTest();
         //verify that, when the first entry is the selected one, the previous one is the last entry
         testMenu.previousEntry();

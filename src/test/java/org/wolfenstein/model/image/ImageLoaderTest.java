@@ -12,6 +12,7 @@ import static org.mockito.Mockito.*;
 
 public class ImageLoaderTest {
     ImageLoader testImageLoad;
+
     @Test
     void importImageTest() throws IOException {
         testImageLoad = ImageLoader.getInstance();

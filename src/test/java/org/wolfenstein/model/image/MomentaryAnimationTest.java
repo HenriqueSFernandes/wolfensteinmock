@@ -8,20 +8,16 @@ import org.junit.jupiter.api.Test;
 import org.wolfenstein.model.Position;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 public class MomentaryAnimationTest {
     AnimationLoader testAnimationLoad;
     Animation testAnimation;
+
     @BeforeEach
     void initializeAnimation() throws IOException {
         testAnimationLoad = AnimationLoader.getInstance();
@@ -29,6 +25,7 @@ public class MomentaryAnimationTest {
         testAnimationLoad.importMomentaryAnimation("pistol_firing.png", new Position(0, 0));
         testAnimation = testAnimationLoad.getAnimation(0);
     }
+
     @Test
     void nextFrameTest() {
         testAnimation.play();
@@ -40,11 +37,12 @@ public class MomentaryAnimationTest {
         assertEquals(testAnimation.frames.get(0), testAnimation.currentFrame);
         assertFalse(testAnimation.playing);
     }
+
     @Test
     void drawTest() {
         TextGraphics testGraphics = mock(TextGraphics.class);
         when(testGraphics.getCharacter(anyInt(), anyInt())).thenReturn(new TextCharacter(' '));
-        
+
         testAnimation.play();
         for (int i = 0; i < testAnimation.frameAmount; i++) {
             assertTrue(testAnimation.playing);
@@ -52,7 +50,7 @@ public class MomentaryAnimationTest {
             assertEquals(currentFrame, testAnimation.currentFrame);
             testAnimation.draw(testGraphics);
 
-            Dictionary<TextColor, Integer> pixelNum = new Hashtable<>();
+            LinkedHashMap<TextColor, Integer> pixelNum = new LinkedHashMap<>();
             List<TextColor> colorsUsed = new ArrayList<>();
 
             for (int y = 0; y < currentFrame.getImage().getHeight(); y++) {
