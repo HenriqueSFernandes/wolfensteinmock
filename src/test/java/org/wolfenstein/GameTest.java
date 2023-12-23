@@ -6,10 +6,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class GameTest {
     @Test
-    public void gameTest() throws IOException, URISyntaxException, FontFormatException {
-        Game.main(null);
+    public void gameTest() {
+        assertDoesNotThrow(() -> { Game.main(null); });
     }
 }
