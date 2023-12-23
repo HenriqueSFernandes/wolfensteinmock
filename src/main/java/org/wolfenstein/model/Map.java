@@ -5,20 +5,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
+    private final int cellsize = 8;
     private List<List<Integer>> map = new ArrayList<>();
     private int width;
     private int height;
-    private final int cellsize = 8;
     private MapLoader mapLoader;
+
+    public Map() throws IOException {
+        mapLoader = MapLoader.createMapLoader();
+        mapLoader.importMapFile();
+        setMap(mapLoader.getNextMap());
+    }
+
+    public Map(List<List<Integer>> newMap) {
+        setMap(newMap);
+    }
+
+    public Map(MapLoader m) throws IOException {
+        mapLoader = m;
+        setMap(mapLoader.getNextMap());
+    }
+
+    public List<List<Integer>> getMap() {
+        return map;
+    }
 
     public void setMap(List<List<Integer>> newMap) {
         this.map = newMap;
         this.height = newMap.size();
         this.width = newMap.get(0).size();
-    }
-
-    public List<List<Integer>> getMap() {
-        return map;
     }
 
     public int getXY(int x, int y) {
@@ -35,16 +50,6 @@ public class Map {
 
     public int getCellsize() {
         return cellsize;
-    }
-
-    public Map() throws IOException {
-        mapLoader = MapLoader.createMapLoader();
-        mapLoader.importMapFile();
-        setMap(mapLoader.getNextMap());
-    }
-
-    public Map(List<List<Integer>> newMap) {
-        setMap(newMap);
     }
 
     public Position playerStartPosition() {

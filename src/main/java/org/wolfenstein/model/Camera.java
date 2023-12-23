@@ -21,8 +21,8 @@ public class Camera {
         this.map = new Map();
         this.doors = new ArrayList<>();
         this.guardList = new ArrayList<>();
-        createDoors();
-        createGuardList();
+        doors = createDoors();
+        guardList = createGuardList();
         player.setPosition(map.playerStartPosition());
     }
 

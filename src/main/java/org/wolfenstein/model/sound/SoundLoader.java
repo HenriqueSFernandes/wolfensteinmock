@@ -31,4 +31,7 @@ public class SoundLoader {
     public Sound getSound(int index) {
         return sounds.get(index);
     }
+    public List<Sound> getLoadedSounds(){
+        return sounds;
+    }
 }

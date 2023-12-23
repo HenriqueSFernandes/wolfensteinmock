@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AnimationLoader {
     private static AnimationLoader instance;
-    private final List<Animation> animations = new ArrayList<>();
+    private List<Animation> animations = new ArrayList<>();
 
     private AnimationLoader() {
     }
@@ -57,5 +57,13 @@ public class AnimationLoader {
 
     public Animation getAnimation(int index) {
         return animations.get(index);
+    }
+
+    public List<Animation> getLoadedAnimations() {
+        return animations;
+    }
+
+    public void clearAllAnimations(){
+        animations = new ArrayList<>();
     }
 }
