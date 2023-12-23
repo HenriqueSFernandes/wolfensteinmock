@@ -3,6 +3,7 @@ package org.wolfenstein.model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Position {
     private final double x, y;
@@ -158,6 +159,19 @@ public class Position {
 
     public double distance(Position position) {
         return Math.sqrt(Math.pow(position.getY() - this.y, 2) + Math.pow(position.getX() - this.x, 2));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return Double.compare(x, position.x) == 0 && Double.compare(y, position.y) == 0 && Double.compare(angle, position.angle) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, angle);
     }
 
     public boolean checkWall(Position position, Map map) {

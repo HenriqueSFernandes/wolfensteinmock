@@ -21,11 +21,6 @@ public class Player extends Element {
         return maxHealth;
     }
 
-    public void setMaxHealth(int m) {
-        maxHealth = Math.max(1, m);
-        health = Math.min(health, maxHealth);
-    }
-
     public void changeHealth(int d) {
         health = Math.max(0, Math.min(health + d, maxHealth));
         ImageLoader imageLoader = ImageLoader.getInstance();

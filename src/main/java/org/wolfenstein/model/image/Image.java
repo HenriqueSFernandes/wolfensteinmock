@@ -46,11 +46,6 @@ public class Image {
     public String getImageName() {
         return imageName;
     }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-
     public int getAlpha(int color) {
         return (color >> 24) & 0xFF;
     }
@@ -83,11 +78,6 @@ public class Image {
             }
         }
     }
-
-    public boolean isActive() {
-        return active;
-    }
-
     public void setActive(boolean active) {
         this.active = active;
     }
