@@ -3,11 +3,9 @@ package org.wolfenstein.model;
 import net.jqwik.api.*;
 import net.jqwik.api.constraints.IntRange;
 import net.jqwik.api.constraints.Positive;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.wolfenstein.model.elements.Player;
 
-import javax.xml.catalog.CatalogManager;
 import java.io.IOException;
 import java.util.List;
 
@@ -45,8 +43,7 @@ public class PositionTest {
     }
 
     @Property
-    void rotateTest(@ForAll @Positive @IntRange(min = 0, max = 359) int th,
-                    @ForAll int r) {
+    void rotateTest(@ForAll @Positive @IntRange(min = 0, max = 359) int th, @ForAll int r) {
         position = new Position(r, r, th);
 
         position = position.rotateClockwise();
@@ -72,7 +69,7 @@ public class PositionTest {
 
         for (Position p : testLine) {
             // check if line does not pass through walls
-            assertEquals(false, map.getXY((int) p.getX() / 8,  (int) p.getY() / 8) == 1);
+            assertEquals(false, map.getXY((int) p.getX() / 8, (int) p.getY() / 8) == 1);
             avgX += (p.getX() - testPos.getX());
             avgY -= (p.getY() - testPos.getY());
             // check if any of the points of the line are behind the player -> line exists only in the same quadrant as the direction of the player
@@ -107,10 +104,11 @@ public class PositionTest {
         // max deviance of 10º
         assertTrue((Math.max(0, (th - 10) % 180) <= alpha && Math.min((th + 10 % 180), 180) >= alpha) || (Math.max(0, (th - 10) % 180) <= alpha + 180 && Math.min((th + 10 % 180), 180) >= alpha));
     }
+
     @Property
-    // TODO
+        // TODO
     void createLineForDoorTest(@ForAll @IntRange(min = 0, max = 360) int th) throws IOException {
-        /*
+
         MapLoader mapLoader = MapLoader.createMapLoader();
         mapLoader.importMapFile("src/main/resources/testFiles/testMaps2.txt");
         Map map = new Map(mapLoader);
@@ -123,7 +121,7 @@ public class PositionTest {
 
         for (Position p : testLine) {
             // check if line does not pass through walls
-            assertEquals(false, map.getXY((int) p.getX() / 8, (int) p.getY() / 8) == 1);
+            //assertEquals(false, map.getXY((int) p.getX() / 8, (int) p.getY() / 8) == 1);
             // check if line does not pass through closed doors
             assertEquals(false, map.getXY((int) (p.getX() - 4) / 8, (int) (p.getY() - 4) / 8) == 4);
             avgX += (p.getX() - testPos.getX());
@@ -138,13 +136,13 @@ public class PositionTest {
             } else if (th > 270 && th < 360) {
                 assertFalse(p.getY() - testPos.getY() < 0 || p.getX() - testPos.getX() < 0);
             } else if (th == 0 || th == 360) {
-                assertFalse(p.getY() - testPos.getY() > 0);
+                //assertFalse(p.getY() - testPos.getY() > 0);
             } else if (th == 90) {
                 assertFalse(p.getX() - testPos.getX() > 0);
             } else if (th == 180) {
                 assertFalse(p.getY() - testPos.getY() < 0);
             } else if (th == 270) {
-                assertFalse(p.getX() - testPos.getX() < 0);
+                //assertFalse(p.getX() - testPos.getX() < 0);
             }
         }
 
@@ -157,14 +155,16 @@ public class PositionTest {
         double alpha = Math.toDegrees(Math.atan(sumN / sumD));
         if (sumD == 0) alpha = 90;
         if (alpha < 0) alpha += 180;
-        // max deviance of 10º
-        assertTrue((Math.max(0, (th - 10) % 180) <= alpha && Math.min((th + 10 % 180), 180) >= alpha) || (Math.max(0, (th - 10) % 180) <= alpha + 180 && Math.min((th + 10 % 180), 180) >= alpha));
-        */
+        // max deviance of 10ยบ
+        //assertTrue((Math.max(0, (th - 10) % 180) <= alpha && Math.min((th + 10 % 180), 180) >= alpha) || (Math.max(0, (th - 10) % 180) <= alpha + 180 && Math.min((th + 10 % 180), 180) >= alpha));
+
     }
+
     @Provide
     Arbitrary<Position> notOrigin() {
         return Arbitraries.forType(Position.class).filter(p -> p.getX() != 0 && p.getY() != 0);
     }
+
     @Property
     void viewAngleTest(@ForAll("notOrigin") Position p, @ForAll @IntRange(min = 0, max = 360) int th) {
         Position testPos = new Position(0, 0, th);
@@ -179,11 +179,11 @@ public class PositionTest {
     void distanceTest(@ForAll @IntRange(min = -1000, max = 1000) int x, @ForAll @IntRange(min = -1000, max = 1000) int y, @ForAll @IntRange(min = -1000, max = 1000) int x2, @ForAll @IntRange(min = -1000, max = 1000) int y2) {
         Position testPos = new Position(x, y);
         Position testObject = new Position(x2, y2);
-        assertEquals(Math.sqrt((x - x2)*(x - x2) + (y - y2)*(y - y2)), testPos.distance(testObject));
+        assertEquals(Math.sqrt((x - x2) * (x - x2) + (y - y2) * (y - y2)), testPos.distance(testObject));
     }
 
     @Property
-    // TODO
+        // TODO
     void checkWallTest(@ForAll @IntRange(min = 0, max = 64) int x, @ForAll @IntRange(min = 0, max = 64) int y) throws IOException {
         MapLoader mapLoader = MapLoader.createMapLoader();
         mapLoader.importMapFile("src/main/resources/testFiles/testMaps3.txt");
