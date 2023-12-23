@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AnimationLoader {
     private static AnimationLoader instance;
-    private List<Animation> animations = new ArrayList<>();
+    protected List<Animation> animations = new ArrayList<>();
 
     private AnimationLoader() {
     }
@@ -22,18 +22,6 @@ public class AnimationLoader {
             instance = new AnimationLoader();
         }
         return instance;
-    }
-
-    public boolean importContinuousAnimation(String spriteName, Position position) throws IOException {
-        URL resource = getClass().getResource("/animations/" + spriteName);
-        if (resource == null) {
-            return false;
-        }
-        BufferedImage loadedImage = ImageIO.read(resource);
-        Image image = new Image(loadedImage, spriteName);
-        Animation animation = new ContinuousAnimation(image, position, 6);
-        animations.add(animation);
-        return true;
     }
 
     public boolean importMomentaryAnimation(String spriteName, Position position) throws IOException {
