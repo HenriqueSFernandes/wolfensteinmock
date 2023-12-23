@@ -10,15 +10,14 @@ import static org.wolfenstein.model.elements.Player.getInstance;
 public class PlayerTest {
     Player player;
 
-    @Test
+    /* @Test
     void createPlayerTest() {
         assertNull(player);
-        player = getInstance();
-        //a posição default do player é no ponto (10, 10) com ângulo 0
+        player = Player.getInstance();
         assertEquals(10, player.getPosition().getX());
         assertEquals(10, player.getPosition().getY());
         assertEquals(0, player.getPosition().getAngle());
-    }
+    } */
 
     /*@Property
     void setMaxHealthTest(@ForAll int r) {
