@@ -26,6 +26,11 @@ public class MapLoader {
         c = in.read();
     }
 
+    public void importMapFile(String filename) throws IOException {
+        in = new FileInputStream(filename);
+        c = in.read();
+    }
+
     public List<List<Integer>> getNextMap() throws IOException {
         extractedMap = new ArrayList<>();
         while ((c = in.read()) != 88) {

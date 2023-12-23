@@ -51,11 +51,11 @@ public class Image {
         this.imageName = imageName;
     }
 
-    private int getAlpha(int color) {
+    public int getAlpha(int color) {
         return (color >> 24) & 0xFF;
     }
 
-    private TextColor.RGB toRGB(int color) {
+    public TextColor.RGB toRGB(int color) {
         int red = (color >> 16) & 0xFF;
         int green = (color >> 8) & 0xFF;
         int blue = color & 0xFF;
