@@ -84,6 +84,12 @@ This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo 
 
 ## DESIGN
 
+### UML
+
+<p align="center" >
+    <img src="docs/UML/wolfensteinUML.png" alt="UML Design">
+</p>
+
 ### _Raycasting_ Engine
 
 The chosen algorithm for converting the 2D map to a 3D view is called _Raycasting_, which is the same algorithm as the
