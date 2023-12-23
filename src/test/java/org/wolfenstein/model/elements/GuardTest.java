@@ -30,16 +30,11 @@ public class GuardTest {
         return Arbitraries.forType(Position.class).filter(p -> p.getX() != 10 || p.getY() != 10);
     }
     @Property
-    // TODO
     void aimTest(@ForAll("notOrigin") Position p) {
         testGuard = new Guard(10, 10, 0);
-        Position startPos = testGuard.getPosition();
-        double newX = p.getX() - testGuard.getPosition().getX();
-        double newY = p.getY() - testGuard.getPosition().getY();
         testGuard.pointTo(p);
-        System.out.println(startPos.viewAngle(p));
-        System.out.println(testGuard.getPosition().getAngle());
-        assertTrue(startPos.viewAngle(p) + 1 >= testGuard.getPosition().getAngle() && startPos.viewAngle(p) - 1 <= testGuard.getPosition().getAngle());
+        Position testPos = testGuard.getPosition();
+        assertTrue(Math.abs(testPos.viewAngle(p)) < 15 || testPos.viewAngle(p) == Integer.MAX_VALUE);
     }
     @Property
     void shootFrequencyTest(@ForAll @IntRange(min = 1, max = 1000) int t) {

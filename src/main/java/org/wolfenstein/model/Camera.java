@@ -29,6 +29,11 @@ public class Camera {
     private Camera(Map map, Player player) {
         this.map = map;
         this.player = player;
+        this.doors = new ArrayList<>();
+        this.guardList = new ArrayList<>();
+        doors = createDoors();
+        guardList = createGuardList();
+        player.setPosition(map.playerStartPosition());
     }
 
     public static Camera createCamera() throws IOException {
@@ -37,7 +42,7 @@ public class Camera {
     }
 
     public static Camera createCamera(Map map, Player player) {
-        if (camera == null) camera = new Camera(map, player);
+        camera = new Camera(map, player);
         return camera;
     }
 

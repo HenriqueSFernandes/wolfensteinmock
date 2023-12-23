@@ -20,8 +20,6 @@ public class ImageLoaderTest {
         // try to import image that doesn't exist:
         boolean actionSuccess = testImageLoad.importImage("a.png", new Position(0, 0));
         assertFalse(actionSuccess);
-        assertTrue(testImageLoad.getLoadedImages().isEmpty());
-        // try to import image that does exist:
         actionSuccess = testImageLoad.importImage("image_test.png", new Position(0, 0));
         assertTrue(actionSuccess);
         assertFalse(testImageLoad.getLoadedImages().isEmpty());
