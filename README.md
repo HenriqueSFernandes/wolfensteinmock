@@ -232,6 +232,13 @@ State Diagram of the current game:
 
 - There is a bug where sometimes it seems like the enemies are inside the wall, but that is only a display issue.
 
+#### Code smells
+
+- Duplicated Code: There are some instances of duplicated code, however these are due to similar functions with small but key differences (e.g. createLine and createLineForDoor in the Position class).
+- Long Functions: Some functions, such as drawPlayerCamera in the LanternaGUI class can be quite verbose. This is because doors and walls behave differently and the function is required to deal with both.
+- Dead Code: Many fragments of dead code were present in the project. However, with the help of error-prone warnings these were eliminated.
+- Message Chains: Some information requires navigation through the class structure to be accessed (e.g. getModel().getPlayer().getPosition().moveForward() to get the position in front of the player from it's controller). This was caused by the design chosen to make sure the Single Responsability Principle was being fulfilled by the program.
+
 ### TESTING (WIP)
 
 Basic testing has been done with JUnit for unit testing, Mockito for mocks and dependency injection, and JQwik for
