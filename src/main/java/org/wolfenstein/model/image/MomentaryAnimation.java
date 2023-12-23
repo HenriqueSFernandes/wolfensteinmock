@@ -20,11 +20,9 @@ public class MomentaryAnimation extends Animation {
 
     @Override
     public void draw(TextGraphics graphics) {
+        currentFrame.draw(graphics);
         if (playing) {
-            currentFrame.draw(graphics);
             nextFrame();
-        } else {
-            currentFrame.draw(graphics);
         }
     }
 

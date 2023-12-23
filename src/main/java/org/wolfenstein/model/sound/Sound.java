@@ -7,8 +7,8 @@ import java.net.URL;
 public class Sound {
     private final URL resource;
 
-    public Sound(String soundName) {
-        resource = getClass().getResource("/sounds/" + soundName);
+    public Sound(URL resource) {
+        this.resource = resource;
     }
 
     public void play() {

@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Camera {
+    private static final int maxGuardNumber = 30;
     private static Camera camera;
     private final Player player;
+    private final Map map;
     private List<Guard> guardList;
     private List<Door> doors;
-    private static final int maxGuardNumber = 30;
-    private final Map map;
 
     private Camera() throws IOException {
         this.player = Player.getInstance();
@@ -76,7 +76,6 @@ public class Camera {
         List<Position> doorPos = getMap().getPositionsForDoors();
         for (Position p : doorPos) {
             Door d = new Door((int) p.getX(), (int) p.getY(), 0);
-            if (map.getXY((int) ((p.getX() - 4) / 8) + 1, (int) (p.getY() - 4) / 8) == 1) d.setVertical(true);
             doors.add(d);
         }
         return doors;
