@@ -5,7 +5,8 @@ _grandfather of 3D shooters_.
 > It was one of the first games that presented 3D graphics, using a raycasting engine to achieve that goal.
 >
 
-This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo Oliveira for LDTS 2023.
+This project was developed by Henrique Fernandes, Rafael Magalhães and Ricardo Oliveira for LDTS 2023.  
+Final grade: 19.1/20
 
 ## Table of Contents
 
